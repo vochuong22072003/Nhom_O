@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'laravel/laravel',
-        'pretty_version' => 'dev-project',
-        'version' => 'dev-project',
-        'reference' => '2d72cf577710a5d0a92b1fd5aede46637d805f86',
+        'pretty_version' => 'dev-feature/cus-login-logout',
+        'version' => 'dev-feature/cus-login-logout',
+        'reference' => '6f92f384528799471efeeb3d2ef6879ad31eca76',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -370,6 +370,15 @@
                 0 => '*',
             ),
         ),
+        'laravel/breeze' => array(
+            'pretty_version' => 'v1.29.1',
+            'version' => '1.29.1.0',
+            'reference' => '22c53b84b7fff91b01a318d71a10dfc251e92849',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../laravel/breeze',
+            'aliases' => array(),
+            'dev_requirement' => true,
+        ),
         'laravel/framework' => array(
             'pretty_version' => 'v10.40.0',
             'version' => '10.40.0.0',
@@ -380,9 +389,9 @@
             'dev_requirement' => false,
         ),
         'laravel/laravel' => array(
-            'pretty_version' => 'dev-project',
-            'version' => 'dev-project',
-            'reference' => '2d72cf577710a5d0a92b1fd5aede46637d805f86',
+            'pretty_version' => 'dev-feature/cus-login-logout',
+            'version' => 'dev-feature/cus-login-logout',
+            'reference' => '6f92f384528799471efeeb3d2ef6879ad31eca76',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

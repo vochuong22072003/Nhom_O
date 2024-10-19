@@ -26,5 +26,7 @@ class DatabaseSeeder extends Seeder
             'password'=>Hash::make('123456'),
             'user_catalogue_id'=>'1'
         ]);
+
+        $this->call(CustomerSeeder::class);
     }
 }
