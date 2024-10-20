@@ -46,6 +46,22 @@
         </div>
     </div>
 </li>
+{{-- Quản lý danh mục --}}
+<li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
+        aria-expanded="true" aria-controls="collapseThree">
+        <i class="fa fa-user"></i>
+        <span>QL Bài viết </span>
+    </a>
+    <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+            <!-- <h6 class="collapse-header">Custom Components:</h6> -->
+            <a class="collapse-item" href="">QL Bài viết</a>
+            <a class="collapse-item" href="{{ route('post.catalogue.parent.index') }}">QL Nhóm danh mục cha</a>
+            <a class="collapse-item" href="">QL Nhóm danh mục con</a>         
+        </div>
+    </div>
+</li>
 
 
 
