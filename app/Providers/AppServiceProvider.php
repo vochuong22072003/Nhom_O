@@ -10,8 +10,13 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Register any application services.
      */
-   
-    protected $serviceBindings=[
+
+    protected $serviceBindings = [
+
+
+        'App\Services\Interfaces\PostCatalogueParentServiceInterface' => 'App\Services\PostCatalogueParentService',
+        'App\Repositories\Interfaces\PostCatalogueParentRepositoryInterface' => 'App\Repositories\PostCatalogueParentRepository',
+        'App\Services\Interfaces\PostCatalogueChildrenServiceInterface' => 'App\Services\PostCatalogueChildrenService',
         'App\Services\Interfaces\UserServiceInterface' => 'App\Services\UserService',
         'App\Repositories\Interfaces\UserRepositoryInterface' => 'App\Repositories\UserRepository',
 
@@ -28,14 +33,14 @@ class AppServiceProvider extends ServiceProvider
         'App\Services\Interfaces\PermissionServiceInterface' => 'App\Services\PermissionService',
         'App\Repositories\Interfaces\PermissionRepositoryInterface' => 'App\Repositories\PermissionRepository',
     ];
-    
+
     /**
      * Bootstrap any application services.
      */
     public function register(): void
     {
-        foreach($this->serviceBindings as $key => $val){
-            $this->app->bind($key,$val);
+        foreach ($this->serviceBindings as $key => $val) {
+            $this->app->bind($key, $val);
         }
     }
 

@@ -11,7 +11,8 @@ use App\Http\Controllers\Backend\UserCatalogueController;
 use App\Http\Controllers\Ajax\DashboardController as AjaxDashboardController;
 use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\Backend\PermissionController;
-
+use App\Http\Controllers\Backend\PostCatalogueParentController;
+use App\Http\Controllers\Backend\PostCatalogueChildrenController;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
@@ -73,3 +74,12 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+Route::group(['prefix'=>'post/catalogue/parent'], function(){
+    Route::get('index',[PostCatalogueParentController::class, 'index'])->name('post.catalogue.parent.index')->middleware(AuthenticateMiddleware::class);
+    Route::get('store',[PostCatalogueParentController::class, 'store'])->name('post.catalogue.parent.store')->middleware(AuthenticateMiddleware::class);
+    Route::post('create',[PostCatalogueParentController::class, 'create'])->name('post.catalogue.parent.create')->middleware(AuthenticateMiddleware::class);
+    Route::get('{id}/edit',[PostCatalogueParentController::class, 'edit'])->name('post.catalogue.parent.edit')->middleware(AuthenticateMiddleware::class);
+    Route::post('{id}/update',[PostCatalogueParentController::class, 'update'])->name('post.catalogue.parent.update')->where(['id'=>'[0-9]+'])->middleware(AuthenticateMiddleware::class);
+    Route::get('{id}/destroy',[PostCatalogueParentController::class, 'destroy'])->name('post.catalogue.parent.destroy')->middleware(AuthenticateMiddleware::class);
+    Route::post('{id}/delete',[PostCatalogueParentController::class, 'delete'])->name('post.catalogue.parent.delete')->where(['id'=>'[0-9]+'])->middleware(AuthenticateMiddleware::class);
+});
