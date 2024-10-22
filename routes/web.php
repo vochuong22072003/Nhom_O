@@ -83,3 +83,16 @@ Route::group(['prefix'=>'post/catalogue/parent'], function(){
     Route::get('{id}/destroy',[PostCatalogueParentController::class, 'destroy'])->name('post.catalogue.parent.destroy')->middleware(AuthenticateMiddleware::class);
     Route::post('{id}/delete',[PostCatalogueParentController::class, 'delete'])->name('post.catalogue.parent.delete')->where(['id'=>'[0-9]+'])->middleware(AuthenticateMiddleware::class);
 });
+
+
+Route::name('client.')->group(function () {
+    Route::get('/home', function () {
+        return view('client.index');
+    })->name('index');
+    Route::get('/detail', function () {
+        return view('client.blog_details');
+    })->name('blog_details');
+    Route::get('/elements', function () {
+        return view('client.elements');
+    })->name('elements');
+});
