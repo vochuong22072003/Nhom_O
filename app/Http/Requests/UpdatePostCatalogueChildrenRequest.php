@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StorePostCatalogueChildrenRequest extends FormRequest
+class UpdatePostCatalogueChildrenRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,9 +22,9 @@ class StorePostCatalogueChildrenRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'post_catalogue_children_name' => 'required | string | unique:post_catalogue_children| min: 2 | max: 255 | regex:/^[^<>&]*$/',
-            'post_catalogue_children_description' => 'nullable|string | regex:/^[^<>&]*$/ ',
-            'post_catalogue_parent_id' => 'required|exists:post_catalogue_parent,id' //dảm bảo id danh mục cha tồn tại  
+            'post_catalogue_children_name' => 'required | string | unique:post_catalogue_children,post_catalogue_children_name, ' . $this->id . ' | min: 2 | max: 255 | regex:/^[^<>&]*$/',
+            'post_catalogue_children_description' => 'string | regex:/^[^<>&]*$/ ',
+            'post_catalogue_parent_id' => 'exists:post_catalogue_parent,id'
         ];
     }
     public function messages(): array
@@ -38,8 +38,6 @@ class StorePostCatalogueChildrenRequest extends FormRequest
             'post_catalogue_children_description.string' => 'Mô tả danh mục con phải là kí tự',
             'post_catalogue_children_description.regex' => 'Mô tả danh mục con không được chứa các ký tự <, >, & ',
             'post_catalogue_children_name.unique' =>  'Tên danh mục con đã tồn tại, vui lòng chọn tên danh mục khác',
-
-            'post_catalogue_parent_id.required' => 'Vui lòng chọn danh mục cha',
             'post_catalogue_parent_id.exists' => 'Danh mục cha không tồn tại.'
         ];
     }

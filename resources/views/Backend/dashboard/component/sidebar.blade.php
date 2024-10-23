@@ -58,7 +58,7 @@
             <!-- <h6 class="collapse-header">Custom Components:</h6> -->
             <a class="collapse-item" href="">QL Bài viết</a>
             <a class="collapse-item" href="{{ route('post.catalogue.parent.index') }}">QL Nhóm danh mục cha</a>
-            <a class="collapse-item" href="">QL Nhóm danh mục con</a>         
+            <a class="collapse-item" href="{{ route('post.catalogue.children.index') }}">QL Nhóm danh mục con</a>         
         </div>
     </div>
 </li>

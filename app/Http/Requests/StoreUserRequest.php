@@ -33,7 +33,7 @@ class StoreUserRequest extends FormRequest
                     return $query->where('user_catalogue_id', 1);
                 }),
             ],
-            'password'=> 'required|string|min:5|max:10|regex:/[a-z]/|regex:/[A-Z]/|regex:/[0-9]/|regex:/[^\w<>&]/|regex:/^(?!.*[<>&]).*$/',
+            'password'=> 'required|string|min:5|max:50|regex:/[a-z]/|regex:/[A-Z]/|regex:/[0-9]/|regex:/[^\w<>&]/|regex:/^(?!.*[<>&]).*$/',
             'repassword'=> 'required|same:password|regex:/^(?!.*[<>&]).*$/',
 
             'phone'=>'required|string|regex:/^0[0-9]{9}$/|regex:/^[^<>&]*$/',
@@ -64,7 +64,7 @@ class StoreUserRequest extends FormRequest
             'password.required'=>'Bạn chưa nhập vào mật khẩu mới hoặc bạn đang nhập ký tự khoảng trắng',
             'password.string'=>'Mật khẩu phải là dạng ký tự',
             'password.min'=>'Độ dài mật khẩu mới tối thiểu 5 ký tự',
-            'password.max'=>'Độ dài mật khẩu mới tối đa 10 ký tự',
+            'password.max'=>'Độ dài mật khẩu mới tối đa 50 ký tự',
             'password.regex'=>'Mật khẩu mới không được chứa ký tự <, >, &, có ít nhật 1 chữ thường, 1 chữ HOA và 1 chữ số cũng như 1 ký tự đặc biệt',
             'repassword.required'=>'Bạn chưa nhập lại mật khẩu mới hoặc bạn đang nhập ký tự khoảng trắng',
             'repassword.regex'=>'Mật khẩu mới không được chứa ký tự <, >, &, có ít nhật 1 chữ thường, 1 chữ HOA và 1 chữ số cũng như 1 ký tự đặc biệt',

@@ -4,7 +4,7 @@
             <th>
                 <input type="checkbox" value="" name="" id="checkAll" class="input-checkbox">
             </th>
-            <th>Tên danh mục</th>
+            <th>Tên danh mục cha</th>
             <th>Mô tả</th>
             <th>Số lượng bài viết</th>
             <th>Trạng thái</th>

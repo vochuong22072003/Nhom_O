@@ -43,7 +43,7 @@ class DashboardController extends Controller
 
         $provinces=$this->provinceRepository->all();
 
-        $id = Auth::id();
+        $id = Auth::guard('web')->id();
        
         $user=$this->userRepository->findById($id);
 
@@ -59,7 +59,7 @@ class DashboardController extends Controller
     }
 
     public function update(UpdateUserProfileRequest $request){
-        $id = Auth::id();
+        $id = Auth::guard('web')->id();
        
         if($this->userService->updateUser($id, $request)){
             return redirect()->route('dashboard.index')->with('success','Cập nhật thành viên thành công');

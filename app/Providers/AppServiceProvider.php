@@ -16,7 +16,12 @@ class AppServiceProvider extends ServiceProvider
 
         'App\Services\Interfaces\PostCatalogueParentServiceInterface' => 'App\Services\PostCatalogueParentService',
         'App\Repositories\Interfaces\PostCatalogueParentRepositoryInterface' => 'App\Repositories\PostCatalogueParentRepository',
+
+
         'App\Services\Interfaces\PostCatalogueChildrenServiceInterface' => 'App\Services\PostCatalogueChildrenService',
+        'App\Repositories\Interfaces\PostCatalogueChildrenRepositoryInterface' => 'App\Repositories\PostCatalogueChildrenRepository',
+
+
         'App\Services\Interfaces\UserServiceInterface' => 'App\Services\UserService',
         'App\Repositories\Interfaces\UserRepositoryInterface' => 'App\Repositories\UserRepository',
 

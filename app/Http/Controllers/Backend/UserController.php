@@ -20,87 +20,91 @@ class UserController extends Controller
     protected $userRepository;
     protected $provinceRepository;
 
-    public function __construct(UserService $userService, UserRepository $userRepository,ProvinceRepository $provinceRepository,UserInfoRepository $userInfoRepository){
-        $this->userService=$userService;
-        $this->userRepository=$userRepository;
-        $this->userInfoRepository=$userInfoRepository;
-        $this->provinceRepository=$provinceRepository;
+    public function __construct(UserService $userService, UserRepository $userRepository, ProvinceRepository $provinceRepository, UserInfoRepository $userInfoRepository)
+    {
+        $this->userService = $userService;
+        $this->userRepository = $userRepository;
+        $this->userInfoRepository = $userInfoRepository;
+        $this->provinceRepository = $provinceRepository;
     }
-    public function index(Request $request){
+    public function index(Request $request)
+    {
         $rules = [
             'keyword' => [
                 'nullable',
                 'regex:/^[^<>&]*$/'
-            ], 
+            ],
         ];
         $messages = [
             'keyword.regex' => 'Trường này không được chứa các ký tự đặc biệt như <, >, &.'
         ];
         $request->validate($rules, $messages);
 
-        $config=$this->configIndex();
+        $config = $this->configIndex();
 
-        $template='Backend.user.user.index';
+        $template = 'Backend.user.user.index';
 
-        $config['seo']=config('apps.User.index');
+        $config['seo'] = config('apps.User.index');
 
         $users = $this->userService->paginate($request);
-
+        
         $stt = 1;
-        foreach($users as $user){
+        foreach ($users as $user) {
             $user->stt = $stt++;
         }
 
         $userCatalogues = DB::table('user_catalogues')
-        ->select('id', 'name', 'description')
-        ->orderBy('id', 'asc')
-        ->get();
-                
+            ->select('id', 'name', 'description')
+            ->orderBy('id', 'asc')
+            ->get();
+
         foreach ($users as $user) {
             $user->encrypted_id = $this->encryptId($user->id);
         }
 
         $this->authorize('modules', 'user.index');
 
-        return view('Backend.dashboard.layout', compact('template','config','users','userCatalogues'));
+        return view('Backend.dashboard.layout', compact('template', 'config', 'users', 'userCatalogues'));
     }
 
-    public function store(){   
-        $template='Backend.user.user.store';
+    public function store()
+    {
+        $template = 'Backend.user.user.store';
 
-        $config=$this->configCUD();
+        $config = $this->configCUD();
 
-        $config['seo']=config('apps.User.create');
+        $config['seo'] = config('apps.User.create');
 
-        $config['method']='create';
+        $config['method'] = 'create';
 
         $userCatalogues = DB::table('user_catalogues')
-        ->select('id', 'name', 'description')
-        ->orderBy('id', 'asc')
-        ->get();
+            ->select('id', 'name', 'description')
+            ->orderBy('id', 'asc')
+            ->get();
 
-        $provinces=$this->provinceRepository->all();
+        $provinces = $this->provinceRepository->all();
 
         $this->authorize('modules', 'user.store');
 
-        return view('Backend.dashboard.layout', compact('template','config','userCatalogues', 'provinces'));
+        return view('Backend.dashboard.layout', compact('template', 'config', 'userCatalogues', 'provinces'));
     }
 
-    public function create(StoreUserRequest $request){
-        if($this->userService->createUser($request)){
-            return redirect()->route('user.index')->with('success','Thêm mới thành viên thành công');
+    public function create(StoreUserRequest $request)
+    {
+        if ($this->userService->createUser($request)) {
+            return redirect()->route('user.index')->with('success', 'Thêm mới thành viên thành công');
         }
-           return redirect()->route('user.index')->with('error','Thêm mới thành viên thất bại. Hãy thử lại');
-        
+        return redirect()->route('user.index')->with('error', 'Thêm mới thành viên thất bại. Hãy thử lại');
     }
-    public function edit($id){
-        $template='Backend.user.user.store';
+    public function edit($id)
+    {
+        $template = 'Backend.user.user.store';
 
-        $config=$this->configCUD();
+        $config = $this->configCUD();
 
-        $config['seo']=config('apps.User.edit');
+        $config['seo'] = config('apps.User.edit');
 
-        $config['method']='edit';
+        $config['method'] = 'edit';
 
         $id = $this->decryptId($id);
 
@@ -109,45 +113,47 @@ class UserController extends Controller
         }
 
         $userCatalogues = DB::table('user_catalogues')
-        ->select('id', 'name', 'description')
-        ->orderBy('id', 'asc')
-        ->get();
+            ->select('id', 'name', 'description')
+            ->orderBy('id', 'asc')
+            ->get();
 
-        $provinces=$this->provinceRepository->all();
+        $provinces = $this->provinceRepository->all();
 
-        $user=$this->userRepository->findById($id);
+        $user = $this->userRepository->findById($id);
 
-        $condition=[
+        $condition = [
             ['user_id', '=', $id]
         ];
 
-        $userInfo=$this->userInfoRepository->findByCondition($condition);
+        $userInfo = $this->userInfoRepository->findByCondition($condition);
 
         $id_logged = Auth::id();
-       
-        $user_logged=$this->userRepository->findById($id_logged);
+
+        $user_logged = $this->userRepository->findById($id_logged);
 
         if ($userInfo->user_catalogue_id == 1  && $user_logged->user_catalogue_id != 1) {
-            return redirect()->route('user.index')->with('error', 'Thành viên '.$userInfo->name.' thuộc nhóm quản trị viên không thể sửa.');
+            return redirect()->route('user.index')->with('error', 'Thành viên ' . $userInfo->name . ' thuộc nhóm quản trị viên không thể sửa.');
         }
 
         $this->authorize('modules', 'user.edit');
 
-        return view('Backend.dashboard.layout', compact('template','config','user','userCatalogues', 'userInfo', 'provinces'));
+        return view('Backend.dashboard.layout', compact('template', 'config', 'user', 'userCatalogues', 'userInfo', 'provinces'));
     }
-    public function update($id, UpdateUserRequest $request){
-        
-        if($this->userService->updateUser($id, $request)){
-            return redirect()->route('user.index')->with('success','Cập nhật thành viên thành công');
+    public function update($id, UpdateUserRequest $request)
+    {
+
+        if ($this->userService->updateUser($id, $request)) {
+            return redirect()->route('user.index')->with('success', 'Cập nhật thành viên thành công');
         }
-           return redirect()->route('user.index')->with('error','Cập nhật thành viên thất bại. Hãy thử lại');
+        return redirect()->route('user.index')->with('error', 'Cập nhật thành viên thất bại. Hãy thử lại');
     }
-    public function destroy($id){
-        $template='Backend.user.user.destroy';
+    public function destroy($id)
+    {
+        $template = 'Backend.user.user.destroy';
 
-        $config=$this->configCUD();
+        $config = $this->configCUD();
 
-        $config['seo']=config('apps.User.delete');
+        $config['seo'] = config('apps.User.delete');
 
         $id = $this->decryptId($id);
 
@@ -155,13 +161,13 @@ class UserController extends Controller
             return redirect()->route('user..index')->withErrors('ID không hợp lệ. Vui lòng sử dụng ID đã mã hóa.');
         }
 
-        $user=$this->userRepository->findById($id);
+        $user = $this->userRepository->findById($id);
 
-        $condition=[
+        $condition = [
             ['user_id', '=', $id]
         ];
 
-        $userInfo=$this->userInfoRepository->findByCondition($condition);
+        $userInfo = $this->userInfoRepository->findByCondition($condition);
 
         if ($id == 1) {
             return redirect()->route('user.index')->with('error', 'Thành viên này thuộc nhóm quản trị viên không thể xóa.');
@@ -169,24 +175,27 @@ class UserController extends Controller
 
         $this->authorize('modules', 'user.destroy');
 
-        return view('Backend.dashboard.layout', compact('template','config','user','userInfo'));
+        return view('Backend.dashboard.layout', compact('template', 'config', 'user', 'userInfo'));
     }
-    public function delete($id){
-        if($this->userService->deleteUser($id)){
-            return redirect()->route('user.index')->with('success','Xóa thành viên thành công');
+    public function delete($id)
+    {
+        if ($this->userService->deleteUser($id)) {
+            return redirect()->route('user.index')->with('success', 'Xóa thành viên thành công');
         }
-           return redirect()->route('user.index')->with('error','Xóa thànhviên thất bại. Hãy thử lại');
+        return redirect()->route('user.index')->with('error', 'Xóa thànhviên thất bại. Hãy thử lại');
     }
-    
-    public function updatePermission(Request $request){
-        if($this->userService->setPermission($request)){
-            return redirect()->route('user..index')->with('success','Cập nhật quyền thành viên thành công');
+
+    public function updatePermission(Request $request)
+    {
+        if ($this->userService->setPermission($request)) {
+            return redirect()->route('user..index')->with('success', 'Cập nhật quyền thành viên thành công');
         }
-        return redirect()->route('user..index')->with('error','Cập nhật quyền thành viên thất bại. Hãy thử lại');
+        return redirect()->route('user..index')->with('error', 'Cập nhật quyền thành viên thất bại. Hãy thử lại');
     }
-    private function configIndex(){
-        return[
-           'js'=>[
+    private function configIndex()
+    {
+        return [
+            'js' => [
                 'Backend/vendor/jquery/jquery.min.js',
                 'Backend/vendor/bootstrap/js/bootstrap.bundle.min.js',
                 'Backend/vendor/jquery-easing/jquery.easing.min.js',
@@ -202,7 +211,7 @@ class UserController extends Controller
                 'Backend/plugins/datetimepicker-master/build/jquery.datetimepicker.full.js',
                 'Backend/js/plugins/switchery/switchery.js',
             ],
-            'css'=>[
+            'css' => [
                 'Backend/vendor/fontawesome-free/css/all.min.css',
                 'https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i',
                 'Backend/css/sb-admin-2.min.css',
@@ -210,13 +219,14 @@ class UserController extends Controller
                 'Backend/plugins/datetimepicker-master/build/jquery.datetimepicker.min.css',
                 'Backend/css/plugins/switchery/switchery.css',
             ],
-            'model'=>'User'
+            'model' => 'User'
         ];
     }
 
-    private function configCUD(){
-        return[
-            'js'=>[
+    private function configCUD()
+    {
+        return [
+            'js' => [
                 'Backend/vendor/jquery/jquery.min.js',
                 'Backend/vendor/bootstrap/js/bootstrap.bundle.min.js',
                 'Backend/vendor/jquery-easing/jquery.easing.min.js',
@@ -232,7 +242,7 @@ class UserController extends Controller
                 'Backend/libary/finder.js',
                 'Backend/plugins/datetimepicker-master/build/jquery.datetimepicker.full.js',
             ],
-            'css'=>[
+            'css' => [
                 'Backend/vendor/fontawesome-free/css/all.min.css',
                 'https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i',
                 'Backend/css/sb-admin-2.min.css',
@@ -241,5 +251,4 @@ class UserController extends Controller
             ]
         ];
     }
-
 }

@@ -10,22 +10,24 @@ class PostCatalogueChildren extends Model
 {
     use HasFactory, SoftDeletes;
     protected $fillable = [
+        'id',
         'post_catalogue_parent_id',
-        'post_catalogue_children_id',
         'post_catalogue_children_name',
         'post_catalogue_children_description',
         'publish'
     ];
     protected $table = 'post_catalogue_children';
 
-    public function postCatalogueParent()
+    public function post_catalogue_parent()
     {
-        return $this->belongsTo(PostCatalogueParent::class);
+        return $this->belongsTo(PostCatalogueParent::class,'post_catalogue_parent_id','id');
     }
     public function posts()
     {
-        return $this->hasMany(Post::class, 'post_catalogue_children_id');
+        return $this->hasMany(Post::class,'post_catalogue_children_id','id');
     }
+    
+   
 
     
 }
