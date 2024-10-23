@@ -26,7 +26,8 @@ class LoginInformationProvider extends ServiceProvider
     public function boot(): void
     {
         View::composer('Backend.dashboard.component.nav', function ($view) {
-            $id = Auth::id();
+            $id = Auth::guard('web')->id();
+            // dd($id);
             $condition = [
                 ['user_id', '=', $id]
             ];

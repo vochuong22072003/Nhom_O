@@ -17,12 +17,12 @@ class PostCatalogueParent extends Model
     ];
     protected $table = 'post_catalogue_parent';
 
-    public function postCatalogueChildren()
-    {
-        return $this->hasMany(PostCatalogueChildren::class, 'post_catalogue_parent_id');
-    }
-    public function posts()
-    {
-        return $this->hasMany(Post::class, 'post_catalogue_parent_id');
-    }
+    // public function postCatalogueChildren()
+    // {
+    //     return $this->hasMany(PostCatalogueChildren::class, 'post_catalogue_parent_id');
+    // }
+    // public function posts()
+    // {
+    //     return $this->hasMany(Post::class, 'post_catalogue_parent_id');
+    // }
 }
