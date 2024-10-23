@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class UpdateUserProfileRequest extends FormRequest
 {
@@ -32,7 +33,8 @@ class UpdateUserProfileRequest extends FormRequest
                 'required',
                 'regex:/^[^<>&]*$/',
                 function ($attribute, $value, $fail) {
-                    if (!Hash::check($value, auth()->user()->password)) {
+                    $user = Auth::guard('web')->user(); 
+                    if (!Hash::check($value, $user->password)) {
                         $fail('Mật khẩu cũ không đúng.');
                     }
                 },
@@ -45,7 +47,7 @@ class UpdateUserProfileRequest extends FormRequest
                 'required',
                 'string',
                 'min:5',
-                'max:10',
+                'max:50',
                 'regex:/[a-z]/',         
                 'regex:/[A-Z]/',         
                 'regex:/[0-9]/', 
@@ -78,7 +80,7 @@ class UpdateUserProfileRequest extends FormRequest
             'password.required'=>'Bạn chưa nhập vào mật khẩu mới hoặc bạn đang nhập ký tự khoảng trắng',
             'password.string'=>'Mật khẩu phải là dạng ký tự',
             'password.min'=>'Độ dài mật khẩu mới tối thiểu 5 ký tự',
-            'password.max'=>'Độ dài mật khẩu mới tối đa 10 ký tự',
+            'password.max'=>'Độ dài mật khẩu mới tối đa 50 ký tự',
             'password.regex'=>'Mật khẩu mới không được chứa ký tự <, >, &, có ít nhật 1 chữ thường, 1 chữ HOA và 1 chữ số cũng như 1 ký tự đặc biệt',
             'repassword.required'=>'Bạn chưa nhập lại mật khẩu mới hoặc bạn đang nhập ký tự khoảng trắng',
             'repassword.regex'=>'Mật khẩu mới không được chứa ký tự <, >, &, có ít nhật 1 chữ thường, 1 chữ HOA và 1 chữ số cũng như 1 ký tự đặc biệt',

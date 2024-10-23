@@ -5,11 +5,12 @@ use App\Repositories\Interfaces\PostCatalogueChildrenRepositoryInterface;
 use App\Models\PostCatalogueChildren;
 use App\Repositories\BaseRepository;
 
+
 /**
  * Class UserService
  * @package App\Services
  */
-class PostCatalogueChildRepository extends BaseRepository implements PostCatalogueChildrenRepositoryInterface
+class PostCatalogueChildrenRepository extends BaseRepository implements PostCatalogueChildrenRepositoryInterface
 {
     protected $model;
     public function __construct(PostCatalogueChildren $model){

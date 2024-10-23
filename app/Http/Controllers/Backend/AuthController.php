@@ -26,7 +26,7 @@ class AuthController extends Controller
             ['email','=', $credentials['email']]
         ];
         $user=$this->userRepository->findByCondition($condition);
-        if(Auth::attempt($credentials)){
+        if(Auth::guard('web')->attempt($credentials)){
             return redirect()->route('dashboard.index')->with('success','Đăng nhập thành công');
         }
         else{
