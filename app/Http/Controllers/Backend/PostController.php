@@ -12,6 +12,7 @@ use App\Repositories\Interfaces\PostCatalogueChildrenRepositoryInterface as Post
 use App\Http\Requests\UpdatePostRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Repositories\Interfaces\UserRepositoryInterface as UserRepository;
+use App\Repositories\Interfaces\UserInfoRepositoryInterface as UserInfoRepository;
 
 class PostController extends Controller
 {
@@ -20,15 +21,21 @@ class PostController extends Controller
     protected $postCatalogueParentRepository;
     protected $postCatalogueChildrenRepository;
     protected $userRepository;
+    protected $userInfoRepository;
 
-    public function __construct(PostService $postService, PostRepository $postRepository, PostCatalogueParentRepository $postCatalogueParentRepository, PostCatalogueChildrenRepository $postCatalogueChildrenRepository, UserRepository $userRepository)
+    public function __construct(PostService $postService, PostRepository $postRepository, PostCatalogueParentRepository $postCatalogueParentRepository, PostCatalogueChildrenRepository $postCatalogueChildrenRepository, UserRepository $userRepository, UserInfoRepository $userInfoRepository)
     {
         $this->postService = $postService;
         $this->postRepository = $postRepository;
         $this->postCatalogueParentRepository = $postCatalogueParentRepository;
         $this->postCatalogueChildrenRepository = $postCatalogueChildrenRepository;
         $this->userRepository = $userRepository;
+        $this->userInfoRepository = $userInfoRepository;
     }
+   
+
+
+
     public function index(Request $request)
     {
         $config = $this->configIndex();
@@ -39,11 +46,22 @@ class PostController extends Controller
 
         $posts = $this->postService->paginate($request);
 
+        foreach ($posts as $post) {
+
+            $post->encrypted_id = $this->encryptId($post->id);
+            $condition = [
+                ['user_id', '=', $post->user_id]
+            ];
+            $post->user_info = $this->userInfoRepository->findByCondition($condition);
+        }
+
         $postCataloguesParent = $this->postCatalogueParentRepository->all();
 
         $postCataloguesChildren = $this->postCatalogueChildrenRepository->all();
+        // dd($postCataloguesParent);
 
         $this->authorize('modules', 'post.index');
+        // dd($posts);
 
         return view('Backend.dashboard.layout', compact('template', 'config', 'posts', 'postCataloguesParent', 'postCataloguesChildren'));
     }
@@ -74,6 +92,12 @@ class PostController extends Controller
     }
     public function edit($id)
     {
+        $id = $this->decryptId($id);
+
+        if (!preg_match('/^[0-9A-Za-z=]+$/', $id)) {
+            return redirect()->route('post.index')->withErrors('ID không hợp lệ. Vui lòng sử dụng ID đã mã hóa.');
+        }
+
         $template = 'Backend.post.post.store';
 
         $config = $this->configCUD();
@@ -108,6 +132,7 @@ class PostController extends Controller
     }
     public function update($id, UpdatePostRequest $request)
     {
+        // dd($request);
         if ($this->postService->updatePost($id, $request)) {
             return redirect()->route('post.index')->with('success', 'Cập nhật bài viết thành công');
         }
@@ -115,6 +140,12 @@ class PostController extends Controller
     }
     public function destroy($id)
     {
+        $id = $this->decryptId($id);
+
+        if (!preg_match('/^[0-9A-Za-z=]+$/', $id)) {
+            return redirect()->route('post.index')->withErrors('ID không hợp lệ. Vui lòng sử dụng ID đã mã hóa.');
+        }
+
         $template = 'Backend.post.post.destroy';
 
         $config = $this->configCUD();
@@ -154,6 +185,7 @@ class PostController extends Controller
                 'Backend/libary/finder.js',
                 'Backend/plugins/datetimepicker-master/build/jquery.datetimepicker.full.js',
                 'Backend/js/plugins/switchery/switchery.js',
+                'Backend/libary/postCatalogue.js',
             ],
             'css' => [
                 'Backend/vendor/fontawesome-free/css/all.min.css',
@@ -163,7 +195,7 @@ class PostController extends Controller
                 'Backend/plugins/datetimepicker-master/build/jquery.datetimepicker.min.css',
                 'Backend/css/plugins/switchery/switchery.css',
             ],
-            'model' => 'PostCatalogueparent'
+            'model' => 'Post'
         ];
     }
     private function configCUD()

@@ -17,7 +17,7 @@
                     <option value="0">[Chọn nhóm bài viết cha]</option>
                     @if(isset($postCataloguesParent))
                     @foreach($postCataloguesParent as $postCatalogueParent)
-                        <option value="{{ $postCatalogueParent->id }}">{{ $postCatalogueParent->name }}</option>
+                        <option value="{{ $postCatalogueParent->id }}">{{ $postCatalogueParent->post_catalogue_parent_name }}</option>
                     @endforeach
                     @endif
                 </select>
@@ -41,6 +41,7 @@
 </div>
 </form>
 <script>
+    var getChildrenCatalogueUrl = '{{ route("ajax.postCatalogue.getPostCatalogue") }}'
     var post_catalogue_parent_id='{{ (isset($post->post_catalogue_parent_id)) ? $post->post_catalogue_parent_id : request('post_catalogue_parent_id') }}'
     var post_catalogue_children_id='{{ (isset($post->post_catalogue_children_id)) ? $post->post_catalogue_children_id : request('post_catalogue_children_id') }}'
 </script>

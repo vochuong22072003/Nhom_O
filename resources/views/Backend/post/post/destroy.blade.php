@@ -17,7 +17,7 @@
                 <div class="panel-head">
                     <div class="panel-title">Thông tin chung</div>
                     <div class="panel-description">
-                        <p>- Bạn đang muốn xóa bài viết có tên là: <span style="color: red">{{ $post->name }}</span></p>
+                        <p>- Bạn đang muốn xóa bài viết có tên là: <span style="color: red">{{ $post->post_name }}</span></p>
                         <p>- Lưu ý <span class="text-danger">KHÔNG THỂ</span> khôi phục bài viết sau khi xóa. <br> Hãy chắc chắn bạn muốn thực hiện chức năng này</p>
                     </div>
                 </div>
@@ -34,8 +34,8 @@
                                     <label for="" class="control-label text-left">Tên bài viết: <span class="text-danger">(*)</span></label>
                                     <input 
                                     type="text"
-                                    name="name"
-                                    value="{{ old('name', ($post->name) ?? '') }}"
+                                    name="post_name"
+                                    value="{{ old('post_name', ($post->post_name) ?? '') }}"
                                     class="form-control"
                                     placeholder=""
                                     autocomplete="off"
@@ -50,13 +50,13 @@
                                                 type="text" 
                                                 placeholder="" 
                                                 autocomplete="off"
-                                                name="description" 
+                                                name="post_excerpt" 
                                                 class="form-control ck-editor" 
                                                 id="description" 
                                                 data-height="150"
                                                 disabled
                                             >
-                                            {{ old('description', ($post->description)??'') }}
+                                            {{ old('post_excerpt', ($post->post_excerpt)??'') }}
                                             </textarea>
                                         </div>
                                     </div>
@@ -71,7 +71,7 @@
                                                 <option value="0">[Chọn nhóm bài viết cha]</option>
                                                 @if(isset($postCataloguesParent))
                                                 @foreach($postCataloguesParent as $postCatalogueParent)
-                                                    <option value="{{ $postCatalogueParent->id }}">{{ $postCatalogueParent->name }}</option>
+                                                    <option value="{{ $postCatalogueParent->id }}">{{ $postCatalogueParent->post_catalogue_parent_name }}</option>
                                                 @endforeach
                                                 @endif
                                             </select>
@@ -111,4 +111,5 @@
 <script>
     var post_catalogue_parent_id='{{ (isset($post->post_catalogue_parent_id)) ? $post->post_catalogue_parent_id : old('post_catalogue_parent_id') }}'
     var post_catalogue_children_id='{{ (isset($post->post_catalogue_children_id)) ? $post->post_catalogue_children_id : old('post_catalogue_children_id') }}'
+    var getChildrenCatalogueUrl = '{{ route("ajax.postCatalogue.getPostCatalogue") }}'
 </script>

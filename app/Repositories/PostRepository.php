@@ -28,7 +28,7 @@ class PostRepository extends BaseRepository implements PostRepositoryInterface
         $query = $this->model->select($column)->where(function ($query) use ($condition) {
             if (isset($condition['keyword']) && !empty($condition['keyword'])) {
                 $query->where(function ($query) use ($condition) {
-                    $query->where('posts.name', 'LIKE', '%' . $condition['keyword'] . '%');
+                    $query->where('post_name', 'LIKE', '%' . $condition['keyword'] . '%');
                        
                 });
             }
@@ -53,9 +53,13 @@ class PostRepository extends BaseRepository implements PostRepositoryInterface
                 $query->withCount($relation);
             }
         }
-        if(isset($join)&&is_array($join)&&count($join)){
-            foreach($join as $key =>$val){
-                $query->join($val[0],$val[1],$val[2],$val[3]);
+        if (isset($join) && is_array($join) && count($join)) {
+            foreach ($join as $key => $val) {
+                if (isset($val[4]) && $val[4] == 'left') {
+                    $query->leftJoin($val[0], $val[1], $val[2], $val[3]);
+                } else {
+                    $query->join($val[0], $val[1], $val[2], $val[3]);
+                }
             }
         }
         if(isset($extend['groupBy']) && !empty($extend['groupBy'])){
@@ -65,8 +69,7 @@ class PostRepository extends BaseRepository implements PostRepositoryInterface
             $query->orderBy($orderBy[0], $orderBy[1]);
         }
 
-        //echo $query->toSql(); die();
-
+        // echo $query->toSql(); die();
         return $query->paginate($perpage)->withQueryString()->withPath(env('APP_URL') . $extend['path']);
     }    
 }

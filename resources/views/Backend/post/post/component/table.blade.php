@@ -29,7 +29,7 @@
                 <div class="info-item">{{ $post->post_catalogue_children_name }}</div>
             </td>
             <td>
-                <div class="info-item">{{ $post->user_id }}</div>
+                <div class="info-item">{{ $post->user_info->name }}</div>
             </td>
             <td class="text-center js-switch-{{ $post->id }}">
                 <input type="checkbox" class="js-switch status" value="{{ $post->publish }}" data-field="publish" data-model="{{ $config['model'] }}" data-modelId="{{ $post->id }}" {{ ($post->publish==2)?'checked':'' }} >
@@ -44,3 +44,6 @@
     </tbody>
 </table>
 {{ $posts->links('pagination::bootstrap-4') }}
+<script>
+    var getStatusUrl = '{{ route("ajax.dashboard.changeStatus") }}';
+</script>

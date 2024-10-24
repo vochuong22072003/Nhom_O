@@ -22,20 +22,18 @@ class UpdatePostRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'=>'required|string|unique:posts,name, '.$this->id.'',
-            'post_catalogue_parent_id'=>'required|integer|gt:0',
-            'post_catalogue_children_id'=>'required|integer|gt:0',
+            'post_name' => 'required|string|unique:posts,post_name, ' . $this->id . '',
+            'post_catalogue_parent_id' => 'required|integer|gt:0',
         ];
     }
 
     public function messages(): array
     {
         return [
-            'name.required'=>'Bạn chưa nhập tiêu đề bài viết',
-            'name.string'=>'Tiêu đề bài viết phải là dạng ký tự',
-            'name.unique'=>'Tên bài viết này đã tồn tại. Hãy nhập tên khác',
-            'post_catalogue_parent_id'=>'Bạn chưa chọn nhóm bài viết cha',
-            'post_catalogue_children_id'=>'Bạn chưa chọn nhóm bài viết con',
+            'post_name.required' => 'Bạn chưa nhập tiêu đề bài viết',
+            'post_name.string' => 'Tiêu đề bài viết phải là dạng ký tự',
+            'post_name.unique' => 'Tên bài viết này đã tồn tại. Hãy nhập tên khác',
+            'post_catalogue_parent_id' => 'Bạn chưa chọn nhóm bài viết cha',
         ];
     }
 }

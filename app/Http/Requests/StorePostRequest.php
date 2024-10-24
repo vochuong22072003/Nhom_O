@@ -22,11 +22,10 @@ class StorePostRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'post_name' => 'required|string|unique:posts| min: 2 | max: 255 | regex:/^[^<>]*$/',
-            'post_excerpt' => 'nullable | regex:/^[^<>]*$/',
+            'post_name' => 'required|string|unique:posts| min: 2 | max: 255 | regex:/^[^<>&]*$/',
             'post_catalogue_parent_id' => 'required|integer|gt:0',
-            'post_content' => 'nullable | regex:/^[^<>]*$/'
-
+            'post_content' => 'nullable|string|regex:/^(?!.*<script>).*/',
+            'post_excerpt' => 'nullable|string|regex:/^(?!.*<script>).*/',
         ];
     }
 

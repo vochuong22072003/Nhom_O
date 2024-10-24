@@ -23,8 +23,8 @@ class StorePostCatalogueParentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'post_catalogue_parent_name' => 'required | string | unique:post_catalogue_parent| min: 2 | max: 255 ',
-            'post_catalogue_parent_description' => 'nullable|string '
+            'post_catalogue_parent_name' => 'required | string | unique:post_catalogue_parent| min: 2 | max: 255 | regex:/^[^<>&]*$/ ',
+            'post_catalogue_parent_description' => 'nullable|string | regex:/^[^<>&]*$/ '
         ];
     }
     public function messages(): array
@@ -34,7 +34,8 @@ class StorePostCatalogueParentRequest extends FormRequest
             'post_catalogue_parent_name.string' => 'Tên danh mục cha phải là kí tự',
             'post_catalogue_parent_name.min' => 'Tên danh mục cha phải nhập tối thiểu 2 kí tự trở lên ',
             'post_catalogue_parent_name.max' => 'Tên danh mục cha không được nhập tối đa 255 kí tự  ',
-
+            'post_catalogue_parent_name.regex' => 'Tên danh mục cha không được chứa các ký tự <, >, &',
+            'post_catalogue_parent_description.regex' => 'Mô tả danh mục cha không được chứa các ký tự <, >, &',
             'post_catalogue_parent_description.string' => 'Mô tả danh mục cha phải là kí tự',
 
             'post_catalogue_parent_name.unique' =>  'Tên danh mục cha đã tồn tại, vui lòng chọn tên danh mục khác'

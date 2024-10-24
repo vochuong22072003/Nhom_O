@@ -90,7 +90,7 @@ Route::middleware(['auth:web'])->group(function () {
         Route::get('{id}/edit', [PostController::class, 'edit'])->name('post.edit')->middleware(AuthenticateMiddleware::class);
         Route::post('{id}/update', [PostController::class, 'update'])->name('post.update')->where(['id' => '[0-9]+'])->middleware(AuthenticateMiddleware::class);
         Route::get('{id}/destroy', [PostController::class, 'destroy'])->name('post.destroy')->middleware(AuthenticateMiddleware::class);
-        Route::post('{id}/delete', [PostController::class, 'delete'])->name('post   .delete')->where(['id' => '[0-9]+'])->middleware(AuthenticateMiddleware::class);
+        Route::post('{id}/delete', [PostController::class, 'delete'])->name('post.delete')->where(['id' => '[0-9]+'])->middleware(AuthenticateMiddleware::class);
     });
     Route::get('ajax/postCatalogue/getPostCatalogue',[PostCatalogueController::class, 'getPostCatalogue'])->name('ajax.postCatalogue.getPostCatalogue')->middleware(AuthenticateMiddleware::class);
 });
