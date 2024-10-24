@@ -127,7 +127,7 @@ class UserController extends Controller
 
         $userInfo = $this->userInfoRepository->findByCondition($condition);
 
-        $id_logged = Auth::id();
+        $id_logged = Auth::guard('web')->id();
 
         $user_logged = $this->userRepository->findById($id_logged);
 
@@ -158,7 +158,7 @@ class UserController extends Controller
         $id = $this->decryptId($id);
 
         if (!preg_match('/^[0-9A-Za-z=]+$/', $id)) {
-            return redirect()->route('user..index')->withErrors('ID không hợp lệ. Vui lòng sử dụng ID đã mã hóa.');
+            return redirect()->route('user.index')->withErrors('ID không hợp lệ. Vui lòng sử dụng ID đã mã hóa.');
         }
 
         $user = $this->userRepository->findById($id);

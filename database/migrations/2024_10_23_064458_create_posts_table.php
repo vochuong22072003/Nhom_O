@@ -18,8 +18,10 @@ return new class extends Migration
             $table->bigInteger('post_catalogue_parent_id')->unsigned();
             $table->foreign('post_catalogue_parent_id')->references('id')->on('post_catalogue_parent')->onDelete('cascade');
             $table->string('post_name');
-            $table->string('post_excerpt')->nullable();
+            $table->text('post_excerpt')->nullable();
             $table->longText('post_content')->nullable();
+            $table->bigInteger('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('image')->nullable();
             $table->tinyInteger('publish')->default(2);
             $table->timestamp('deleted_at')->nullable();

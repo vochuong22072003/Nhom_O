@@ -16,7 +16,8 @@ class Post extends Model
         'post_name',
         'post_excerpt',
         'image',
-        ' post_content',
+        'post_content',
+        'user_id',
         'publish'
     ];
     protected $table = 'posts';
@@ -29,4 +30,9 @@ class Post extends Model
     {
         return $this->belongsTo(PostCatalogueChildren::class, 'post_catalogue_children_id');
     }
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'user_id','id');
+    }
+
 }
