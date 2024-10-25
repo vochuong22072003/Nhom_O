@@ -97,13 +97,38 @@ Route::middleware(['auth:web'])->group(function () {
 
 
 Route::name('client.')->group(function () {
-    Route::get('/home', function () {
+    Route::get('/', function () {
         return view('client.index');
-    })->name('index');
+    })->name('home');
+
+    Route::get('/about', function () {
+        return view('client.about');
+    })->name('about');
+ 
+    Route::get('/blog', function () {
+        return view('client.blog');
+    })->name('blog');
+
+    Route::get('/blogdetails', function () {
+        return view('client.blog_details');
+    })->name('blogdetails');
+ 
     Route::get('/detail', function () {
         return view('client.blog_details');
     })->name('blog_details');
+
+    Route::get('/categori', function () {
+        return view('client.categori');
+    })->name('categori');
+    
+    Route::get('/latestnews', function () {
+        return view('client.latest_news');
+    })->name('latest_news');
+
     Route::get('/elements', function () {
         return view('client.elements');
     })->name('elements');
+    Route::get('/contact', function () {
+        return view('client.contact');
+    })->name('contact');
 });
