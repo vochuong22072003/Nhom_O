@@ -15,14 +15,11 @@ use App\Http\Controllers\Backend\PostCatalogueParentController;
 use App\Http\Controllers\Backend\PostCatalogueChildrenController;
 use App\Http\Controllers\Backend\PostController;
 use App\Http\Controllers\Ajax\PostCatalogueController;
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 
 Route::get('dashboard/index', [DashboardController::class, 'index'])->name('dashboard.index')->middleware(AuthenticateMiddleware::class);
 Route::get('admin', [AuthController::class, 'index'])->name('auth.admin')->middleware(LoginMiddleware::class);
-Route::post('login', [AuthController::class, 'login'])->name('auth.login');
-Route::get('logout', [AuthController::class, 'logout'])->name('auth.logout');
+Route::post('admin/login', [AuthController::class, 'login'])->name('auth.login');
+Route::get('admin/logout', [AuthController::class, 'logout'])->name('auth.logout');
 
 Route::middleware(['auth:web'])->group(function () {
     Route::group(['prefix' => 'user/profile'], function () {
@@ -97,7 +94,7 @@ Route::middleware(['auth:web'])->group(function () {
 
 
 Route::name('client.')->group(function () {
-    Route::get('/home', function () {
+    Route::get('/', function () {
         return view('client.index');
     })->name('index');
     Route::get('/detail', function () {
@@ -107,3 +104,5 @@ Route::name('client.')->group(function () {
         return view('client.elements');
     })->name('elements');
 });
+
+require __DIR__.'/auth.php';
