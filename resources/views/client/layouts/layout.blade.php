@@ -93,18 +93,18 @@
                                 <div class="main-menu d-none d-md-block">
                                     <nav>
                                         <ul id="navigation">
-                                            <li><a href="index.html">Home</a></li>
-                                            <li><a href="about.html">about</a></li>
-                                            <li><a href="categori.html">Category</a></li>
-                                            <li><a href="latest_news.html">Latest News</a></li>
+                                            <li><a href="{{ route('client.home') }}">Home</a></li>
+                                            <li><a href="{{route('client.about')}}">about</a></li>
+                                            <li><a href="{{route('client.categori')}}">Category</a></li>
+                                            <li><a href="{{route('client.latest_news')}}">Latest News</a></li>
                                             <li><a href="#">Pages</a>
                                                 <ul class="submenu">
-                                                    <li><a href="blog.html">Blog</a></li>
-                                                    <li><a href="blog_details.html">Blog Details</a></li>
-                                                    <li><a href="elements.html">Element</a></li>
+                                                    <li><a href="{{route('client.blog')}}">Blog</a></li>
+                                                    <li><a href="{{route('client.blog_details')}}">Blog Details</a></li>
+                                                    <li><a href="{{route('client.elements')}}">Element</a></li>
                                                 </ul>
                                             </li>
-                                            <li><a href="contact.html">Contact</a></li>
+                                            <li><a href="{{route('client.contact')}}">Contact</a></li>
                                         </ul>
                                     </nav>
                                 </div>
