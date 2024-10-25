@@ -15,6 +15,7 @@ use App\Http\Controllers\Backend\PostCatalogueParentController;
 use App\Http\Controllers\Backend\PostCatalogueChildrenController;
 use App\Http\Controllers\Backend\PostController;
 use App\Http\Controllers\Ajax\PostCatalogueController;
+use App\Http\Controllers\LikeView\ViewController;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
@@ -132,3 +133,6 @@ Route::name('client.')->group(function () {
         return view('client.contact');
     })->name('contact');
 });
+
+
+Route::get('/posts/{postId}', [ViewController::class, 'show'])->name('posts.show');
