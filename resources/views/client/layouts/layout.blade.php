@@ -1,293 +1,2506 @@
-<!doctype html>
-<html class="no-js" lang="zxx">
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>News HTML-5 Template </title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="manifest" href="site.webmanifest">
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('client/img/favicon.ico')}}">
-
-    <!-- CSS here --> 
-    <link rel="stylesheet" href="{{ asset('client/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('client/css/owl.carousel.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('client/css/ticker-style.css') }}">
-    <link rel="stylesheet" href="{{ asset('client/css/flaticon.css') }}">
-    <link rel="stylesheet" href="{{ asset('client/css/slicknav.css') }}">
-    <link rel="stylesheet" href="{{ asset('client/css/animate.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('client/css/magnific-popup.css') }}">
-    <link rel="stylesheet" href="{{ asset('client/css/fontawesome-all.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('client/css/themify-icons.css') }}">
-    <link rel="stylesheet" href="{{ asset('client/css/slick.css') }}">
-    <link rel="stylesheet" href="{{ asset('client/css/nice-select.css') }}">
-    <link rel="stylesheet" href="{{ asset('client/css/style.css') }}">
-
-  
-
+	<title>@yield('title')</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="{{ asset('client/images/icons/favicon.png') }}')}}"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ asset('client/vendor/bootstrap/css/bootstrap.min.css') }}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ asset('client/fonts/fontawesome-5.0.8/css/fontawesome-all.min.css') }}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ asset('client/fonts/iconic/css/material-design-iconic-font.min.css') }}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ asset('client/vendor/animate/animate.css') }}">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="{{ asset('client/vendor/css-hamburgers/hamburgers.min.css') }}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ asset('client/vendor/animsition/css/animsition.min.css') }} ">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ asset('client/css/util.min.css') }}">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="{{ asset('client/css/main.css') }}">
+<!--===============================================================================================-->
 </head>
+<body class="animsition">	
+	<!-- Header -->
+	<header>
+		<!-- Header desktop -->
+		<div class="container-menu-desktop">
+			<div class="topbar">
+				<div class="content-topbar container h-100">
+					<div class="left-topbar">
+						<span class="left-topbar-item flex-wr-s-c">
+							<span>
+								New York, NY
+							</span>
 
-<body>
-    <!-- Preloader Start -->
-    <div id="preloader-active">
-        <div class="preloader d-flex align-items-center justify-content-center">
-            <div class="preloader-inner position-relative">
-                <div class="preloader-circle"></div>
-                <div class="preloader-img pere-text">
-                    <img src="{{ asset('client/img/logo/logo.png') }}" alt="">
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Preloader Start -->
-    <header>
-        <!-- Header Start -->
-        <div class="header-area">
-            <div class="main-header ">
-                <div class="header-top black-bg d-none d-sm-block">
-                    <div class="container">
-                        <div class="col-xl-12">
-                            <div class="row d-flex justify-content-between align-items-center">
-                                <div class="header-info-left">
-                                    <ul>
-                                        <li class="title"><span class="flaticon-energy"></span> trending-title</li>
-                                        <li>Class property employ ancho red multi level mansion</li>
-                                    </ul>
-                                </div>
-                                <div class="header-info-right">
-                                    <ul class="header-date">
-                                        <li><span class="flaticon-calendar"></span> +880166 253 232</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="header-mid gray-bg">
-                    <div class="container">
-                        <div class="row d-flex align-items-center">
-                            <!-- Logo -->
-                            <div class="col-xl-3 col-lg-3 col-md-3 d-none d-md-block">
-                                <div class="logo">
-                                    <a href="index.html"><img src="{{ asset('client/img/logo/logo.png') }}" alt=""></a>
-                                </div>
-                            </div>
-                            <div class="col-xl-9 col-lg-9 col-md-9">
-                                <div class="header-banner f-right ">
-                                    <img src="{{ asset('client/img/gallery/header_card.png') }}" alt="">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="header-bottom header-sticky">
-                    <div class="container">
-                        <div class="row align-items-center">
-                            <div class="col-xl-8 col-lg-8 col-md-12 header-flex">
-                                <!-- sticky -->
-                                <div class="sticky-logo">
-                                    <a href="index.html"><img src="{{ asset('client/img/logo/logo.png') }}" alt=""></a>
-                                </div>
-                                <!-- Main-menu -->
-                                <div class="main-menu d-none d-md-block">
-                                    <nav>
-                                        <ul id="navigation">
-                                            <li><a href="{{ route('client.home') }}">Home</a></li>
-                                            <li><a href="{{route('client.about')}}">about</a></li>
-                                            <li><a href="{{route('client.categori')}}">Category</a></li>
-                                            <li><a href="{{route('client.latest_news')}}">Latest News</a></li>
-                                            <li><a href="#">Pages</a>
-                                                <ul class="submenu">
-                                                    <li><a href="{{route('client.blog')}}">Blog</a></li>
-                                                    <li><a href="{{route('client.blog_details')}}">Blog Details</a></li>
-                                                    <li><a href="{{route('client.elements')}}">Element</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="{{route('client.contact')}}">Contact</a></li>
-                                        </ul>
-                                    </nav>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-4">
-                                <div class="header-right f-right d-none d-lg-block">
-                                    <!-- Heder social -->
-                                    <ul class="header-social">
-                                        <li><a href="https://www.fb.com/sai4ull"><i class="fab fa-facebook-f"></i></a>
-                                        </li>
-                                        <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                        <li><a href="#"><i class="fab fa-instagram"></i></a></li>
-                                        <li> <a href="#"><i class="fab fa-youtube"></i></a></li>
-                                    </ul>
-                                    <!-- Search Nav -->
-                                    <div class="nav-search search-switch">
-                                        <i class="fa fa-search"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Mobile Menu -->
-                            <div class="col-12">
-                                <div class="mobile_menu d-block d-md-none"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Header End -->
-    </header>
-    <main>
-        @yield('main');
-    </main>
-    
-    <footer>
-        <!-- Footer Start-->
-        <div class="footer-main footer-bg">
-            <div class="footer-area footer-padding">
-                <div class="container">
-                    <div class="row d-flex justify-content-between">
-                        <div class="col-xl-3 col-lg-3 col-md-5 col-sm-8">
-                            <div class="single-footer-caption mb-50">
-                                <div class="single-footer-caption mb-30">
-                                    <!-- logo -->
-                                    <div class="footer-logo">
-                                        <a href="index.html"><img src="{{ asset('client/img/logo/logo2_footer.png') }}"
-                                                alt=""></a>
-                                    </div>
-                                    <div class="footer-tittle">
-                                        <div class="footer-pera">
-                                            <p class="info1">Lorem ipsum dolor sit amet, nsectetur adipiscing elit,
-                                                sed do eiusmod tempor incididunt ut labore.</p>
-                                            <p class="info2">198 West 21th Street, Suite 721 New York,NY 10010</p>
-                                            <p class="info2">Phone: +95 (0) 123 456 789 Cell: +95 (0) 123 456 789</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-4 col-lg-4 col-md-5 col-sm-7">
-                            <div class="single-footer-caption mb-50">
-                                <div class="footer-tittle">
-                                    <h4>Popular post</h4>
-                                </div>
-                                <!-- Popular post -->
-                                <div class="whats-right-single mb-20">
-                                    <div class="whats-right-img">
-                                        <img src="{{ asset('client/img/gallery/footer_post1.png') }}" alt="">
-                                    </div>
-                                    <div class="whats-right-cap">
-                                        <h4><a href="latest_news.html">Scarlett’s disappointment at latest accolade</a>
-                                        </h4>
-                                        <p>Jhon | 2 hours ago</p>
-                                    </div>
-                                </div>
-                                <!-- Popular post -->
-                                <div class="whats-right-single mb-20">
-                                    <div class="whats-right-img">
-                                        <img src="{{ asset('client/img/gallery/footer_post2.png') }}" alt="">
-                                    </div>
-                                    <div class="whats-right-cap">
-                                        <h4><a href="latest_news.html">Scarlett’s disappointment at latest accolade</a>
-                                        </h4>
-                                        <p>Jhon | 2 hours ago</p>
-                                    </div>
-                                </div>
-                                <!-- Popular post -->
-                                <div class="whats-right-single mb-20">
-                                    <div class="whats-right-img">
-                                        <img src="{{ asset('client/img/gallery/footer_post3.png') }}" alt="">
-                                    </div>
-                                    <div class="whats-right-cap">
-                                        <h4><a href="latest_news.html">Scarlett’s disappointment at latest accolade</a>
-                                        </h4>
-                                        <p>Jhon | 2 hours ago</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-3 col-md-5 col-sm-7">
-                            <div class="single-footer-caption mb-50">
-                                <div class="banner">
-                                    <img src="{{ asset('client/img/gallery/body_card4.png') }}" alt="">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- footer-bottom aera -->
-            <div class="footer-bottom-area footer-bg">
-                <div class="container">
-                    <div class="footer-border">
-                        <div class="row d-flex align-items-center">
-                            <div class="col-xl-12 ">
-                                <div class="footer-copy-right text-center">
-                                    <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                                        Copyright &copy;
-                                        <script>
-                                            document.write(new Date().getFullYear());
-                                        </script> All rights reserved | This template is made with <i
-                                            class="fa fa-heart" aria-hidden="true"></i> by <a
-                                            href="https://colorlib.com" target="_blank">Colorlib</a>
-                                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Footer End-->
-    </footer>
-    <!-- Search model Begin -->
-    <div class="search-model-box">
-        <div class="d-flex align-items-center h-100 justify-content-center">
-            <div class="search-close-btn">+</div>
-            <form class="search-model-form">
-                <input type="text" id="search-input" placeholder="Searching key.....">
-            </form>
-        </div>
-    </div>
-    <!-- Search model end -->
+							<img class="m-b-1 m-rl-8" src="{{ asset('client/images/icons/icon-night.png') }}" alt="IMG">
 
-    <!-- JS here -->
+							<span>
+								HI 58° LO 56°
+							</span>
+						</span>
 
-    <script src="{{ asset('client/js/vendor/modernizr-3.5.0.min.js') }}"></script>
-    <!-- Jquery, Popper, Bootstrap -->
-    <script src="{{ asset('client/js/vendor/jquery-1.12.4.min.js') }}"></script>
-    <script src="{{ asset('client/js/popper.min.js') }}"></script>
-    <script src="{{ asset('client/js/bootstrap.min.js') }}"></script>
-    <!-- Jquery Mobile Menu -->
-    <script src="{{ asset('client/js/jquery.slicknav.min.js') }}"></script>
+						<a href="#" class="left-topbar-item">
+							About
+						</a>
 
-    <!-- Jquery Slick , Owl-Carousel Plugins -->
-    <script src="{{ asset('client/js/owl.carousel.min.js') }}"></script>
-    <script src="{{ asset('client/js/slick.min.js') }}"></script>
-    <!-- Date Picker -->
-    <script src="{{ asset('client/js/gijgo.min.js') }}"></script>
-    <!-- One Page, Animated-HeadLin -->
-    <script src="{{ asset('client/js/wow.min.js') }}"></script>
-    <script src="{{ asset('client/js/animated.headline.js') }}"></script>
-    <script src="{{ asset('client/js/jquery.magnific-popup.js') }}"></script>
+						<a href="#" class="left-topbar-item">
+							Contact
+						</a>
 
-    <!-- Scrollup, nice-select, sticky -->
-    <script src="{{ asset('client/js/jquery.scrollUp.min.js') }}"></script>
-    <script src="{{ asset('client/js/jquery.nice-select.min.js') }}"></script>
-    <script src="{{ asset('client/js/jquery.sticky.js') }}"></script>
+						<a href="#" class="left-topbar-item">
+							Sing up
+						</a>
 
-    <!-- contact js -->
-    <script src="{{ asset('client/js/contact.js') }}"></script>
-    <script src="{{ asset('client/js/jquery.form.js') }}"></script>
-    <script src="{{ asset('client/js/jquery.validate.min.js') }}"></script>
-    <script src="{{ asset('client/js/mail-script.js') }}"></script>
-    <script src="{{ asset('client/js/jquery.ajaxchimp.min.js') }}"></script>
+						<a href="#" class="left-topbar-item">
+							Log in
+						</a>
+					</div>
 
-    <!-- Jquery Plugins, main Jquery -->
-    <script src="{{ asset('client/js/plugins.js') }}"></script>
-    <script src="{{ asset('client/js/main.js') }}"></script>
+					<div class="right-topbar">
+						<a href="#">
+							<span class="fab fa-facebook-f"></span>
+						</a>
 
-    <script src="{{ asset('client/js/main.js') }}"></script>
+						<a href="#">
+							<span class="fab fa-twitter"></span>
+						</a>
+
+						<a href="#">
+							<span class="fab fa-pinterest-p"></span>
+						</a>
+
+						<a href="#">
+							<span class="fab fa-vimeo-v"></span>
+						</a>
+
+						<a href="#">
+							<span class="fab fa-youtube"></span>
+						</a>
+					</div>
+				</div>
+			</div>
+
+			<!-- Header Mobile -->
+			<div class="wrap-header-mobile">
+				<!-- Logo moblie -->		
+				<div class="logo-mobile">
+					<a href="index.html"><img src="{{ asset('client/images/icons/logo-01.png') }}" alt="IMG-LOGO"></a>
+				</div>
+
+				<!-- Button show menu -->
+				<div class="btn-show-menu-mobile hamburger hamburger--squeeze m-r--8">
+					<span class="hamburger-box">
+						<span class="hamburger-inner"></span>
+					</span>
+				</div>
+			</div>
+
+			<!-- Menu Mobile -->
+			<div class="menu-mobile">
+				<ul class="topbar-mobile">
+					<li class="left-topbar">
+						<span class="left-topbar-item flex-wr-s-c">
+							<span>
+								New York, NY
+							</span>
+
+							<img class="m-b-1 m-rl-8" src="{{ asset('client/images/icons/icon-night.png') }}" alt="IMG">
+
+							<span>
+								HI 58° LO 56°
+							</span>
+						</span>
+					</li>
+
+					<li class="left-topbar">
+						<a href="#" class="left-topbar-item">
+							About
+						</a>
+
+						<a href="#" class="left-topbar-item">
+							Contact
+						</a>
+
+						<a href="#" class="left-topbar-item">
+							Sing up
+						</a>
+
+						<a href="#" class="left-topbar-item">
+							Log in
+						</a>
+					</li>
+
+					<li class="right-topbar">
+						<a href="#">
+							<span class="fab fa-facebook-f"></span>
+						</a>
+
+						<a href="#">
+							<span class="fab fa-twitter"></span>
+						</a>
+
+						<a href="#">
+							<span class="fab fa-pinterest-p"></span>
+						</a>
+
+						<a href="#">
+							<span class="fab fa-vimeo-v"></span>
+						</a>
+
+						<a href="#">
+							<span class="fab fa-youtube"></span>
+						</a>
+					</li>
+				</ul>
+
+				<ul class="main-menu-m">
+					<li>
+						<a href="index.html">Home</a>
+						<ul class="sub-menu-m">
+							<li><a href="index.html">Homepage v1</a></li>
+							<li><a href="home-02.html">Homepage v2</a></li>
+							<li><a href="home-03.html">Homepage v3</a></li>
+						</ul>
+
+						<span class="arrow-main-menu-m">
+							<i class="fa fa-angle-right" aria-hidden="true"></i>
+						</span>
+					</li>
+
+					<li>
+						<a href="category-01.html">News</a>
+					</li>
+
+					<li>
+						<a href="category-02.html">Entertainment </a>
+					</li>
+
+					<li>
+						<a href="category-01.html">Business</a>
+					</li>
+
+					<li>
+						<a href="category-02.html">Travel</a>
+					</li>
+
+					<li>
+						<a href="category-01.html">Life Style</a>
+					</li>
+
+					<li>
+						<a href="category-02.html">Video</a>
+					</li>
+
+					<li>
+						<a href="#">Features</a>
+						<ul class="sub-menu-m">
+							<li><a href="category-01.html">Category Page v1</a></li>
+							<li><a href="category-02.html">Category Page v2</a></li>
+							<li><a href="blog-grid.html">Blog Grid Sidebar</a></li>
+							<li><a href="blog-list-01.html">Blog List Sidebar v1</a></li>
+							<li><a href="blog-list-02.html">Blog List Sidebar v2</a></li>
+							<li><a href="blog-detail-01.html">Blog Detail Sidebar</a></li>
+							<li><a href="blog-detail-02.html">Blog Detail No Sidebar</a></li>
+							<li><a href="about.html">About Us</a></li>
+							<li><a href="contact.html">Contact Us</a></li>
+						</ul>
+
+						<span class="arrow-main-menu-m">
+							<i class="fa fa-angle-right" aria-hidden="true"></i>
+						</span>
+					</li>
+				</ul>
+			</div>
+			
+			<!--  -->
+			<div class="wrap-logo container">
+				<!-- Logo desktop -->		
+				<div class="logo">
+					<a href="index.html"><img src="{{ asset('client/images/icons/logo-01.png') }}" alt="LOGO"></a>
+				</div>	
+
+				<!-- Banner -->
+				<div class="banner-header">
+					<a href="https://themewagon.com/themes/free-bootstrap-4-html5-news-website-template-magnews2/"><img src="{{ asset('client/images/banner-01.jpg') }}" alt="IMG"></a>
+				</div>
+			</div>	
+			
+			<!--  -->
+			<div class="wrap-main-nav">
+				<div class="main-nav">
+					<!-- Menu desktop -->
+					<nav class="menu-desktop">
+						<a class="logo-stick" href="index.html">
+							<img src="{{ asset('client/images/icons/logo-01.png') }}" alt="LOGO">
+						</a>
+
+						<ul class="main-menu">
+							<li class="main-menu-active">
+								<a href="index.html">Home</a>
+								<ul class="sub-menu">
+									<li><a href="index.html">Homepage v1</a></li>
+									<li><a href="home-02.html">Homepage v2</a></li>
+									<li><a href="home-03.html">Homepage v3</a></li>
+								</ul>
+							</li>
+
+							<li class="mega-menu-item">
+								<a href="category-01.html">News</a>
+
+								<div class="sub-mega-menu">
+									<div class="nav flex-column nav-pills" role="tablist">
+										<a class="nav-link active" data-toggle="pill" href="#news-0" role="tab">All</a>
+										<a class="nav-link" data-toggle="pill" href="#news-1" role="tab">Entertaiment</a>
+										<a class="nav-link" data-toggle="pill" href="#news-2" role="tab">Fashion</a>
+										<a class="nav-link" data-toggle="pill" href="#news-3" role="tab">Life Style</a>
+										<a class="nav-link" data-toggle="pill" href="#news-4" role="tab">Technology</a>
+										<a class="nav-link" data-toggle="pill" href="#news-5" role="tab">Travel</a>
+									</div>
+
+									<div class="tab-content">
+										<div class="tab-pane show active" id="news-0" role="tabpanel">
+											<div class="row">
+												<div class="col-3">
+													<!-- Item post -->	
+													<div>
+														<a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
+															<img src="{{ asset('client/images/post-05.jpg') }}" alt="IMG">
+														</a>
+
+														<div class="p-t-10">
+															<h5 class="p-b-5">
+																<a href="blog-detail-01.html" class="f1-s-5 cl3 hov-cl10 trans-03">
+																	Donec metus orci, malesuada et lectus vitae
+																</a>
+															</h5>
+
+															<span class="cl8">
+																<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+																	Music
+																</a>
+
+																<span class="f1-s-3 m-rl-3">
+																	-
+																</span>
+
+																<span class="f1-s-3">
+																	Feb 18
+																</span>
+															</span>
+														</div>
+													</div>
+												</div>
+
+												<div class="col-3">
+													<!-- Item post -->	
+													<div>
+														<a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
+															<img src="{{ asset('client/images/post-10.jpg') }}" alt="IMG">
+														</a>
+
+														<div class="p-t-10">
+															<h5 class="p-b-5">
+																<a href="blog-detail-01.html" class="f1-s-5 cl3 hov-cl10 trans-03">
+																	Donec metus orci, malesuada et lectus vitae
+																</a>
+															</h5>
+
+															<span class="cl8">
+																<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+																	Finance
+																</a>
+
+																<span class="f1-s-3 m-rl-3">
+																	-
+																</span>
+
+																<span class="f1-s-3">
+																	Jan 15
+																</span>
+															</span>
+														</div>
+													</div>
+												</div>
+
+												<div class="col-3">
+													<!-- Item post -->	
+													<div>
+														<a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
+															<img src="{{ asset('client/images/post-14.jpg') }}" alt="IMG">
+														</a>
+
+														<div class="p-t-10">
+															<h5 class="p-b-5">
+																<a href="blog-detail-01.html" class="f1-s-5 cl3 hov-cl10 trans-03">
+																	Donec metus orci, malesuada et lectus vitae
+																</a>
+															</h5>
+
+															<span class="cl8">
+																<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+																	Beach
+																</a>
+
+																<span class="f1-s-3 m-rl-3">
+																	-
+																</span>
+
+																<span class="f1-s-3">
+																	Feb 12
+																</span>
+															</span>
+														</div>
+													</div>
+												</div>
+
+												<div class="col-3">
+													<!-- Item post -->	
+													<div>
+														<a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
+															<img src="{{ asset('client/images/post-36.jpg') }}" alt="IMG">
+														</a>
+
+														<div class="p-t-10">
+															<h5 class="p-b-5">
+																<a href="blog-detail-01.html" class="f1-s-5 cl3 hov-cl10 trans-03">
+																	Donec metus orci, malesuada et lectus vitae
+																</a>
+															</h5>
+
+															<span class="cl8">
+																<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+																	Technology
+																</a>
+
+																<span class="f1-s-3 m-rl-3">
+																	-
+																</span>
+
+																<span class="f1-s-3">
+																	Jan 20
+																</span>
+															</span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="tab-pane" id="news-1" role="tabpanel">
+											<div class="row">
+												<div class="col-3">
+													<!-- Item post -->	
+													<div>
+														<a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
+															<img src="{{ asset('client/images/post-50.jpg') }}" alt="IMG">
+														</a>
+
+														<div class="p-t-10">
+															<h5 class="p-b-5">
+																<a href="blog-detail-01.html" class="f1-s-5 cl3 hov-cl10 trans-03">
+																	Donec metus orci, malesuada et lectus vitae
+																</a>
+															</h5>
+
+															<span class="cl8">
+																<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+																	Music
+																</a>
+
+																<span class="f1-s-3 m-rl-3">
+																	-
+																</span>
+
+																<span class="f1-s-3">
+																	Feb 18
+																</span>
+															</span>
+														</div>
+													</div>
+												</div>
+
+												<div class="col-3">
+													<!-- Item post -->	
+													<div>
+														<a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
+															<img src="{{ asset('client/images/post-08.jpg') }}" alt="IMG">
+														</a>
+
+														<div class="p-t-10">
+															<h5 class="p-b-5">
+																<a href="blog-detail-01.html" class="f1-s-5 cl3 hov-cl10 trans-03">
+																	Donec metus orci, malesuada et lectus vitae
+																</a>
+															</h5>
+
+															<span class="cl8">
+																<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+																	Music
+																</a>
+
+																<span class="f1-s-3 m-rl-3">
+																	-
+																</span>
+
+																<span class="f1-s-3">
+																	Feb 12
+																</span>
+															</span>
+														</div>
+													</div>
+												</div>
+
+												<div class="col-3">
+													<!-- Item post -->	
+													<div>
+														<a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
+															<img src="{{ asset('client/images/post-07.jpg') }}" alt="IMG">
+														</a>
+
+														<div class="p-t-10">
+															<h5 class="p-b-5">
+																<a href="blog-detail-01.html" class="f1-s-5 cl3 hov-cl10 trans-03">
+																	Donec metus orci, malesuada et lectus vitae
+																</a>
+															</h5>
+
+															<span class="cl8">
+																<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+																	Music
+																</a>
+
+																<span class="f1-s-3 m-rl-3">
+																	-
+																</span>
+
+																<span class="f1-s-3">
+																	Jan 20
+																</span>
+															</span>
+														</div>
+													</div>
+												</div>
+
+												<div class="col-3">
+													<!-- Item post -->	
+													<div>
+														<a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
+															<img src="{{ asset('client/images/post-06.jpg') }}" alt="IMG">
+														</a>
+
+														<div class="p-t-10">
+															<h5 class="p-b-5">
+																<a href="blog-detail-01.html" class="f1-s-5 cl3 hov-cl10 trans-03">
+																	Donec metus orci, malesuada et lectus vitae
+																</a>
+															</h5>
+
+															<span class="cl8">
+																<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+																	Music
+																</a>
+
+																<span class="f1-s-3 m-rl-3">
+																	-
+																</span>
+
+																<span class="f1-s-3">
+																	Jan 15
+																</span>
+															</span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="tab-pane" id="news-2" role="tabpanel">
+											<div class="row">
+												<div class="col-3">
+													<!-- Item post -->	
+													<div>
+														<a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
+															<img src="{{ asset('client/images/post-21.jpg') }}" alt="IMG">
+														</a>
+
+														<div class="p-t-10">
+															<h5 class="p-b-5">
+																<a href="blog-detail-01.html" class="f1-s-5 cl3 hov-cl10 trans-03">
+																	Donec metus orci, malesuada et lectus vitae
+																</a>
+															</h5>
+
+															<span class="cl8">
+																<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+																	Music
+																</a>
+
+																<span class="f1-s-3 m-rl-3">
+																	-
+																</span>
+
+																<span class="f1-s-3">
+																	Feb 18
+																</span>
+															</span>
+														</div>
+													</div>
+												</div>
+
+												<div class="col-3">
+													<!-- Item post -->	
+													<div>
+														<a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
+															<img src="{{ asset('client/images/post-24.jpg') }}" alt="IMG">
+														</a>
+
+														<div class="p-t-10">
+															<h5 class="p-b-5">
+																<a href="blog-detail-01.html" class="f1-s-5 cl3 hov-cl10 trans-03">
+																	Donec metus orci, malesuada et lectus vitae
+																</a>
+															</h5>
+
+															<span class="cl8">
+																<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+																	Music
+																</a>
+
+																<span class="f1-s-3 m-rl-3">
+																	-
+																</span>
+
+																<span class="f1-s-3">
+																	Jan 15
+																</span>
+															</span>
+														</div>
+													</div>
+												</div>
+
+												<div class="col-3">
+													<!-- Item post -->	
+													<div>
+														<a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
+															<img src="{{ asset('client/images/post-22.jpg') }}" alt="IMG">
+														</a>
+
+														<div class="p-t-10">
+															<h5 class="p-b-5">
+																<a href="blog-detail-01.html" class="f1-s-5 cl3 hov-cl10 trans-03">
+																	Donec metus orci, malesuada et lectus vitae
+																</a>
+															</h5>
+
+															<span class="cl8">
+																<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+																	Music
+																</a>
+
+																<span class="f1-s-3 m-rl-3">
+																	-
+																</span>
+
+																<span class="f1-s-3">
+																	Feb 12
+																</span>
+															</span>
+														</div>
+													</div>
+												</div>
+
+												<div class="col-3">
+													<!-- Item post -->	
+													<div>
+														<a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
+															<img src="{{ asset('client/images/post-23.jpg') }}" alt="IMG">
+														</a>
+
+														<div class="p-t-10">
+															<h5 class="p-b-5">
+																<a href="blog-detail-01.html" class="f1-s-5 cl3 hov-cl10 trans-03">
+																	Donec metus orci, malesuada et lectus vitae
+																</a>
+															</h5>
+
+															<span class="cl8">
+																<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+																	Music
+																</a>
+
+																<span class="f1-s-3 m-rl-3">
+																	-
+																</span>
+
+																<span class="f1-s-3">
+																	Jan 20
+																</span>
+															</span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="tab-pane" id="news-3" role="tabpanel">
+											<div class="row">
+												<div class="col-3">
+													<!-- Item post -->	
+													<div>
+														<a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
+															<img src="{{ asset('client/images/post-25.jpg') }}" alt="IMG">
+														</a>
+
+														<div class="p-t-10">
+															<h5 class="p-b-5">
+																<a href="blog-detail-01.html" class="f1-s-5 cl3 hov-cl10 trans-03">
+																	Donec metus orci, malesuada et lectus vitae
+																</a>
+															</h5>
+
+															<span class="cl8">
+																<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+																	Music
+																</a>
+
+																<span class="f1-s-3 m-rl-3">
+																	-
+																</span>
+
+																<span class="f1-s-3">
+																	Feb 18
+																</span>
+															</span>
+														</div>
+													</div>
+												</div>
+
+												<div class="col-3">
+													<!-- Item post -->	
+													<div>
+														<a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
+															<img src="{{ asset('client/images/post-27.jpg') }}" alt="IMG">
+														</a>
+
+														<div class="p-t-10">
+															<h5 class="p-b-5">
+																<a href="blog-detail-01.html" class="f1-s-5 cl3 hov-cl10 trans-03">
+																	Donec metus orci, malesuada et lectus vitae
+																</a>
+															</h5>
+
+															<span class="cl8">
+																<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+																	Music
+																</a>
+
+																<span class="f1-s-3 m-rl-3">
+																	-
+																</span>
+
+																<span class="f1-s-3">
+																	Jan 20
+																</span>
+															</span>
+														</div>
+													</div>
+												</div>
+
+												<div class="col-3">
+													<!-- Item post -->	
+													<div>
+														<a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
+															<img src="{{ asset('client/images/post-26.jpg') }}" alt="IMG">
+														</a>
+
+														<div class="p-t-10">
+															<h5 class="p-b-5">
+																<a href="blog-detail-01.html" class="f1-s-5 cl3 hov-cl10 trans-03">
+																	Donec metus orci, malesuada et lectus vitae
+																</a>
+															</h5>
+
+															<span class="cl8">
+																<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+																	Music
+																</a>
+
+																<span class="f1-s-3 m-rl-3">
+																	-
+																</span>
+
+																<span class="f1-s-3">
+																	Feb 12
+																</span>
+															</span>
+														</div>
+													</div>
+												</div>
+
+												<div class="col-3">
+													<!-- Item post -->	
+													<div>
+														<a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
+															<img src="{{ asset('client/images/post-34.jpg') }}" alt="IMG">
+														</a>
+
+														<div class="p-t-10">
+															<h5 class="p-b-5">
+																<a href="blog-detail-01.html" class="f1-s-5 cl3 hov-cl10 trans-03">
+																	Donec metus orci, malesuada et lectus vitae
+																</a>
+															</h5>
+
+															<span class="cl8">
+																<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+																	Music
+																</a>
+
+																<span class="f1-s-3 m-rl-3">
+																	-
+																</span>
+
+																<span class="f1-s-3">
+																	Jan 15
+																</span>
+															</span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="tab-pane" id="news-4" role="tabpanel">
+											<div class="row">
+												<div class="col-3">
+													<!-- Item post -->	
+													<div>
+														<a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
+															<img src="{{ asset('client/images/post-35.jpg') }}" alt="IMG">
+														</a>
+
+														<div class="p-t-10">
+															<h5 class="p-b-5">
+																<a href="blog-detail-01.html" class="f1-s-5 cl3 hov-cl10 trans-03">
+																	Donec metus orci, malesuada et lectus vitae
+																</a>
+															</h5>
+
+															<span class="cl8">
+																<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+																	Music
+																</a>
+
+																<span class="f1-s-3 m-rl-3">
+																	-
+																</span>
+
+																<span class="f1-s-3">
+																	Feb 18
+																</span>
+															</span>
+														</div>
+													</div>
+												</div>
+
+												<div class="col-3">
+													<!-- Item post -->	
+													<div>
+														<a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
+															<img src="{{ asset('client/images/post-36.jpg') }}" alt="IMG">
+														</a>
+
+														<div class="p-t-10">
+															<h5 class="p-b-5">
+																<a href="blog-detail-01.html" class="f1-s-5 cl3 hov-cl10 trans-03">
+																	Donec metus orci, malesuada et lectus vitae
+																</a>
+															</h5>
+
+															<span class="cl8">
+																<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+																	Music
+																</a>
+
+																<span class="f1-s-3 m-rl-3">
+																	-
+																</span>
+
+																<span class="f1-s-3">
+																	Feb 12
+																</span>
+															</span>
+														</div>
+													</div>
+												</div>
+
+												<div class="col-3">
+													<!-- Item post -->	
+													<div>
+														<a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
+															<img src="{{ asset('client/images/post-37.jpg') }}" alt="IMG">
+														</a>
+
+														<div class="p-t-10">
+															<h5 class="p-b-5">
+																<a href="blog-detail-01.html" class="f1-s-5 cl3 hov-cl10 trans-03">
+																	Donec metus orci, malesuada et lectus vitae
+																</a>
+															</h5>
+
+															<span class="cl8">
+																<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+																	Music
+																</a>
+
+																<span class="f1-s-3 m-rl-3">
+																	-
+																</span>
+
+																<span class="f1-s-3">
+																	Jan 20
+																</span>
+															</span>
+														</div>
+													</div>
+												</div>
+
+												<div class="col-3">
+													<!-- Item post -->	
+													<div>
+														<a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
+															<img src="{{ asset('client/images/post-38.jpg') }}" alt="IMG">
+														</a>
+
+														<div class="p-t-10">
+															<h5 class="p-b-5">
+																<a href="blog-detail-01.html" class="f1-s-5 cl3 hov-cl10 trans-03">
+																	Donec metus orci, malesuada et lectus vitae
+																</a>
+															</h5>
+
+															<span class="cl8">
+																<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+																	Music
+																</a>
+
+																<span class="f1-s-3 m-rl-3">
+																	-
+																</span>
+
+																<span class="f1-s-3">
+																	Jan 15
+																</span>
+															</span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="tab-pane" id="news-5" role="tabpanel">
+											<div class="row">
+												<div class="col-3">
+													<!-- Item post -->	
+													<div>
+														<a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
+															<img src="{{ asset('client/images/post-39.jpg') }}" alt="IMG">
+														</a>
+
+														<div class="p-t-10">
+															<h5 class="p-b-5">
+																<a href="blog-detail-01.html" class="f1-s-5 cl3 hov-cl10 trans-03">
+																	Donec metus orci, malesuada et lectus vitae
+																</a>
+															</h5>
+
+															<span class="cl8">
+																<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+																	Music
+																</a>
+
+																<span class="f1-s-3 m-rl-3">
+																	-
+																</span>
+
+																<span class="f1-s-3">
+																	Feb 18
+																</span>
+															</span>
+														</div>
+													</div>
+												</div>
+
+												<div class="col-3">
+													<!-- Item post -->	
+													<div>
+														<a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
+															<img src="{{ asset('client/images/post-41.jpg') }}" alt="IMG">
+														</a>
+
+														<div class="p-t-10">
+															<h5 class="p-b-5">
+																<a href="blog-detail-01.html" class="f1-s-5 cl3 hov-cl10 trans-03">
+																	Donec metus orci, malesuada et lectus vitae
+																</a>
+															</h5>
+
+															<span class="cl8">
+																<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+																	Music
+																</a>
+
+																<span class="f1-s-3 m-rl-3">
+																	-
+																</span>
+
+																<span class="f1-s-3">
+																	Jan 20
+																</span>
+															</span>
+														</div>
+													</div>
+												</div>
+
+												<div class="col-3">
+													<!-- Item post -->	
+													<div>
+														<a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
+															<img src="{{ asset('client/images/post-42.jpg') }}" alt="IMG">
+														</a>
+
+														<div class="p-t-10">
+															<h5 class="p-b-5">
+																<a href="blog-detail-01.html" class="f1-s-5 cl3 hov-cl10 trans-03">
+																	Donec metus orci, malesuada et lectus vitae
+																</a>
+															</h5>
+
+															<span class="cl8">
+																<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+																	Music
+																</a>
+
+																<span class="f1-s-3 m-rl-3">
+																	-
+																</span>
+
+																<span class="f1-s-3">
+																	Jan 15
+																</span>
+															</span>
+														</div>
+													</div>
+												</div>
+
+												<div class="col-3">
+													<!-- Item post -->	
+													<div>
+														<a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
+															<img src="{{ asset('client/images/post-40.jpg') }}" alt="IMG">
+														</a>
+
+														<div class="p-t-10">
+															<h5 class="p-b-5">
+																<a href="blog-detail-01.html" class="f1-s-5 cl3 hov-cl10 trans-03">
+																	Donec metus orci, malesuada et lectus vitae
+																</a>
+															</h5>
+
+															<span class="cl8">
+																<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+																	Music
+																</a>
+
+																<span class="f1-s-3 m-rl-3">
+																	-
+																</span>
+
+																<span class="f1-s-3">
+																	Feb 12
+																</span>
+															</span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</li>
+
+							<li class="mega-menu-item">
+								<a href="category-02.html">Entertainment </a>
+
+								<div class="sub-mega-menu">
+									<div class="nav flex-column nav-pills" role="tablist">
+										<a class="nav-link active" data-toggle="pill" href="#enter-1" role="tab">All</a>
+										<a class="nav-link" data-toggle="pill" href="#enter-2" role="tab">Game</a>
+										<a class="nav-link" data-toggle="pill" href="#enter-3" role="tab">Celebrity</a>
+									</div>
+
+									<div class="tab-content">
+										<div class="tab-pane show active" id="enter-1" role="tabpanel">
+											<div class="row">
+												<div class="col-3">
+													<!-- Item post -->	
+													<div>
+														<a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
+															<img src="{{ asset('client/images/post-25.jpg') }}" alt="IMG">
+														</a>
+
+														<div class="p-t-10">
+															<h5 class="p-b-5">
+																<a href="blog-detail-01.html" class="f1-s-5 cl3 hov-cl10 trans-03">
+																	Donec metus orci, malesuada et lectus vitae
+																</a>
+															</h5>
+
+															<span class="cl8">
+																<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+																	Music
+																</a>
+
+																<span class="f1-s-3 m-rl-3">
+																	-
+																</span>
+
+																<span class="f1-s-3">
+																	Feb 18
+																</span>
+															</span>
+														</div>
+													</div>
+												</div>
+
+												<div class="col-3">
+													<!-- Item post -->	
+													<div>
+														<a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
+															<img src="{{ asset('client/images/post-27.jpg') }}" alt="IMG">
+														</a>
+
+														<div class="p-t-10">
+															<h5 class="p-b-5">
+																<a href="blog-detail-01.html" class="f1-s-5 cl3 hov-cl10 trans-03">
+																	Donec metus orci, malesuada et lectus vitae
+																</a>
+															</h5>
+
+															<span class="cl8">
+																<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+																	Music
+																</a>
+
+																<span class="f1-s-3 m-rl-3">
+																	-
+																</span>
+
+																<span class="f1-s-3">
+																	Jan 20
+																</span>
+															</span>
+														</div>
+													</div>
+												</div>
+
+												<div class="col-3">
+													<!-- Item post -->	
+													<div>
+														<a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
+															<img src="{{ asset('client/images/post-26.jpg') }}" alt="IMG">
+														</a>
+
+														<div class="p-t-10">
+															<h5 class="p-b-5">
+																<a href="blog-detail-01.html" class="f1-s-5 cl3 hov-cl10 trans-03">
+																	Donec metus orci, malesuada et lectus vitae
+																</a>
+															</h5>
+
+															<span class="cl8">
+																<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+																	Music
+																</a>
+
+																<span class="f1-s-3 m-rl-3">
+																	-
+																</span>
+
+																<span class="f1-s-3">
+																	Feb 12
+																</span>
+															</span>
+														</div>
+													</div>
+												</div>
+
+												<div class="col-3">
+													<!-- Item post -->	
+													<div>
+														<a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
+															<img src="{{ asset('client/images/post-34.jpg') }}" alt="IMG">
+														</a>
+
+														<div class="p-t-10">
+															<h5 class="p-b-5">
+																<a href="blog-detail-01.html" class="f1-s-5 cl3 hov-cl10 trans-03">
+																	Donec metus orci, malesuada et lectus vitae
+																</a>
+															</h5>
+
+															<span class="cl8">
+																<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+																	Music
+																</a>
+
+																<span class="f1-s-3 m-rl-3">
+																	-
+																</span>
+
+																<span class="f1-s-3">
+																	Jan 15
+																</span>
+															</span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="tab-pane" id="enter-2" role="tabpanel">
+											<div class="row">
+												<div class="col-3">
+													<!-- Item post -->	
+													<div>
+														<a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
+															<img src="{{ asset('client/images/post-35.jpg') }}" alt="IMG">
+														</a>
+
+														<div class="p-t-10">
+															<h5 class="p-b-5">
+																<a href="blog-detail-01.html" class="f1-s-5 cl3 hov-cl10 trans-03">
+																	Donec metus orci, malesuada et lectus vitae
+																</a>
+															</h5>
+
+															<span class="cl8">
+																<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+																	Music
+																</a>
+
+																<span class="f1-s-3 m-rl-3">
+																	-
+																</span>
+
+																<span class="f1-s-3">
+																	Feb 18
+																</span>
+															</span>
+														</div>
+													</div>
+												</div>
+
+												<div class="col-3">
+													<!-- Item post -->	
+													<div>
+														<a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
+															<img src="{{ asset('client/images/post-36.jpg') }}" alt="IMG">
+														</a>
+
+														<div class="p-t-10">
+															<h5 class="p-b-5">
+																<a href="blog-detail-01.html" class="f1-s-5 cl3 hov-cl10 trans-03">
+																	Donec metus orci, malesuada et lectus vitae
+																</a>
+															</h5>
+
+															<span class="cl8">
+																<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+																	Music
+																</a>
+
+																<span class="f1-s-3 m-rl-3">
+																	-
+																</span>
+
+																<span class="f1-s-3">
+																	Feb 12
+																</span>
+															</span>
+														</div>
+													</div>
+												</div>
+
+												<div class="col-3">
+													<!-- Item post -->	
+													<div>
+														<a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
+															<img src="{{ asset('client/images/post-37.jpg') }}" alt="IMG">
+														</a>
+
+														<div class="p-t-10">
+															<h5 class="p-b-5">
+																<a href="blog-detail-01.html" class="f1-s-5 cl3 hov-cl10 trans-03">
+																	Donec metus orci, malesuada et lectus vitae
+																</a>
+															</h5>
+
+															<span class="cl8">
+																<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+																	Music
+																</a>
+
+																<span class="f1-s-3 m-rl-3">
+																	-
+																</span>
+
+																<span class="f1-s-3">
+																	Jan 20
+																</span>
+															</span>
+														</div>
+													</div>
+												</div>
+
+												<div class="col-3">
+													<!-- Item post -->	
+													<div>
+														<a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
+															<img src="{{ asset('client/images/post-38.jpg') }}" alt="IMG">
+														</a>
+
+														<div class="p-t-10">
+															<h5 class="p-b-5">
+																<a href="blog-detail-01.html" class="f1-s-5 cl3 hov-cl10 trans-03">
+																	Donec metus orci, malesuada et lectus vitae
+																</a>
+															</h5>
+
+															<span class="cl8">
+																<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+																	Music
+																</a>
+
+																<span class="f1-s-3 m-rl-3">
+																	-
+																</span>
+
+																<span class="f1-s-3">
+																	Jan 15
+																</span>
+															</span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="tab-pane" id="enter-3" role="tabpanel">
+											<div class="row">
+												<div class="col-3">
+													<!-- Item post -->	
+													<div>
+														<a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
+															<img src="{{ asset('client/images/post-39.jpg') }}" alt="IMG">
+														</a>
+
+														<div class="p-t-10">
+															<h5 class="p-b-5">
+																<a href="blog-detail-01.html" class="f1-s-5 cl3 hov-cl10 trans-03">
+																	Donec metus orci, malesuada et lectus vitae
+																</a>
+															</h5>
+
+															<span class="cl8">
+																<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+																	Music
+																</a>
+
+																<span class="f1-s-3 m-rl-3">
+																	-
+																</span>
+
+																<span class="f1-s-3">
+																	Feb 18
+																</span>
+															</span>
+														</div>
+													</div>
+												</div>
+
+												<div class="col-3">
+													<!-- Item post -->	
+													<div>
+														<a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
+															<img src="{{ asset('client/images/post-41.jpg') }}" alt="IMG">
+														</a>
+
+														<div class="p-t-10">
+															<h5 class="p-b-5">
+																<a href="blog-detail-01.html" class="f1-s-5 cl3 hov-cl10 trans-03">
+																	Donec metus orci, malesuada et lectus vitae
+																</a>
+															</h5>
+
+															<span class="cl8">
+																<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+																	Music
+																</a>
+
+																<span class="f1-s-3 m-rl-3">
+																	-
+																</span>
+
+																<span class="f1-s-3">
+																	Jan 20
+																</span>
+															</span>
+														</div>
+													</div>
+												</div>
+
+												<div class="col-3">
+													<!-- Item post -->	
+													<div>
+														<a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
+															<img src="{{ asset('client/images/post-42.jpg') }}" alt="IMG">
+														</a>
+
+														<div class="p-t-10">
+															<h5 class="p-b-5">
+																<a href="blog-detail-01.html" class="f1-s-5 cl3 hov-cl10 trans-03">
+																	Donec metus orci, malesuada et lectus vitae
+																</a>
+															</h5>
+
+															<span class="cl8">
+																<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+																	Music
+																</a>
+
+																<span class="f1-s-3 m-rl-3">
+																	-
+																</span>
+
+																<span class="f1-s-3">
+																	Jan 15
+																</span>
+															</span>
+														</div>
+													</div>
+												</div>
+
+												<div class="col-3">
+													<!-- Item post -->	
+													<div>
+														<a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
+															<img src="{{ asset('client/images/post-40.jpg') }}" alt="IMG">
+														</a>
+
+														<div class="p-t-10">
+															<h5 class="p-b-5">
+																<a href="blog-detail-01.html" class="f1-s-5 cl3 hov-cl10 trans-03">
+																	Donec metus orci, malesuada et lectus vitae
+																</a>
+															</h5>
+
+															<span class="cl8">
+																<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+																	Music
+																</a>
+
+																<span class="f1-s-3 m-rl-3">
+																	-
+																</span>
+
+																<span class="f1-s-3">
+																	Feb 12
+																</span>
+															</span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</li>
+
+							<li class="mega-menu-item">
+								<a href="category-01.html">Business</a>
+
+								<div class="sub-mega-menu">
+									<div class="nav flex-column nav-pills" role="tablist">
+										<a class="nav-link active" data-toggle="pill" href="#business-1" role="tab">All</a>
+										<a class="nav-link" data-toggle="pill" href="#business-2" role="tab">Economy</a>
+									</div>
+
+									<div class="tab-content">
+										<div class="tab-pane show active" id="business-1" role="tabpanel">
+											<div class="row">
+												<div class="col-3">
+													<!-- Item post -->	
+													<div>
+														<a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
+															<img src="{{ asset('client/images/post-10.jpg') }}" alt="IMG">
+														</a>
+
+														<div class="p-t-10">
+															<h5 class="p-b-5">
+																<a href="blog-detail-01.html" class="f1-s-5 cl3 hov-cl10 trans-03">
+																	Donec metus orci, malesuada et lectus vitae
+																</a>
+															</h5>
+
+															<span class="cl8">
+																<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+																	Music
+																</a>
+
+																<span class="f1-s-3 m-rl-3">
+																	-
+																</span>
+
+																<span class="f1-s-3">
+																	Feb 18
+																</span>
+															</span>
+														</div>
+													</div>
+												</div>
+
+												<div class="col-3">
+													<!-- Item post -->	
+													<div>
+														<a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
+															<img src="{{ asset('client/images/post-11.jpg') }}" alt="IMG">
+														</a>
+
+														<div class="p-t-10">
+															<h5 class="p-b-5">
+																<a href="blog-detail-01.html" class="f1-s-5 cl3 hov-cl10 trans-03">
+																	Donec metus orci, malesuada et lectus vitae
+																</a>
+															</h5>
+
+															<span class="cl8">
+																<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+																	Music
+																</a>
+
+																<span class="f1-s-3 m-rl-3">
+																	-
+																</span>
+
+																<span class="f1-s-3">
+																	Jan 20
+																</span>
+															</span>
+														</div>
+													</div>
+												</div>
+
+												<div class="col-3">
+													<!-- Item post -->	
+													<div>
+														<a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
+															<img src="{{ asset('client/images/post-26.jpg') }}" alt="IMG">
+														</a>
+
+														<div class="p-t-10">
+															<h5 class="p-b-5">
+																<a href="blog-detail-01.html" class="f1-s-5 cl3 hov-cl10 trans-03">
+																	Donec metus orci, malesuada et lectus vitae
+																</a>
+															</h5>
+
+															<span class="cl8">
+																<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+																	Music
+																</a>
+
+																<span class="f1-s-3 m-rl-3">
+																	-
+																</span>
+
+																<span class="f1-s-3">
+																	Feb 12
+																</span>
+															</span>
+														</div>
+													</div>
+												</div>
+
+												<div class="col-3">
+													<!-- Item post -->	
+													<div>
+														<a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
+															<img src="{{ asset('client/images/post-34.jpg') }}" alt="IMG">
+														</a>
+
+														<div class="p-t-10">
+															<h5 class="p-b-5">
+																<a href="blog-detail-01.html" class="f1-s-5 cl3 hov-cl10 trans-03">
+																	Donec metus orci, malesuada et lectus vitae
+																</a>
+															</h5>
+
+															<span class="cl8">
+																<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+																	Music
+																</a>
+
+																<span class="f1-s-3 m-rl-3">
+																	-
+																</span>
+
+																<span class="f1-s-3">
+																	Jan 15
+																</span>
+															</span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="tab-pane" id="business-2" role="tabpanel">
+											<div class="row">
+												<div class="col-3">
+													<!-- Item post -->	
+													<div>
+														<a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
+															<img src="{{ asset('client/images/post-35.jpg') }}" alt="IMG">
+														</a>
+
+														<div class="p-t-10">
+															<h5 class="p-b-5">
+																<a href="blog-detail-01.html" class="f1-s-5 cl3 hov-cl10 trans-03">
+																	Donec metus orci, malesuada et lectus vitae
+																</a>
+															</h5>
+
+															<span class="cl8">
+																<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+																	Music
+																</a>
+
+																<span class="f1-s-3 m-rl-3">
+																	-
+																</span>
+
+																<span class="f1-s-3">
+																	Feb 18
+																</span>
+															</span>
+														</div>
+													</div>
+												</div>
+
+												<div class="col-3">
+													<!-- Item post -->	
+													<div>
+														<a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
+															<img src="{{ asset('client/images/post-36.jpg') }}" alt="IMG">
+														</a>
+
+														<div class="p-t-10">
+															<h5 class="p-b-5">
+																<a href="blog-detail-01.html" class="f1-s-5 cl3 hov-cl10 trans-03">
+																	Donec metus orci, malesuada et lectus vitae
+																</a>
+															</h5>
+
+															<span class="cl8">
+																<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+																	Music
+																</a>
+
+																<span class="f1-s-3 m-rl-3">
+																	-
+																</span>
+
+																<span class="f1-s-3">
+																	Feb 12
+																</span>
+															</span>
+														</div>
+													</div>
+												</div>
+
+												<div class="col-3">
+													<!-- Item post -->	
+													<div>
+														<a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
+															<img src="{{ asset('client/images/post-37.jpg') }}" alt="IMG">
+														</a>
+
+														<div class="p-t-10">
+															<h5 class="p-b-5">
+																<a href="blog-detail-01.html" class="f1-s-5 cl3 hov-cl10 trans-03">
+																	Donec metus orci, malesuada et lectus vitae
+																</a>
+															</h5>
+
+															<span class="cl8">
+																<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+																	Music
+																</a>
+
+																<span class="f1-s-3 m-rl-3">
+																	-
+																</span>
+
+																<span class="f1-s-3">
+																	Jan 20
+																</span>
+															</span>
+														</div>
+													</div>
+												</div>
+
+												<div class="col-3">
+													<!-- Item post -->	
+													<div>
+														<a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
+															<img src="{{ asset('client/images/post-38.jpg') }}" alt="IMG">
+														</a>
+
+														<div class="p-t-10">
+															<h5 class="p-b-5">
+																<a href="blog-detail-01.html" class="f1-s-5 cl3 hov-cl10 trans-03">
+																	Donec metus orci, malesuada et lectus vitae
+																</a>
+															</h5>
+
+															<span class="cl8">
+																<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+																	Music
+																</a>
+
+																<span class="f1-s-3 m-rl-3">
+																	-
+																</span>
+
+																<span class="f1-s-3">
+																	Jan 15
+																</span>
+															</span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</li>
+
+							<li class="mega-menu-item">
+								<a href="category-02.html">Travel</a>
+
+								<div class="sub-mega-menu">
+									<div class="nav flex-column nav-pills" role="tablist">
+										<a class="nav-link active" data-toggle="pill" href="#travel-1" role="tab">All</a>
+										<a class="nav-link" data-toggle="pill" href="#travel-2" role="tab">Hotels</a>
+									</div>
+
+									<div class="tab-content">
+										<div class="tab-pane show active" id="travel-1" role="tabpanel">
+											<div class="row">
+												<div class="col-3">
+													<!-- Item post -->	
+													<div>
+														<a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
+															<img src="{{ asset('client/images/post-39.jpg') }}" alt="IMG">
+														</a>
+
+														<div class="p-t-10">
+															<h5 class="p-b-5">
+																<a href="blog-detail-01.html" class="f1-s-5 cl3 hov-cl10 trans-03">
+																	Donec metus orci, malesuada et lectus vitae
+																</a>
+															</h5>
+
+															<span class="cl8">
+																<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+																	Music
+																</a>
+
+																<span class="f1-s-3 m-rl-3">
+																	-
+																</span>
+
+																<span class="f1-s-3">
+																	Feb 18
+																</span>
+															</span>
+														</div>
+													</div>
+												</div>
+
+												<div class="col-3">
+													<!-- Item post -->	
+													<div>
+														<a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
+															<img src="{{ asset('client/images/post-41.jpg') }}" alt="IMG">
+														</a>
+
+														<div class="p-t-10">
+															<h5 class="p-b-5">
+																<a href="blog-detail-01.html" class="f1-s-5 cl3 hov-cl10 trans-03">
+																	Donec metus orci, malesuada et lectus vitae
+																</a>
+															</h5>
+
+															<span class="cl8">
+																<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+																	Music
+																</a>
+
+																<span class="f1-s-3 m-rl-3">
+																	-
+																</span>
+
+																<span class="f1-s-3">
+																	Jan 20
+																</span>
+															</span>
+														</div>
+													</div>
+												</div>
+
+												<div class="col-3">
+													<!-- Item post -->	
+													<div>
+														<a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
+															<img src="{{ asset('client/images/post-42.jpg') }}" alt="IMG">
+														</a>
+
+														<div class="p-t-10">
+															<h5 class="p-b-5">
+																<a href="blog-detail-01.html" class="f1-s-5 cl3 hov-cl10 trans-03">
+																	Donec metus orci, malesuada et lectus vitae
+																</a>
+															</h5>
+
+															<span class="cl8">
+																<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+																	Music
+																</a>
+
+																<span class="f1-s-3 m-rl-3">
+																	-
+																</span>
+
+																<span class="f1-s-3">
+																	Jan 15
+																</span>
+															</span>
+														</div>
+													</div>
+												</div>
+
+												<div class="col-3">
+													<!-- Item post -->	
+													<div>
+														<a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
+															<img src="{{ asset('client/images/post-40.jpg') }}" alt="IMG">
+														</a>
+
+														<div class="p-t-10">
+															<h5 class="p-b-5">
+																<a href="blog-detail-01.html" class="f1-s-5 cl3 hov-cl10 trans-03">
+																	Donec metus orci, malesuada et lectus vitae
+																</a>
+															</h5>
+
+															<span class="cl8">
+																<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+																	Music
+																</a>
+
+																<span class="f1-s-3 m-rl-3">
+																	-
+																</span>
+
+																<span class="f1-s-3">
+																	Feb 12
+																</span>
+															</span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="tab-pane" id="travel-2" role="tabpanel">
+											<div class="row">
+												<div class="col-3">
+													<!-- Item post -->	
+													<div>
+														<a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
+															<img src="{{ asset('client/images/post-35.jpg') }}" alt="IMG">
+														</a>
+
+														<div class="p-t-10">
+															<h5 class="p-b-5">
+																<a href="blog-detail-01.html" class="f1-s-5 cl3 hov-cl10 trans-03">
+																	Donec metus orci, malesuada et lectus vitae
+																</a>
+															</h5>
+
+															<span class="cl8">
+																<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+																	Music
+																</a>
+
+																<span class="f1-s-3 m-rl-3">
+																	-
+																</span>
+
+																<span class="f1-s-3">
+																	Feb 18
+																</span>
+															</span>
+														</div>
+													</div>
+												</div>
+
+												<div class="col-3">
+													<!-- Item post -->	
+													<div>
+														<a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
+															<img src="{{ asset('client/images/post-36.jpg') }}" alt="IMG">
+														</a>
+
+														<div class="p-t-10">
+															<h5 class="p-b-5">
+																<a href="blog-detail-01.html" class="f1-s-5 cl3 hov-cl10 trans-03">
+																	Donec metus orci, malesuada et lectus vitae
+																</a>
+															</h5>
+
+															<span class="cl8">
+																<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+																	Music
+																</a>
+
+																<span class="f1-s-3 m-rl-3">
+																	-
+																</span>
+
+																<span class="f1-s-3">
+																	Feb 12
+																</span>
+															</span>
+														</div>
+													</div>
+												</div>
+
+												<div class="col-3">
+													<!-- Item post -->	
+													<div>
+														<a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
+															<img src="{{ asset('client/images/post-37.jpg') }}" alt="IMG">
+														</a>
+
+														<div class="p-t-10">
+															<h5 class="p-b-5">
+																<a href="blog-detail-01.html" class="f1-s-5 cl3 hov-cl10 trans-03">
+																	Donec metus orci, malesuada et lectus vitae
+																</a>
+															</h5>
+
+															<span class="cl8">
+																<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+																	Music
+																</a>
+
+																<span class="f1-s-3 m-rl-3">
+																	-
+																</span>
+
+																<span class="f1-s-3">
+																	Jan 20
+																</span>
+															</span>
+														</div>
+													</div>
+												</div>
+
+												<div class="col-3">
+													<!-- Item post -->	
+													<div>
+														<a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
+															<img src="{{ asset('client/images/post-38.jpg') }}" alt="IMG">
+														</a>
+
+														<div class="p-t-10">
+															<h5 class="p-b-5">
+																<a href="blog-detail-01.html" class="f1-s-5 cl3 hov-cl10 trans-03">
+																	Donec metus orci, malesuada et lectus vitae
+																</a>
+															</h5>
+
+															<span class="cl8">
+																<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+																	Music
+																</a>
+
+																<span class="f1-s-3 m-rl-3">
+																	-
+																</span>
+
+																<span class="f1-s-3">
+																	Jan 15
+																</span>
+															</span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</li>
+
+							<li class="mega-menu-item">
+								<a href="category-01.html">Life Style</a>
+
+								<div class="sub-mega-menu">
+									<div class="nav flex-column nav-pills" role="tablist">
+										<a class="nav-link active" data-toggle="pill" href="#life-1" role="tab">All</a>
+									</div>
+
+									<div class="tab-content">
+										<div class="tab-pane show active" id="life-1" role="tabpanel">
+											<div class="row">
+												<div class="col-3">
+													<!-- Item post -->	
+													<div>
+														<a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
+															<img src="{{ asset('client/images/post-25.jpg') }}" alt="IMG">
+														</a>
+
+														<div class="p-t-10">
+															<h5 class="p-b-5">
+																<a href="blog-detail-01.html" class="f1-s-5 cl3 hov-cl10 trans-03">
+																	Donec metus orci, malesuada et lectus vitae
+																</a>
+															</h5>
+
+															<span class="cl8">
+																<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+																	Music
+																</a>
+
+																<span class="f1-s-3 m-rl-3">
+																	-
+																</span>
+
+																<span class="f1-s-3">
+																	Feb 18
+																</span>
+															</span>
+														</div>
+													</div>
+												</div>
+
+												<div class="col-3">
+													<!-- Item post -->	
+													<div>
+														<a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
+															<img src="{{ asset('client/images/post-27.jpg') }}" alt="IMG">
+														</a>
+
+														<div class="p-t-10">
+															<h5 class="p-b-5">
+																<a href="blog-detail-01.html" class="f1-s-5 cl3 hov-cl10 trans-03">
+																	Donec metus orci, malesuada et lectus vitae
+																</a>
+															</h5>
+
+															<span class="cl8">
+																<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+																	Music
+																</a>
+
+																<span class="f1-s-3 m-rl-3">
+																	-
+																</span>
+
+																<span class="f1-s-3">
+																	Jan 20
+																</span>
+															</span>
+														</div>
+													</div>
+												</div>
+
+												<div class="col-3">
+													<!-- Item post -->	
+													<div>
+														<a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
+															<img src="{{ asset('client/images/post-26.jpg') }}" alt="IMG">
+														</a>
+
+														<div class="p-t-10">
+															<h5 class="p-b-5">
+																<a href="blog-detail-01.html" class="f1-s-5 cl3 hov-cl10 trans-03">
+																	Donec metus orci, malesuada et lectus vitae
+																</a>
+															</h5>
+
+															<span class="cl8">
+																<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+																	Music
+																</a>
+
+																<span class="f1-s-3 m-rl-3">
+																	-
+																</span>
+
+																<span class="f1-s-3">
+																	Feb 12
+																</span>
+															</span>
+														</div>
+													</div>
+												</div>
+
+												<div class="col-3">
+													<!-- Item post -->	
+													<div>
+														<a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
+															<img src="{{ asset('client/images/post-34.jpg') }}" alt="IMG">
+														</a>
+
+														<div class="p-t-10">
+															<h5 class="p-b-5">
+																<a href="blog-detail-01.html" class="f1-s-5 cl3 hov-cl10 trans-03">
+																	Donec metus orci, malesuada et lectus vitae
+																</a>
+															</h5>
+
+															<span class="cl8">
+																<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+																	Music
+																</a>
+
+																<span class="f1-s-3 m-rl-3">
+																	-
+																</span>
+
+																<span class="f1-s-3">
+																	Jan 15
+																</span>
+															</span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</li>
+
+							<li class="mega-menu-item">
+								<a href="category-02.html">Video</a>
+
+								<div class="sub-mega-menu">
+									<div class="nav flex-column nav-pills" role="tablist">
+										<a class="nav-link active" data-toggle="pill" href="#video-1" role="tab">All</a>
+									</div>
+
+									<div class="tab-content">
+										<div class="tab-pane show active" id="video-1" role="tabpanel">
+											<div class="row">
+												<div class="col-3">
+													<!-- Item post -->	
+													<div>
+														<a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
+															<img src="{{ asset('client/images/post-50.jpg') }}" alt="IMG">
+														</a>
+
+														<div class="p-t-10">
+															<h5 class="p-b-5">
+																<a href="blog-detail-01.html" class="f1-s-5 cl3 hov-cl10 trans-03">
+																	Donec metus orci, malesuada et lectus vitae
+																</a>
+															</h5>
+
+															<span class="cl8">
+																<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+																	Music
+																</a>
+
+																<span class="f1-s-3 m-rl-3">
+																	-
+																</span>
+
+																<span class="f1-s-3">
+																	Feb 18
+																</span>
+															</span>
+														</div>
+													</div>
+												</div>
+
+												<div class="col-3">
+													<!-- Item post -->	
+													<div>
+														<a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
+															<img src="{{ asset('client/images/post-08.jpg') }}" alt="IMG">
+														</a>
+
+														<div class="p-t-10">
+															<h5 class="p-b-5">
+																<a href="blog-detail-01.html" class="f1-s-5 cl3 hov-cl10 trans-03">
+																	Donec metus orci, malesuada et lectus vitae
+																</a>
+															</h5>
+
+															<span class="cl8">
+																<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+																	Music
+																</a>
+
+																<span class="f1-s-3 m-rl-3">
+																	-
+																</span>
+
+																<span class="f1-s-3">
+																	Feb 12
+																</span>
+															</span>
+														</div>
+													</div>
+												</div>
+
+												<div class="col-3">
+													<!-- Item post -->	
+													<div>
+														<a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
+															<img src="{{ asset('client/images/post-07.jpg') }}" alt="IMG">
+														</a>
+
+														<div class="p-t-10">
+															<h5 class="p-b-5">
+																<a href="blog-detail-01.html" class="f1-s-5 cl3 hov-cl10 trans-03">
+																	Donec metus orci, malesuada et lectus vitae
+																</a>
+															</h5>
+
+															<span class="cl8">
+																<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+																	Music
+																</a>
+
+																<span class="f1-s-3 m-rl-3">
+																	-
+																</span>
+
+																<span class="f1-s-3">
+																	Jan 20
+																</span>
+															</span>
+														</div>
+													</div>
+												</div>
+
+												<div class="col-3">
+													<!-- Item post -->	
+													<div>
+														<a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
+															<img src="{{ asset('client/images/post-06.jpg') }}" alt="IMG">
+														</a>
+
+														<div class="p-t-10">
+															<h5 class="p-b-5">
+																<a href="blog-detail-01.html" class="f1-s-5 cl3 hov-cl10 trans-03">
+																	Donec metus orci, malesuada et lectus vitae
+																</a>
+															</h5>
+
+															<span class="cl8">
+																<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
+																	Music
+																</a>
+
+																<span class="f1-s-3 m-rl-3">
+																	-
+																</span>
+
+																<span class="f1-s-3">
+																	Jan 15
+																</span>
+															</span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</li>
+
+							<li>
+								<a href="#">Features</a>
+								<ul class="sub-menu">
+									<li><a href="category-01.html">Category Page v1</a></li>
+									<li><a href="category-02.html">Category Page v2</a></li>
+									<li><a href="blog-grid.html">Blog Grid Sidebar</a></li>
+									<li><a href="blog-list-01.html">Blog List Sidebar v1</a></li>
+									<li><a href="blog-list-02.html">Blog List Sidebar v2</a></li>
+									<li><a href="blog-detail-01.html">Blog Detail Sidebar</a></li>
+									<li><a href="blog-detail-02.html">Blog Detail No Sidebar</a></li>
+									<li><a href="about.html">About Us</a></li>
+									<li><a href="contact.html">Contact Us</a></li>
+								</ul>
+							</li>
+						</ul>
+					</nav>
+				</div>
+			</div>	
+		</div>
+	</header>
+
+	<!-- Headline -->
+	<div class="container">
+		<div class="bg0 flex-wr-sb-c p-rl-20 p-tb-8">
+			{{-- Breadcrumb--}}
+			@section('breadcrumb')
+			<div class="f2-s-1 p-r-30 size-w-0 m-tb-6 flex-wr-s-c">
+				<span class="text-uppercase cl2 p-r-8">
+					Trending Now:
+				</span>
+
+				<span class="dis-inline-block cl6 slide100-txt pos-relative size-w-0" data-in="fadeInDown" data-out="fadeOutDown">
+					<span class="dis-inline-block slide100-txt-item animated visible-false">
+						Interest rate angst trips up US equity bull market
+					</span>
+					
+					<span class="dis-inline-block slide100-txt-item animated visible-false">
+						Designer fashion show kicks off Variety Week
+					</span>
+
+					<span class="dis-inline-block slide100-txt-item animated visible-false">
+						Microsoft quisque at ipsum vel orci eleifend ultrices
+					</span>
+				</span>
+			</div>
+			@show
+			
+			<div class="pos-relative size-a-2 bo-1-rad-22 of-hidden bocl11 m-tb-6">
+				<input class="f1-s-1 cl6 plh9 s-full p-l-25 p-r-45" type="text" name="search" placeholder="Search">
+				<button class="flex-c-c size-a-1 ab-t-r fs-20 cl2 hov-cl10 trans-03">
+					<i class="zmdi zmdi-search"></i>
+				</button>
+			</div>
+		</div>
+	</div>
+		
+	@yield('main')
+
+	<!-- Footer -->
+	<footer>
+		<div class="bg2 p-t-40 p-b-25">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-4 p-b-20">
+						<div class="size-h-3 flex-s-c">
+							<a href="index.html">
+								<img class="max-s-full" src="{{ asset('client/images/icons/logo-02.png') }}" alt="LOGO">
+							</a>
+						</div>
+
+						<div>
+							<p class="f1-s-1 cl11 p-b-16">
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur tempor magna eget elit efficitur, at accumsan sem placerat. Nulla tellus libero, mattis nec molestie at, facilisis ut turpis. Vestibulum dolor metus, tincidunt eget odio
+							</p>
+
+							<p class="f1-s-1 cl11 p-b-16">
+								Any questions? Call us on (+1) 96 716 6879
+							</p>
+
+							<div class="p-t-15">
+								<a href="#" class="fs-18 cl11 hov-cl10 trans-03 m-r-8">
+									<span class="fab fa-facebook-f"></span>
+								</a>
+
+								<a href="#" class="fs-18 cl11 hov-cl10 trans-03 m-r-8">
+									<span class="fab fa-twitter"></span>
+								</a>
+
+								<a href="#" class="fs-18 cl11 hov-cl10 trans-03 m-r-8">
+									<span class="fab fa-pinterest-p"></span>
+								</a>
+
+								<a href="#" class="fs-18 cl11 hov-cl10 trans-03 m-r-8">
+									<span class="fab fa-vimeo-v"></span>
+								</a>
+
+								<a href="#" class="fs-18 cl11 hov-cl10 trans-03 m-r-8">
+									<span class="fab fa-youtube"></span>
+								</a>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-sm-6 col-lg-4 p-b-20">
+						<div class="size-h-3 flex-s-c">
+							<h5 class="f1-m-7 cl0">
+								Popular Posts
+							</h5>
+						</div>
+
+						<ul>
+							<li class="flex-wr-sb-s p-b-20">
+								<a href="#" class="size-w-4 wrap-pic-w hov1 trans-03">
+									<img src="{{ asset('client/images/popular-post-01.jpg') }}" alt="IMG">
+								</a>
+
+								<div class="size-w-5">
+									<h6 class="p-b-5">
+										<a href="#" class="f1-s-5 cl11 hov-cl10 trans-03">
+											Donec metus orci, malesuada et lectus vitae
+										</a>
+									</h6>
+
+									<span class="f1-s-3 cl6">
+										Feb 17
+									</span>
+								</div>
+							</li>
+
+							<li class="flex-wr-sb-s p-b-20">
+								<a href="#" class="size-w-4 wrap-pic-w hov1 trans-03">
+									<img src="{{ asset('client/images/popular-post-02.jpg') }}" alt="IMG">
+								</a>
+
+								<div class="size-w-5">
+									<h6 class="p-b-5">
+										<a href="#" class="f1-s-5 cl11 hov-cl10 trans-03">
+											Lorem ipsum dolor sit amet, consectetur
+										</a>
+									</h6>
+
+									<span class="f1-s-3 cl6">
+										Feb 16
+									</span>
+								</div>
+							</li>
+
+							<li class="flex-wr-sb-s p-b-20">
+								<a href="#" class="size-w-4 wrap-pic-w hov1 trans-03">
+									<img src="{{ asset('client/images/popular-post-03.jpg') }}" alt="IMG">
+								</a>
+
+								<div class="size-w-5">
+									<h6 class="p-b-5">
+										<a href="#" class="f1-s-5 cl11 hov-cl10 trans-03">
+											Suspendisse dictum enim quis imperdiet auctor
+										</a>
+									</h6>
+
+									<span class="f1-s-3 cl6">
+										Feb 15
+									</span>
+								</div>
+							</li>
+						</ul>
+					</div>
+
+					<div class="col-sm-6 col-lg-4 p-b-20">
+						<div class="size-h-3 flex-s-c">
+							<h5 class="f1-m-7 cl0">
+								Category
+							</h5>
+						</div>
+
+						<ul class="m-t--12">
+							<li class="how-bor1 p-rl-5 p-tb-10">
+								<a href="#" class="f1-s-5 cl11 hov-cl10 trans-03 p-tb-8">
+									Fashion (22)
+								</a>
+							</li>
+
+							<li class="how-bor1 p-rl-5 p-tb-10">
+								<a href="#" class="f1-s-5 cl11 hov-cl10 trans-03 p-tb-8">
+									Technology (29)
+								</a>
+							</li>
+
+							<li class="how-bor1 p-rl-5 p-tb-10">
+								<a href="#" class="f1-s-5 cl11 hov-cl10 trans-03 p-tb-8">
+									Street Style (15)
+								</a>
+							</li>
+
+							<li class="how-bor1 p-rl-5 p-tb-10">
+								<a href="#" class="f1-s-5 cl11 hov-cl10 trans-03 p-tb-8">
+									Life Style (28)
+								</a>
+							</li>
+
+							<li class="how-bor1 p-rl-5 p-tb-10">
+								<a href="#" class="f1-s-5 cl11 hov-cl10 trans-03 p-tb-8">
+									DIY & Crafts (16)
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="bg11">
+			<div class="container size-h-4 flex-c-c p-tb-15">
+				<span class="f1-s-1 cl0 txt-center">
+					Copyright © 2018 
+
+					<a href="#" class="f1-s-1 cl10 hov-link1"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+				</span>
+			</div>
+		</div>
+	</footer>
+
+	<!-- Back to top -->
+	<div class="btn-back-to-top" id="myBtn">
+		<span class="symbol-btn-back-to-top">
+			<span class="fas fa-angle-up"></span>
+		</span>
+	</div>
+
+	<!-- Modal Video 01-->
+	<div class="modal fade" id="modal-video-01" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog" role="document" data-dismiss="modal">
+			<div class="close-mo-video-01 trans-0-4" data-dismiss="modal" aria-label="Close">&times;</div>
+			<div class="wrap-video-mo-01">
+				<div class="video-mo-01">
+					<iframe src="https://www.youtube.com/embed/wJnBTPUQS5A?rel=0" allowfullscreen></iframe>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<!--===============================================================================================-->	
+	<script src="{{ asset('client/vendor/jquery/jquery-3.2.1.min.js')}}"></script>
+<!--===============================================================================================-->
+	<script src="{{ asset('client/vendor/animsition/js/animsition.min.js')}}"></script>
+<!--===============================================================================================-->
+	<script src="{{ asset('client/vendor/bootstrap/js/popper.js')}}"></script>
+	<script src="{{ asset('client/vendor/bootstrap/js/bootstrap.min.js')}}"></script>
+<!--===============================================================================================-->
+	<script src="{{ asset('client/js/main.js')}}"></script>
+
 </body>
-
 </html>
