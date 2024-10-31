@@ -15,6 +15,11 @@ use App\Http\Controllers\Backend\PostCatalogueParentController;
 use App\Http\Controllers\Backend\PostCatalogueChildrenController;
 use App\Http\Controllers\Backend\PostController;
 use App\Http\Controllers\Ajax\PostCatalogueController;
+use App\Http\Controllers\LikeView\ViewController;
+use App\Http\Controllers\LikeView\LikeController;
+use App\Http\Controllers\LikeView\SaveController;
+use App\Http\Controllers\LikeView\SaveFolderController;
+
 
 Route::get('dashboard/index', [DashboardController::class, 'index'])->name('dashboard.index')->middleware(AuthenticateMiddleware::class);
 Route::get('admin', [AuthController::class, 'index'])->name('auth.admin')->middleware(LoginMiddleware::class);
@@ -124,5 +129,17 @@ Route::name('client.')->group(function () {
 });
 
 
-Route::get('/posts/{postId}', [ViewController::class, 'show'])->name('posts.show');
+Route::get('/posts/{postId}/view', [ViewController::class, 'show'])->name('posts.show');
+Route::post('/posts/like', [LikeController::class, 'likePost'])->name('posts.like');
+// luu vao danh muc co san 
+Route::post('/save-to-exists-folder',[SaveController::class,'getSave']);
+// tao danh muc roi luu 
+Route::post('/save-to-new-folder',[SaveController::class,'saveToNewFolder']);
+//xoa bai viet khoi danh muc 
+Route::delete('folders/{folderId}/posts/{postId}',[SaveController::class,'deletePostFromFolder']);
+//xoa danh muc 
+Route::delete('/folders/{folderId}',[SaveFolderController::class,'deteleFolder']);
+
+
+
 require __DIR__.'/auth.php';

@@ -13,9 +13,10 @@ class ViewController extends Controller
         $postView = PostView::where('posts_id', $postId)->first();
 
         if (!$postView) {
-            $postView = new PostView();
-            $postView->posts_id = $postId;
-            $postView->view_count = 1;
+            $postView = new PostView([
+                'posts_id' => $postId,
+                'view_count' => 1 ,
+            ]);
             $postView->save();
         } else {
             
