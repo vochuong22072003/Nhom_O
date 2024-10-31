@@ -15,15 +15,11 @@ use App\Http\Controllers\Backend\PostCatalogueParentController;
 use App\Http\Controllers\Backend\PostCatalogueChildrenController;
 use App\Http\Controllers\Backend\PostController;
 use App\Http\Controllers\Ajax\PostCatalogueController;
-use App\Http\Controllers\LikeView\ViewController;
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 
 Route::get('dashboard/index', [DashboardController::class, 'index'])->name('dashboard.index')->middleware(AuthenticateMiddleware::class);
 Route::get('admin', [AuthController::class, 'index'])->name('auth.admin')->middleware(LoginMiddleware::class);
-Route::post('login', [AuthController::class, 'login'])->name('auth.login');
-Route::get('logout', [AuthController::class, 'logout'])->name('auth.logout');
+Route::post('admin/login', [AuthController::class, 'login'])->name('auth.login');
+Route::get('admin/logout', [AuthController::class, 'logout'])->name('auth.logout');
 
 Route::middleware(['auth:web'])->group(function () {
     Route::group(['prefix' => 'user/profile'], function () {
@@ -106,33 +102,27 @@ Route::name('client.')->group(function () {
         return view('client.about');
     })->name('about');
  
-    Route::get('/blog', function () {
-        return view('client.blog');
-    })->name('blog');
+    Route::get('/blog-grid', function () {
+        return view('client.blog-grid');
+    })->name('blog-grid');
 
-    Route::get('/blogdetails', function () {
-        return view('client.blog_details');
-    })->name('blogdetails');
- 
     Route::get('/detail', function () {
-        return view('client.blog_details');
-    })->name('blog_details');
+        return view('client.detail');
+    })->name('detail');
 
-    Route::get('/categori', function () {
-        return view('client.categori');
-    })->name('categori');
+    Route::get('/category', function () {
+        return view('client.category');
+    })->name('category');
     
-    Route::get('/latestnews', function () {
-        return view('client.latest_news');
-    })->name('latest_news');
-
-    Route::get('/elements', function () {
-        return view('client.elements');
-    })->name('elements');
     Route::get('/contact', function () {
         return view('client.contact');
     })->name('contact');
+
+    Route::get('/blog-list', function () {
+        return view('client.blog-list');
+    })->name('blog-list');
 });
 
 
 Route::get('/posts/{postId}', [ViewController::class, 'show'])->name('posts.show');
+require __DIR__.'/auth.php';
