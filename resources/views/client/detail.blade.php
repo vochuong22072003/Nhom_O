@@ -1,5 +1,5 @@
 @extends('client.layouts.layout')
-.png
+
 @section('title', 'Detail')
 	
 @section('breadcrumb')
