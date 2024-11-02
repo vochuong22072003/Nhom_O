@@ -19,6 +19,7 @@ use App\Http\Controllers\LikeView\ViewController;
 use App\Http\Controllers\LikeView\LikeController;
 use App\Http\Controllers\LikeView\SaveController;
 use App\Http\Controllers\LikeView\SaveFolderController;
+use App\Http\Controllers\LikeView\PostTagController;
 
 
 Route::get('dashboard/index', [DashboardController::class, 'index'])->name('dashboard.index')->middleware(AuthenticateMiddleware::class);
@@ -129,17 +130,21 @@ Route::name('client.')->group(function () {
 });
 
 
-Route::get('/posts/{postId}/view', [ViewController::class, 'show'])->name('posts.show');
-Route::post('/posts/like', [LikeController::class, 'likePost'])->name('posts.like');
-// luu vao danh muc co san 
-Route::post('/save-to-exists-folder',[SaveController::class,'getSave']);
-// tao danh muc roi luu 
-Route::post('/save-to-new-folder',[SaveController::class,'saveToNewFolder']);
-//xoa bai viet khoi danh muc 
-Route::delete('folders/{folderId}/posts/{postId}',[SaveController::class,'deletePostFromFolder']);
-//xoa danh muc 
-Route::delete('/folders/{folderId}',[SaveFolderController::class,'deteleFolder']);
-
-
+// các route liên quan đến post và like view tags khiêm
+Route::prefix('posts')->group(function () {
+    Route::get('{postId}/view', [ViewController::class, 'show'])->name('posts.show');
+    Route::post('like', [LikeController::class, 'likePost'])->name('posts.like');
+    // Route cho tags của bài viết
+    Route::post('{postId}/tags', [PostTagController::class, 'addTagsToPost']);
+    Route::get('{postId}/tags', [PostTagController::class, 'getPostTags']);
+    Route::delete('{postId}/tags/{tagId}', [PostTagController::class, 'removeTagFromPost']);
+});
+// Group cho các route liên quan đến lưu vào danh mục và tạo danh mục Khiêm
+Route::prefix('folders')->group(function () {
+    Route::post('save-to-exists-folder', [SaveController::class, 'getSave']);
+    Route::post('save-to-new-folder', [SaveController::class, 'saveToNewFolder']);
+    Route::delete('{folderId}/posts/{postId}', [SaveController::class, 'deletePostFromFolder']);
+    Route::delete('{folderId}', [SaveFolderController::class, 'deteleFolder']);
+});
 
 require __DIR__.'/auth.php';

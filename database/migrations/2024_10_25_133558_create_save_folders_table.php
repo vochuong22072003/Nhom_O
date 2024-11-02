@@ -18,8 +18,6 @@ return new class extends Migration
             $table->unsignedBigInteger('cus_owned'); // Cột cus_owned kiểu bigInt, not null
             $table->timestamp('created_at')->nullable(); // Cột created_at kiểu timestamp, có thể null
             $table->timestamp('deleted_at')->nullable(); // Cột deleted_at kiểu timestamp, có thể null
-
-            // Định nghĩa khóa ngoại
             $table->foreign('cus_owned')->references('cus_id')->on('customers')->onDelete('cascade');
         });
     }

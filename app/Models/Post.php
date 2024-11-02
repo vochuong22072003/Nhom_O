@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\PostLike;
 use App\Models\PostView;
+use App\Models\Tag;
 class Post extends Model
 {
     use HasFactory, SoftDeletes;
@@ -54,5 +55,8 @@ class Post extends Model
         //tong luot xem
         return $this->views()->sum('view_count'); 
     }
-
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'post_tags', 'post_id', 'tag_id');
+    }
 }
