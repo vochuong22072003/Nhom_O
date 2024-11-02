@@ -32,7 +32,10 @@ class Post extends Model
     }
     public function users()
     {
-        return $this->belongsTo(User::class, 'user_id','id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
-
+    public function userInfo()
+    {
+        return $this->hasOneThrough(UserInfo::class, User::class, 'id', 'user_id', 'user_id', 'id');
+    }
 }

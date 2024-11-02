@@ -15,6 +15,7 @@ use App\Http\Controllers\Backend\PostCatalogueParentController;
 use App\Http\Controllers\Backend\PostCatalogueChildrenController;
 use App\Http\Controllers\Backend\PostController;
 use App\Http\Controllers\Ajax\PostCatalogueController;
+use App\Http\Controllers\Frontend\HomeController;
 
 Route::get('dashboard/index', [DashboardController::class, 'index'])->name('dashboard.index')->middleware(AuthenticateMiddleware::class);
 Route::get('admin', [AuthController::class, 'index'])->name('auth.admin')->middleware(LoginMiddleware::class);
@@ -93,34 +94,44 @@ Route::middleware(['auth:web'])->group(function () {
 });
 
 
-Route::name('client.')->group(function () {
-    Route::get('/', function () {
-        return view('client.index');
-    })->name('home');
+    // Route::name('client.')->group(function () {
+    //     Route::get('/', function () {
+    //         return view('client.index');
+    //     })->name('home');
 
-    Route::get('/about', function () {
-        return view('client.about');
-    })->name('about');
- 
-    Route::get('/blog-grid', function () {
-        return view('client.blog-grid');
-    })->name('blog-grid');
-
-    Route::get('/detail', function () {
-        return view('client.detail');
-    })->name('detail');
-
-    Route::get('/category', function () {
-        return view('client.category');
-    })->name('category');
+    //     Route::get('/about', function () {
+    //         return view('client.about');
+    //     })->name('about');
     
-    Route::get('/contact', function () {
-        return view('client.contact');
-    })->name('contact');
+    //     Route::get('/blog-grid', function () {
+    //         return view('client.blog-grid');
+    //     })->name('blog-grid');
 
-    Route::get('/blog-list', function () {
-        return view('client.blog-list');
-    })->name('blog-list');
-});
+    //     Route::get('/detail', function () {
+    //         return view('client.detail');
+    //     })->name('detail');
+
+    //     Route::get('/category', function () {
+    //         return view('client.category');
+    //     })->name('category');
+        
+    //     Route::get('/contact', function () {
+    //         return view('client.contact');
+    //     })->name('contact');
+
+    //     Route::get('/blog-list', function () {
+    //         return view('client.blog-list');
+    //     })->name('blog-list');
+    // });
+  
+    Route::name('client.')->group(function () {
+        Route::get('/', [HomeController::class, 'index'])->name('index');
+        // Route::get('/about', [HomeController::class, 'about'])->name('about');
+        // Route::get('/blog-grid', [HomeController::class, 'blogGrid'])->name('blog-grid');
+        // Route::get('/detail', [HomeController::class, 'detail'])->name('detail');
+        Route::get('{id}/{model}/category', [HomeController::class, 'category'])->name('category');
+        // Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
+        // Route::get('/blog-list', [HomeController::class, 'blogList'])->name('blog-list');
+    });
 
 require __DIR__.'/auth.php';

@@ -21,8 +21,8 @@ class PostCatalogueParent extends Model
     {
         return $this->hasMany(PostCatalogueChildren::class, 'post_catalogue_parent_id', 'id');
     }
-    // public function posts()
-    // {
-    //     return $this->hasMany(Post::class, 'post_catalogue_parent_id');
-    // }
+    public function posts()
+    {
+        return $this->hasMany(Post::class, 'post_catalogue_parent_id');
+    }
 }

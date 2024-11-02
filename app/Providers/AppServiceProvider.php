@@ -40,6 +40,11 @@ class AppServiceProvider extends ServiceProvider
 
         'App\Services\Interfaces\PermissionServiceInterface' => 'App\Services\PermissionService',
         'App\Repositories\Interfaces\PermissionRepositoryInterface' => 'App\Repositories\PermissionRepository',
+
+
+        //client
+        'App\Services\Interfaces\HomeServiceInterface' => 'App\Services\HomeService',
+        'App\Repositories\Interfaces\HomeRepositoryInterface' => 'App\Repositories\HomeRepository',
     ];
 
     /**

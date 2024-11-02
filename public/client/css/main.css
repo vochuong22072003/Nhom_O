@@ -439,7 +439,7 @@ a.left-topbar-item:hover {
   transform: scaleX(0);
 }
 
-.main-menu > li > a::after {
+/* .main-menu > li > a::after {
   content: "\f2f9";
   font-family: Material-Design-Iconic-Font;
   font-size: 16px;
@@ -451,7 +451,7 @@ a.left-topbar-item:hover {
   -webkit-transition: all 0.3s;
   -o-transition: all 0.3s;
   -moz-transition: all 0.3s;
-}
+} */
 
 li.main-menu-active > a::before {
   -webkit-transform: scaleX(1);
@@ -1524,6 +1524,75 @@ a.breadcrumb-item:hover {
   min-height: 80px;
 }
 
+.mega-menu {
+  display: none; /* Ẩn mặc định */
+  position: absolute;
+  top: 100%; /* Hiển thị Mega Menu ngay dưới nút hamburger */
+  left: 0;
+  width: 100%;
+  background: #ffffff;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  opacity: 0; /* Để Mega Menu bắt đầu từ trạng thái trong suốt */
+  transform: translateY(-20px); /* Trượt lên trên một chút */
+  transition: opacity 0.4s ease, transform 0.4s ease; /* Chuyển tiếp mượt mà */
+}
+
+/* Khi Mega Menu hiển thị */
+.mega-menu.active {
+  display: block;
+  opacity: 1; /* Hiển thị menu */
+  transform: translateY(0); /* Trả về vị trí gốc */
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+/* Nội dung bên trong Mega Menu */
+#no-child{
+  font-size: 13px;
+  font-style: italic;
+  color: #333;
+}
+#no-child:hover {
+  color: inherit; 
+  background-color: inherit;
+}
+.menu-content ul {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 20px;
+  max-height: 80vh;
+  overflow: scroll
+}
+
+.menu-content ul li {
+  list-style: none;
+}
+
+.menu-content ul li a {
+  color: #333;
+  text-decoration: none;
+  font-size: 16px;
+}
+#ham {
+  margin-left: 20px ;
+}
+#mega-parent {
+  color: #111;
+  font-size: 16px;
+}
+#post_excerpt {
+  white-space: normal;
+  display: box;
+  display:-moz-box;
+  display:-webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+
 
 /*==================================================================
    BACKGROUND BACKGROUND BACKGROUND BACKGROUND BACKGROUND BACKGROUND 
@@ -1783,6 +1852,19 @@ a.breadcrumb-item:hover {
   opacity: 0.8;
 }
 
+
+/*-------------------giới hạn text--------------------*/
+#first-col-sm-6 a, #second-col-sm-6 a {
+  font-size: 14px;
+  white-space: normal;
+    display: box;
+    display: -moz-box;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
 
 /*==================================================================

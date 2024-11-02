@@ -4,7 +4,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>SB Admin 2 - Dashboard</title>
+<title>Nhóm O - Dashboard</title>
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <link href="{{ asset('Backend/css/customsize.css') }}" rel="stylesheet">
 
