@@ -39,13 +39,13 @@
 						<div class="col-sm-6 p-r-25 p-r-15-sr991">
 							<!-- Item latest -->	
 							<div class="m-b-45">
-								<a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
+								<a href="{{ route('client.detail', $post->encrypted_id) }}" class="wrap-pic-w hov1 trans-03">
 									<img src="{{ asset($post->image) }}" alt="IMG">
 								</a>
 
 								<div class="p-t-16">
 									<h5 class="p-b-5">
-										<a href="blog-detail-01.html" class="f1-m-3 cl2 hov-cl10 trans-03">
+										<a href="{{ route('client.detail', $post->encrypted_id) }}" class="f1-m-3 cl2 hov-cl10 trans-03">
 											{{ $post->post_name }}
 										</a>
 									</h5>
@@ -54,7 +54,7 @@
 									</h5>
 
 									<span class="cl8">
-										<a href="#" class="f1-s-4 cl8 hov-cl10 trans-03">
+										<a href="{{ route('client.detail', $post->encrypted_id) }}" class="f1-s-4 cl8 hov-cl10 trans-03">
 											by {{ $post->userInfo->name }}
 										</a>
 

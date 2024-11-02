@@ -6,6 +6,7 @@ interface HomeRepositoryInterface {
     public function getActiveParentCategoriesWithChildren();
     public function getPostsByCategory($id, $model);
     public function getCategoryInfo($id, $model);
+    public function getPost($id);
 }
 
 

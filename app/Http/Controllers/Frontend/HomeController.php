@@ -18,19 +18,21 @@ class HomeController extends Controller
     public function index()
     {
         $lastestNews = $this->homeService->getLastestNew();
+
         // dd($categories);    
         $config = $this->config();
         $template = 'client.layouts.layout';
-
+        $getCatalogue = $this->homeService->getActiveParentCategoriesWithChildren();
+        // dd($getCatalogue);
         // dd($categories);
-        return view('client.index', compact('template', 'config', 'lastestNews'));
+        return view('client.index', compact('template', 'config', 'lastestNews','getCatalogue'));
     }
     public function category($id, $model)
     {
-       
         $template = 'client.category';
         $config = $this->config();
         $id = $this->decryptId($id);
+        // dd($id);
         if (!preg_match('/^[0-9A-Za-z=]+$/', $id)) {
             return redirect()->route('client.index')->withErrors('ID không hợp lệ. Vui lòng sử dụng ID đã mã hóa.');
         }
@@ -38,8 +40,38 @@ class HomeController extends Controller
         $categoryInfo = $this->homeService->getCategoryInfo($id, $model);
         // dd( $categoryInfo);
         $category = $this->homeService->getPostsByCategory($id, $model);
+
+        foreach ($category as $cate) {
+            foreach ($cate->posts as $post) {
+                $post->encrypted_id = $this->encryptId($post->id);
+            }
+        }
         // dd($category);
-        return view($template, compact( 'config', 'categoryInfo', 'category'));
+        // dd($category[0]->posts[0]->encrypted_id);
+        return view($template, compact('config', 'categoryInfo', 'category'));
+    }
+
+    public function detail($id)
+    {
+        // dd($id);
+        $template = 'client.detail';
+        $config = $this->config();
+        $id = $this->decryptId($id);
+        // dd($id);
+        if (!preg_match('/^[0-9A-Za-z=]+$/', $id)) {
+            return redirect()->route('client.index')->withErrors('ID không hợp lệ. Vui lòng sử dụng ID đã mã hóa.');
+        }
+        $getPost = $this->homeService->getPost($id);
+
+        if (isset($getPost->postCatalogueChildren)) {
+           $getPost->postCatalogueParent_encrypted_id = $this->encryptId($getPost->postCatalogueParent->id);
+           $getPost->postCatalogueChildren_encrypted_id = $this->encryptId($getPost->postCatalogueChildren->id);
+        } else {
+            $getPost->postCatalogueParent_encrypted_id = $this->encryptId($getPost->postCatalogueParent->id);
+        }
+        // dd($getPost);
+
+        return view($template, compact('config', 'getPost'));
     }
     private function config()
     {

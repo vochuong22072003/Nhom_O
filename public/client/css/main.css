@@ -1591,6 +1591,46 @@ a.breadcrumb-item:hover {
   text-overflow: ellipsis;
 }
 
+.category-links {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 5px; /* Khoảng cách giữa các phần tử */
+}
+
+.category-links a {
+  color: #ffffff; /* Màu chữ */
+  text-transform: uppercase;
+  font-weight: bold;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.category-links a:hover {
+  color: #17b978; /* Màu khi hover */
+}
+
+.category-links .separator {
+  margin: 0 5px;
+  color: #ffffff; /* Màu của ký hiệu > */
+}
+
+/* format blog detail */
+.blog-content-wrap p {
+  text-align: justify;
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 15px;
+}
+.blog-content-wrap figcaption p {
+  color: #333;
+  text-align: center;
+  margin-top: 10px;
+  font-size: 14px;
+  font-style: italic;
+}
+
+
 
 
 

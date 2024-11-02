@@ -130,7 +130,7 @@ Route::middleware(['auth:web'])->group(function () {
         // Route::get('/blog-grid', [HomeController::class, 'blogGrid'])->name('blog-grid');
         // Route::get('/detail', [HomeController::class, 'detail'])->name('detail');
         Route::get('{id}/{model}/category', [HomeController::class, 'category'])->name('category');
-        // Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
+        Route::get('{id}/detail', [HomeController::class, 'detail'])->name('detail');
         // Route::get('/blog-list', [HomeController::class, 'blogList'])->name('blog-list');
     });
 

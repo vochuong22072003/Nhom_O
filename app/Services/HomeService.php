@@ -30,4 +30,7 @@ class HomeService implements HomeServiceInterface
     public function getCategoryInfo($id, $model) {
         return $this->homeRepository->getCategoryInfo($id, $model);
     }
+    public function getPost($id) {
+        return $this->homeRepository->getPost($id);
+    }
 }
