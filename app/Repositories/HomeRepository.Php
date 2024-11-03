@@ -29,13 +29,16 @@ class HomeRepository extends BaseRepository implements HomeRepositoryInterface
         $this->postCatalogueChildren = $postCatalogueChildren;
         $this->postRepository = $postRepository;
     }
-    public function getLastestNew(int $limit = 4, array $relations = [])
+    public function getLastestNew(int $limit = 4, array $relations = [], array $conditions = [], array $orderBy = ['created_at', 'desc'])
     {
-        return $this->postModel->with(array_merge($relations, ['userInfo']))
-            ->orderBy('created_at', 'desc')
-            ->take($limit)
-            ->get();
+        $defaultConditions = [
+            ['publish', '=', 2] // Điều kiện mặc định, có thể thay đổi tuỳ yêu cầu
+        ];
+        $conditions = array_merge($defaultConditions, $conditions);
+    
+        return $this->postRepository->findByConditionsWithRelation($conditions, $relations, $orderBy, $limit);
     }
+    
     public function getActiveParentCategoriesWithChildren()
     {
         $condition = [

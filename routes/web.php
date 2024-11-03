@@ -93,36 +93,6 @@ Route::middleware(['auth:web'])->group(function () {
     Route::get('ajax/postCatalogue/getPostCatalogue',[PostCatalogueController::class, 'getPostCatalogue'])->name('ajax.postCatalogue.getPostCatalogue')->middleware(AuthenticateMiddleware::class);
 });
 
-
-    // Route::name('client.')->group(function () {
-    //     Route::get('/', function () {
-    //         return view('client.index');
-    //     })->name('home');
-
-    //     Route::get('/about', function () {
-    //         return view('client.about');
-    //     })->name('about');
-    
-    //     Route::get('/blog-grid', function () {
-    //         return view('client.blog-grid');
-    //     })->name('blog-grid');
-
-    //     Route::get('/detail', function () {
-    //         return view('client.detail');
-    //     })->name('detail');
-
-    //     Route::get('/category', function () {
-    //         return view('client.category');
-    //     })->name('category');
-        
-    //     Route::get('/contact', function () {
-    //         return view('client.contact');
-    //     })->name('contact');
-
-    //     Route::get('/blog-list', function () {
-    //         return view('client.blog-list');
-    //     })->name('blog-list');
-    // });
   
     Route::name('client.')->group(function () {
         Route::get('/', [HomeController::class, 'index'])->name('index');

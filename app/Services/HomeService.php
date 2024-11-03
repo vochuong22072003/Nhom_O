@@ -16,11 +16,11 @@ class HomeService implements HomeServiceInterface
         $this->homeRepository = $homeRepository;
     }
 
-    public function getLastestNew(int $limit = 4)
+    public function getLastestNew(int $limit = 4, array $relations = [], array $conditions = [], array $orderBy = ['created_at', 'desc'])
     {
-        $relations = ['postCatalogueParent', 'postCatalogueChildren', 'users'];
-        return $this->homeRepository->getLastestNew($limit, $relations);
+        return $this->homeRepository->getLastestNew($limit, $relations, $conditions, $orderBy);
     }
+    
     public function getActiveParentCategoriesWithChildren() {
         return $this->homeRepository->getActiveParentCategoriesWithChildren();
     }
