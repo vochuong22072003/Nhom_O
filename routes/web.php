@@ -15,6 +15,12 @@ use App\Http\Controllers\Backend\PostCatalogueParentController;
 use App\Http\Controllers\Backend\PostCatalogueChildrenController;
 use App\Http\Controllers\Backend\PostController;
 use App\Http\Controllers\Ajax\PostCatalogueController;
+use App\Http\Controllers\LikeView\ViewController;
+use App\Http\Controllers\LikeView\LikeController;
+use App\Http\Controllers\LikeView\SaveController;
+use App\Http\Controllers\LikeView\SaveFolderController;
+use App\Http\Controllers\LikeView\PostTagController;
+
 
 Route::get('dashboard/index', [DashboardController::class, 'index'])->name('dashboard.index')->middleware(AuthenticateMiddleware::class);
 Route::get('admin', [AuthController::class, 'index'])->name('auth.admin')->middleware(LoginMiddleware::class);
@@ -121,6 +127,24 @@ Route::name('client.')->group(function () {
     Route::get('/blog-list', function () {
         return view('client.blog-list');
     })->name('blog-list');
+});
+
+
+// các route liên quan đến post và like view tags khiêm
+Route::prefix('posts')->group(function () {
+    Route::get('{postId}/view', [ViewController::class, 'show'])->name('posts.show');
+    Route::post('like', [LikeController::class, 'likePost'])->name('posts.like');
+    // Route cho tags của bài viết
+    Route::post('{postId}/tags', [PostTagController::class, 'addTagsToPost']);
+    Route::get('{postId}/tags', [PostTagController::class, 'getPostTags']);
+    Route::delete('{postId}/tags/{tagId}', [PostTagController::class, 'removeTagFromPost']);
+});
+// Group cho các route liên quan đến lưu vào danh mục và tạo danh mục Khiêm
+Route::prefix('folders')->group(function () {
+    Route::post('save-to-exists-folder', [SaveController::class, 'getSave']);
+    Route::post('save-to-new-folder', [SaveController::class, 'saveToNewFolder']);
+    Route::delete('{folderId}/posts/{postId}', [SaveController::class, 'deletePostFromFolder']);
+    Route::delete('{folderId}', [SaveFolderController::class, 'deteleFolder']);
 });
 
 require __DIR__.'/auth.php';

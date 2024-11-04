@@ -5,7 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
+use App\Models\PostLike;
+use App\Models\PostView;
+use App\Models\Tag;
 class Post extends Model
 {
     use HasFactory, SoftDeletes;
@@ -32,7 +34,29 @@ class Post extends Model
     }
     public function users()
     {
-        return $this->belongsTo(User::class, 'user_id','id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+    public function like()
+    {
+        return $this->hasMany(PostLike::class, 'post_id');
+    }
+    public function views()
+    {
+        return $this->hasMany(PostView::class, 'posts_id');
+    }
+    public function likeCount()
+    {
+        //dem luot thich
+        return $this->likes()->count(); 
     }
 
+    public function viewCount()
+    {
+        //tong luot xem
+        return $this->views()->sum('view_count'); 
+    }
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'post_tags', 'post_id', 'tag_id');
+    }
 }
