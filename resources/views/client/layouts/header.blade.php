@@ -217,8 +217,7 @@
                                         @foreach ($category->post_catalogue_children as $child)
                                             <li>
                                                 <a
-                                                    href="{{ route('client.category', ['id' => $child->encrypted_id, 'model' => 'children']) }}
-">{{ $child->post_catalogue_children_name }}</a>
+                                                    href="{{ route('client.category', ['id' => $child->encrypted_id, 'model' => 'children']) }}">{{ $child->post_catalogue_children_name }}</a>
                                             </li>
                                         @endforeach
                                     </ul>

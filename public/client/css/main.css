@@ -636,11 +636,11 @@ li.respon-sub-menu > .sub-menu .sub-menu {
   padding: 8px 20px 8px 33px;
 }
 
-.sub-mega-menu .nav-pills .nav-link.active, 
+/* .sub-mega-menu .nav-pills .nav-link.active, 
 .sub-mega-menu .show>.nav-pills .nav-link {
   color: #fff;
   background-color: #17b978;
-}
+} */
 
 /*---------------------------------------------*/
 .sub-mega-menu .tab-content .tab-pane {
@@ -920,7 +920,7 @@ li.respon-sub-menu > .sub-menu .sub-menu {
   transition: all 0.3s;
 }
 
-.tab01 .nav-link.active::after {
+/* .tab01 .nav-link.active::after {
   content: "";
   display: block;
   position: absolute;
@@ -937,10 +937,11 @@ li.respon-sub-menu > .sub-menu .sub-menu {
   -ms-transform: rotate(-45deg);
   -o-transform: rotate(-45deg);
   transform: rotate(-45deg);
-}
+} */
 
 .tab01 .nav-link:hover {
   color: #17b978 !important;
+  cursor: pointer;
 }
 
 

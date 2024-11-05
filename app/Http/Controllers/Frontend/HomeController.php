@@ -18,14 +18,16 @@ class HomeController extends Controller
     public function index()
     {
         $lastestNews = $this->homeService->getLastestNew();
-
-        // dd($categories);    
+        foreach ($lastestNews as $new) {
+            $new->encrypted_id = $this->encryptId($new->id);
+        }
+        // dd($lastestNews);   
         $config = $this->config();
         $template = 'client.layouts.layout';
         $getCatalogue = $this->homeService->getActiveParentCategoriesWithChildren();
         // dd($getCatalogue);
         // dd($categories);
-        return view('client.index', compact('template', 'config', 'lastestNews','getCatalogue'));
+        return view('client.index', compact('template', 'config', 'lastestNews', 'getCatalogue'));
     }
     public function category($id, $model)
     {
@@ -64,8 +66,8 @@ class HomeController extends Controller
         $getPost = $this->homeService->getPost($id);
 
         if (isset($getPost->postCatalogueChildren)) {
-           $getPost->postCatalogueParent_encrypted_id = $this->encryptId($getPost->postCatalogueParent->id);
-           $getPost->postCatalogueChildren_encrypted_id = $this->encryptId($getPost->postCatalogueChildren->id);
+            $getPost->postCatalogueParent_encrypted_id = $this->encryptId($getPost->postCatalogueParent->id);
+            $getPost->postCatalogueChildren_encrypted_id = $this->encryptId($getPost->postCatalogueChildren->id);
         } else {
             $getPost->postCatalogueParent_encrypted_id = $this->encryptId($getPost->postCatalogueParent->id);
         }
