@@ -33,4 +33,5 @@ class HomeService implements HomeServiceInterface
     public function getPost($id) {
         return $this->homeRepository->getPost($id);
     }
+
 }

@@ -1631,6 +1631,16 @@ a.breadcrumb-item:hover {
   font-style: italic;
 }
 
+/* Màu chữ mặc định cho dropdown items */
+.dropdown-menu .dropdown-item {
+  color: #555;
+}
+
+/* Màu chữ khi hover vào dropdown items */
+.dropdown-menu .dropdown-item:hover {
+  color: #54cb9b;
+}
+
 
 
 

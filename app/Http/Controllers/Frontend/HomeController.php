@@ -15,7 +15,7 @@ class HomeController extends Controller
         $this->homeService = $homeService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $lastestNews = $this->homeService->getLastestNew();
         foreach ($lastestNews as $new) {
@@ -26,8 +26,44 @@ class HomeController extends Controller
         $template = 'client.layouts.layout';
         $getCatalogue = $this->homeService->getActiveParentCategoriesWithChildren();
         // dd($getCatalogue);
+        $cate_ids = [];
+        foreach ($getCatalogue as $cateParent) {
+            $cate_ids[] = $cateParent->id;
+            foreach($cateParent->post_catalogue_children as $cateChild)
+            $cateChild->encrypted_id = $this->encryptId($cateChild->id);
+        }
+        // dd($cate_ids);
+        $count = 0;
+        $results = [];
+        foreach($cate_ids as $key => $val){
+            // dd($val);
+            if($count > 4){
+                break;
+            }
+            $conditions = [
+                ['publish', '=', 2],
+                ['post_catalogue_parent_id', '=', $val] // Điều kiện mặc định, có thể thay đổi tuỳ yêu cầu
+            ];
+            $relation = [
+                'postCatalogueChildren' => function ($query) {
+                    $query->where('publish', 2);
+                }
+            ];
+            $lastestNewsByCateChild = $this->homeService->getLastestNew(4,$relation, $conditions);
+            // dd($lastestNewsByCateChild);
+            $results[]= $lastestNewsByCateChild;
+            $count++;
+        }
+        // dd($results);
+        // dd($getCatalogue);
+        foreach ($lastestNewsByCateChild as $new) {
+            $new->encrypted_id = $this->encryptId($new->id);
+        }
+        // dd($getCatalogue);
+        // $getPostByCate =  $this->homeService->getPostsByCategory($id, $model);
+        // dd($getCatalogue);
         // dd($categories);
-        return view('client.index', compact('template', 'config', 'lastestNews', 'getCatalogue'));
+        return view('client.index', compact('template', 'config', 'lastestNews', 'getCatalogue','results'));
     }
     public function category($id, $model)
     {
