@@ -161,14 +161,14 @@
 										<div class="col-sm-6 p-r-25 p-r-15-sr991">
 											<!-- Item post -->	
 											<div class="m-b-30">
-												<a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
+												<a href="{{ route('client.detail', $val[0]->encrypted_id) }}" class="wrap-pic-w hov1 trans-03">
 													<img src="{{ isset($val[0]->image) ? asset($val[0]->image) : '' }}
                                                     " alt="IMG">
 												</a>
 
 												<div class="p-t-20">
 													<h5 class="p-b-5">
-														<a href="blog-detail-01.html" class="f1-m-3 cl2 hov-cl10 trans-03">
+														<a href="{{ route('client.detail', $val[0]->encrypted_id) }}" class="f1-m-3 cl2 hov-cl10 trans-03">
 															{{ (isset($val[0]->post_name)) ? $val[0]->post_name : '' }}
 														</a>
 													</h5>
@@ -190,27 +190,31 @@
 											</div>
 										</div>
                                         @break
-                                        @else
-
                                         @endif
                                         @endforeach
 										<div class="col-sm-6 p-r-25 p-r-15-sr991">
+                                       
+                                        @foreach($results as $key => $val)
+                                            @if($key == $count)
+                                            @foreach($val->all() as $ke => $va)
+                                            @if($ke >= 1)
+                                           
 											<!-- Item post -->	
 											<div class="flex-wr-sb-s m-b-30">
-												<a href="blog-detail-01.html" class="size-w-1 wrap-pic-w hov1 trans-03">
-													<img src="images/post-06.jpg" alt="IMG">
+												<a href="{{ route('client.detail', $val[$ke]->encrypted_id) }}" class="size-w-1 wrap-pic-w hov1 trans-03">
+													<img src="{{ isset($val[$ke]->image) ? asset($val[$ke]->image) : '' }}" alt="IMG">
 												</a>
 
 												<div class="size-w-2">
 													<h5 class="p-b-5">
-														<a href="blog-detail-01.html" class="f1-s-5 cl3 hov-cl10 trans-03">
-															Donec metus orci, malesuada et lectus vitae
+														<a href="{{ route('client.detail', $val[$ke]->encrypted_id) }}" class="f1-s-5 cl3 hov-cl10 trans-03">
+                                                            {{ isset($val[$ke]->post_name) ? $val[$ke]->post_name : '' }}
 														</a>
 													</h5>
 
 													<span class="cl8">
 														<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
-															Music
+                                                        {{ (isset($val[$ke]->postCatalogueChildren->post_catalogue_children_name)) ? $val[$ke]->postCatalogueChildren->post_catalogue_children_name : '' }}
 														</a>
 
 														<span class="f1-s-3 m-rl-3">
@@ -218,69 +222,15 @@
 														</span>
 
 														<span class="f1-s-3">
-															Feb 17
+                                                        {{ (isset($val[$ke]->created_at)) ? \Carbon\Carbon::parse($val[$ke]->created_at)->format('d/m/Y') : '' }}
 														</span>
 													</span>
 												</div>
-											</div>
-											
-											<!-- Item post -->
-											<div class="flex-wr-sb-s m-b-30">
-												<a href="blog-detail-01.html" class="size-w-1 wrap-pic-w hov1 trans-03">
-													<img src="images/post-07.jpg" alt="IMG">
-												</a>
-
-												<div class="size-w-2">
-													<h5 class="p-b-5">
-														<a href="blog-detail-01.html" class="f1-s-5 cl3 hov-cl10 trans-03">
-															Donec metus orci, malesuada et lectus vitae
-														</a>
-													</h5>
-
-													<span class="cl8">
-														<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
-															Game
-														</a>
-
-														<span class="f1-s-3 m-rl-3">
-															-
-														</span>
-
-														<span class="f1-s-3">
-															Feb 16
-														</span>
-													</span>
-												</div>
-											</div>
-
-											<!-- Item post -->
-											<div class="flex-wr-sb-s m-b-30">
-												<a href="blog-detail-01.html" class="size-w-1 wrap-pic-w hov1 trans-03">
-													<img src="images/post-08.jpg" alt="IMG">
-												</a>
-
-												<div class="size-w-2">
-													<h5 class="p-b-5">
-														<a href="blog-detail-01.html" class="f1-s-5 cl3 hov-cl10 trans-03">
-															Donec metus orci, malesuada et lectus vitae
-														</a>
-													</h5>
-
-													<span class="cl8">
-														<a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
-															Celebrity
-														</a>
-
-														<span class="f1-s-3 m-rl-3">
-															-
-														</span>
-
-														<span class="f1-s-3">
-															Feb 12
-														</span>
-													</span>
-												</div>
-											</div>
+											</div>    
+                                            @endif
+                                                @endforeach  
+                                                @endif 
+                                            @endforeach
 										</div>
                                         @endif
 									</div>
@@ -290,6 +240,8 @@
 
                         @php $count++; @endphp  
                         @endforeach
+                        @else
+                        <h2>Khong co danh muc</h2>
                         @endif
                     </div>
                 </div>

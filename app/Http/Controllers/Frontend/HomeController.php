@@ -60,6 +60,11 @@ class HomeController extends Controller
             $new->encrypted_id = $this->encryptId($new->id);
         }
         // dd($getCatalogue);
+        foreach ($results as $cate) {
+            foreach($cate as $post){
+            $post->encrypted_id = $this->encryptId($post->id);
+            }
+        }
         // $getPostByCate =  $this->homeService->getPostsByCategory($id, $model);
         // dd($getCatalogue);
         // dd($categories);
