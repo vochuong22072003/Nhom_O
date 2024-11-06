@@ -74,12 +74,12 @@
                                     class="dis-block how1-child1 trans-03"></a>
 
                                 <div class="flex-col-e-s s-full p-rl-25 p-tb-<?= $i === 1 ? '24' : '20' ?>">
-                                    <a href="{{ route('client.detail', $post->encrypted_id) }}"
+                                    <a href="#" aria-disabled="true"
                                         class="dis-block how1-child2 f1-s-2 cl0 bo-all-1 bocl0 hov-btn1 trans-03 p-rl-5 p-t-2">
                                         {{ $post->postCatalogueParent->post_catalogue_parent_name }}
                                     </a>
                                     <h3 class="how1-child2 m-t-14">
-                                        <a href="{{ route('client.detail', $post->encrypted_id) }}l"
+                                        <a href="{{ route('client.detail', $post->encrypted_id) }}"
                                             class="how-txt1 <?= $i === 1 ? 'size-a-7' : 'size-h-1' ?> f1-l-2 cl0 hov-cl10 trans-03">
                                             {{ $post->post_name }}
                                         </a>

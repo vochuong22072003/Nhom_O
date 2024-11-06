@@ -1,6 +1,7 @@
 @extends('client.layouts.layout')
 
 @section('title', 'Detail')
+<<<<<<< HEAD
 
 @section('breadcrumb')
     <div class="f2-s-1 p-r-30 m-tb-6">
@@ -26,6 +27,8 @@
         </span>
     </div>
 @endsection
+=======
+>>>>>>> project
 
 @section('main')
     <!-- Content -->
