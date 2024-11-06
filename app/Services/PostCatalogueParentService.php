@@ -36,7 +36,7 @@ class PostCatalogueParentService implements PostCatalogueParentServiceInterface
             ['path'=> 'post/catalogue/parent/index'],   
             [],
             [], 
-            []
+            ['posts']
         );
         return $postCatalogueParents;
     }

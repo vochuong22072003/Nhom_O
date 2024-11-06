@@ -36,6 +36,12 @@ class Post extends Model
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
+
+    public function userInfo()
+    {
+        return $this->hasOneThrough(UserInfo::class, User::class, 'id', 'user_id', 'user_id', 'id');
+    }
+
     public function like()
     {
         return $this->hasMany(PostLike::class, 'post_id');

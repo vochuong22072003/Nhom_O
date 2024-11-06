@@ -38,7 +38,7 @@ class PostCatalogueChildrenService implements PostCatalogueChildrenServiceInterf
             ['path' => 'post/catalogue/children/index'],
             [],
             [],
-            []
+            ['posts']
         );
         return $postCatalogueChildrens;
     }

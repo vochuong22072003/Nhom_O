@@ -69,6 +69,44 @@ class BaseRepository implements BaseRepositoryInterface
         }
         return $query->first();
     }
+    // public function findByCondition(array $condition = [], array $relations = [])
+    // {
+    //     $query = $this->model->newQuery();
+
+    //     // Thêm điều kiện cho mối quan hệ
+    //     foreach ($relations as $relation => $closure) {
+    //         $query->whereHas($relation, $closure);
+    //     }
+
+    //     // Thêm điều kiện tìm kiếm
+    //     foreach ($condition as $val) {
+    //         $query->where($val[0], $val[1], $val[2]);
+    //     }
+
+    //     return $query->first();
+    // }
+
+    public function findByConditionsWithRelation(array $condition = [], array $relation = [], array $orderBy = ['id', 'desc'])
+    {
+        $query = $this->model->newQuery();
+
+        foreach ($condition as $val) {
+            $query->where($val[0], $val[1], $val[2]);
+        }
+
+        foreach ($relation as $rel => $closure) {
+            if (is_callable($closure)) {
+                $query->with([$rel => $closure]);
+            } else {
+                $query->with($rel);
+            }
+        }
+
+        $query->orderBy($orderBy[0], $orderBy[1]);
+
+        return $query->get();
+    }
+
     public function create(array $payload =[]){
         $model= $this->model->create($payload);
         return $model->fresh();
@@ -104,5 +142,6 @@ class BaseRepository implements BaseRepositoryInterface
     public function createPivot($model, array $payload=[], string $relation=''){
         return $model->{$relation}()->attach($model->id, $payload);
     }
+    
 
 }

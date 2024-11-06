@@ -439,7 +439,7 @@ a.left-topbar-item:hover {
   transform: scaleX(0);
 }
 
-.main-menu > li > a::after {
+/* .main-menu > li > a::after {
   content: "\f2f9";
   font-family: Material-Design-Iconic-Font;
   font-size: 16px;
@@ -451,7 +451,7 @@ a.left-topbar-item:hover {
   -webkit-transition: all 0.3s;
   -o-transition: all 0.3s;
   -moz-transition: all 0.3s;
-}
+} */
 
 li.main-menu-active > a::before {
   -webkit-transform: scaleX(1);
@@ -636,11 +636,11 @@ li.respon-sub-menu > .sub-menu .sub-menu {
   padding: 8px 20px 8px 33px;
 }
 
-.sub-mega-menu .nav-pills .nav-link.active, 
+/* .sub-mega-menu .nav-pills .nav-link.active, 
 .sub-mega-menu .show>.nav-pills .nav-link {
   color: #fff;
   background-color: #17b978;
-}
+} */
 
 /*---------------------------------------------*/
 .sub-mega-menu .tab-content .tab-pane {
@@ -920,7 +920,7 @@ li.respon-sub-menu > .sub-menu .sub-menu {
   transition: all 0.3s;
 }
 
-.tab01 .nav-link.active::after {
+/* .tab01 .nav-link.active::after {
   content: "";
   display: block;
   position: absolute;
@@ -937,10 +937,11 @@ li.respon-sub-menu > .sub-menu .sub-menu {
   -ms-transform: rotate(-45deg);
   -o-transform: rotate(-45deg);
   transform: rotate(-45deg);
-}
+} */
 
 .tab01 .nav-link:hover {
   color: #17b978 !important;
+  cursor: pointer;
 }
 
 
@@ -1524,6 +1525,125 @@ a.breadcrumb-item:hover {
   min-height: 80px;
 }
 
+.mega-menu {
+  display: none; /* Ẩn mặc định */
+  position: absolute;
+  top: 100%; /* Hiển thị Mega Menu ngay dưới nút hamburger */
+  left: 0;
+  width: 100%;
+  background: #ffffff;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  opacity: 0; /* Để Mega Menu bắt đầu từ trạng thái trong suốt */
+  transform: translateY(-20px); /* Trượt lên trên một chút */
+  transition: opacity 0.4s ease, transform 0.4s ease; /* Chuyển tiếp mượt mà */
+}
+
+/* Khi Mega Menu hiển thị */
+.mega-menu.active {
+  display: block;
+  opacity: 1; /* Hiển thị menu */
+  transform: translateY(0); /* Trả về vị trí gốc */
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+/* Nội dung bên trong Mega Menu */
+#no-child{
+  font-size: 13px;
+  font-style: italic;
+  color: #333;
+}
+#no-child:hover {
+  color: inherit; 
+  background-color: inherit;
+}
+.menu-content ul {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 20px;
+  max-height: 80vh;
+  overflow: scroll
+}
+
+.menu-content ul li {
+  list-style: none;
+}
+
+.menu-content ul li a {
+  color: #333;
+  text-decoration: none;
+  font-size: 16px;
+}
+#ham {
+  margin-left: 20px ;
+}
+#mega-parent {
+  color: #111;
+  font-size: 16px;
+}
+#post_excerpt {
+  white-space: normal;
+  display: box;
+  display:-moz-box;
+  display:-webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.category-links {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 5px; /* Khoảng cách giữa các phần tử */
+}
+
+.category-links a {
+  color: #ffffff; /* Màu chữ */
+  text-transform: uppercase;
+  font-weight: bold;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.category-links a:hover {
+  color: #17b978; /* Màu khi hover */
+}
+
+.category-links .separator {
+  margin: 0 5px;
+  color: #ffffff; /* Màu của ký hiệu > */
+}
+
+/* format blog detail */
+.blog-content-wrap p {
+  text-align: justify;
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 15px;
+}
+.blog-content-wrap figcaption p {
+  color: #333;
+  text-align: center;
+  margin-top: 10px;
+  font-size: 14px;
+  font-style: italic;
+}
+
+/* Màu chữ mặc định cho dropdown items */
+.dropdown-menu .dropdown-item {
+  color: #555;
+}
+
+/* Màu chữ khi hover vào dropdown items */
+.dropdown-menu .dropdown-item:hover {
+  color: #54cb9b;
+}
+
+
+
+
 
 /*==================================================================
    BACKGROUND BACKGROUND BACKGROUND BACKGROUND BACKGROUND BACKGROUND 
@@ -1783,6 +1903,19 @@ a.breadcrumb-item:hover {
   opacity: 0.8;
 }
 
+
+/*-------------------giới hạn text--------------------*/
+#first-col-sm-6 a, #second-col-sm-6 a {
+  font-size: 14px;
+  white-space: normal;
+    display: box;
+    display: -moz-box;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
 
 /*==================================================================
