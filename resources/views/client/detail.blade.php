@@ -1,31 +1,6 @@
 @extends('client.layouts.layout')
 
 @section('title', 'Detail')
-	
-@section('breadcrumb')
-<div class="f2-s-1 p-r-30 m-tb-6">
-	<a href="index.html" class="breadcrumb-item f1-s-3 cl9">
-		Home 
-	</a>
-
-
-@section('title', 'Detail')
-
-@section('breadcrumb')
-    <div class="f2-s-1 p-r-30 m-tb-6">
-        <a href="index.html" class="breadcrumb-item f1-s-3 cl9">
-            Home
-        </a>
-
-        <a href="blog-list-01.html" class="breadcrumb-item f1-s-3 cl9">
-            Blog
-        </a>
-
-        <span class="breadcrumb-item f1-s-3 cl9">
-            Nulla non interdum metus non laoreet nisi tellus eget aliquam lorem pellentesque
-        </span>
-    </div>
-@endsection
 
 @section('main')
     <!-- Content -->
