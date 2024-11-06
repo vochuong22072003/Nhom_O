@@ -29,15 +29,15 @@ class HomeController extends Controller
         $cate_ids = [];
         foreach ($getCatalogue as $cateParent) {
             $cate_ids[] = $cateParent->id;
-            foreach($cateParent->post_catalogue_children as $cateChild)
-            $cateChild->encrypted_id = $this->encryptId($cateChild->id);
+            foreach ($cateParent->post_catalogue_children as $cateChild)
+                $cateChild->encrypted_id = $this->encryptId($cateChild->id);
         }
         // dd($cate_ids);
         $count = 0;
         $results = [];
-        foreach($cate_ids as $key => $val){
+        foreach ($cate_ids as $key => $val) {
             // dd($val);
-            if($count > 4){
+            if ($count > 4) {
                 break;
             }
             $conditions = [
@@ -49,9 +49,9 @@ class HomeController extends Controller
                     $query->where('publish', 2);
                 }
             ];
-            $lastestNewsByCateChild = $this->homeService->getLastestNew(4,$relation, $conditions);
+            $lastestNewsByCateChild = $this->homeService->getLastestNew(4, $relation, $conditions);
             // dd($lastestNewsByCateChild);
-            $results[]= $lastestNewsByCateChild;
+            $results[] = $lastestNewsByCateChild;
             $count++;
         }
         // dd($results);
@@ -61,14 +61,14 @@ class HomeController extends Controller
         }
         // dd($getCatalogue);
         foreach ($results as $cate) {
-            foreach($cate as $post){
-            $post->encrypted_id = $this->encryptId($post->id);
+            foreach ($cate as $post) {
+                $post->encrypted_id = $this->encryptId($post->id);
             }
         }
         // $getPostByCate =  $this->homeService->getPostsByCategory($id, $model);
         // dd($getCatalogue);
         // dd($categories);
-        return view('client.index', compact('template', 'config', 'lastestNews', 'getCatalogue','results'));
+        return view('client.index', compact('template', 'config', 'lastestNews', 'getCatalogue', 'results'));
     }
     public function category($id, $model)
     {
