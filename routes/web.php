@@ -15,6 +15,9 @@ use App\Http\Controllers\Backend\PostCatalogueParentController;
 use App\Http\Controllers\Backend\PostCatalogueChildrenController;
 use App\Http\Controllers\Backend\PostController;
 use App\Http\Controllers\Ajax\PostCatalogueController;
+
+use App\Http\Controllers\Frontend\HomeController;
+
 use App\Http\Controllers\LikeView\ViewController;
 use App\Http\Controllers\LikeView\LikeController;
 use App\Http\Controllers\LikeView\SaveController;
@@ -98,36 +101,16 @@ Route::middleware(['auth:web'])->group(function () {
     Route::get('ajax/postCatalogue/getPostCatalogue',[PostCatalogueController::class, 'getPostCatalogue'])->name('ajax.postCatalogue.getPostCatalogue')->middleware(AuthenticateMiddleware::class);
 });
 
-
-Route::name('client.')->group(function () {
-    Route::get('/', function () {
-        return view('client.index');
-    })->name('home');
-
-    Route::get('/about', function () {
-        return view('client.about');
-    })->name('about');
- 
-    Route::get('/blog-grid', function () {
-        return view('client.blog-grid');
-    })->name('blog-grid');
-
-    Route::get('/detail', function () {
-        return view('client.detail');
-    })->name('detail');
-
-    Route::get('/category', function () {
-        return view('client.category');
-    })->name('category');
-    
-    Route::get('/contact', function () {
-        return view('client.contact');
-    })->name('contact');
-
-    Route::get('/blog-list', function () {
-        return view('client.blog-list');
-    })->name('blog-list');
-});
+  
+    Route::name('client.')->group(function () {
+        Route::get('/', [HomeController::class, 'index'])->name('index');
+        // Route::get('/about', [HomeController::class, 'about'])->name('about');
+        // Route::get('/blog-grid', [HomeController::class, 'blogGrid'])->name('blog-grid');
+        // Route::get('/detail', [HomeController::class, 'detail'])->name('detail');
+        Route::get('{id}/{model}/category', [HomeController::class, 'category'])->name('category');
+        Route::get('{id}/detail', [HomeController::class, 'detail'])->name('detail');
+        // Route::get('/blog-list', [HomeController::class, 'blogList'])->name('blog-list');
+    });
 
 
 // các route liên quan đến post và like view tags khiêm
