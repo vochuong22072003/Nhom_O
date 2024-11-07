@@ -115,8 +115,8 @@ Route::middleware(['auth:web'])->group(function () {
 
 // các route liên quan đến post và like view tags khiêm
 Route::prefix('posts')->group(function () {
-    Route::get('/posts/{$encryptedId}', [ViewController::class, 'show'])->name('client.detail');
-    Route::post('/posts/like', [LikeController::class, 'getLike'])->name('posts.like');
+    //Route::get('/{$encryptedId}', [ViewController::class, 'show'])->name('client.view');
+    Route::post('/like', [LikeController::class, 'getLike'])->name('posts.like');
     // Route cho tags của bài viết
     Route::post('{postId}/tags', [PostTagController::class, 'addTagsToPost']);
     Route::get('{postId}/tags', [PostTagController::class, 'getPostTags']);
