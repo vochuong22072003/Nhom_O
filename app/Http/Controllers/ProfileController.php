@@ -18,6 +18,7 @@ class ProfileController extends Controller
     {
         return view('profile.edit', [
             'user' => $request->user(),
+            'userInfo' => Auth::guard('customer')->user()->customerInfo(),
         ]);
     }
 
@@ -26,11 +27,41 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
+        // $validated = $request->validate([
+        //     'cus_user' => [
+        //         'required',
+        //         'string',
+        //         'min:3',
+        //         'max:20',
+        //         'regex:/^[a-zA-Z0-9._]+$/',
+        //         'not_regex:/^[._]|[._]$/',
+        //         'unique:customers,cus_user',
+        //     ],
+        //     'email' => [
+        //         'required',
+        //         'email',
+        //         'unique:customers,email',
+        //     ],
+        //     'password' => [
+        //         'required',
+        //         'string',
+        //         'min:8',
+        //         'regex:/[A-Z]/',
+        //         'regex:/[a-z]/',
+        //         'regex:/[0-9]/', 
+        //         'regex:/[@$!%*?&]/',
+        //         'different:customers',
+        //     ],
+        // ]);
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
-        }
+        $request->user()->fill($request->validated());
+        $request->user()->update([
+            'cus_user' => $request->cus_user,
+        ]);
+
+        // if ($request->user()->isDirty('email')) {
+        //     $request->user()->verified_at = null;
+        // }
 
         $request->user()->save();
 

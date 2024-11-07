@@ -18,13 +18,16 @@
                         Contact
                     </a>
 
-                    <a href="#" class="left-topbar-item">
-                        Sing up
+                    @guest
+                    <a href="{{ route('register') }}" class="left-topbar-item">
+                        Sign up
                     </a>
 
-                    <a href="#" class="left-topbar-item">
+                    <a href="{{ route('login') }}" class="left-topbar-item">
                         Log in
                     </a>
+                    @endguest
+                    
                 </div>
 
                 <div class="right-topbar">
