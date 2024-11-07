@@ -1,34 +1,6 @@
 @extends('client.layouts.layout')
 
 @section('title', 'Detail')
-<<<<<<< HEAD
-
-@section('breadcrumb')
-    <div class="f2-s-1 p-r-30 m-tb-6">
-        <a href="index.html" class="breadcrumb-item f1-s-3 cl9">
-            Home
-        </a>
-
-
-@section('title', 'Detail')
-
-@section('breadcrumb')
-    <div class="f2-s-1 p-r-30 m-tb-6">
-        <a href="index.html" class="breadcrumb-item f1-s-3 cl9">
-            Home
-        </a>
-
-        <a href="blog-list-01.html" class="breadcrumb-item f1-s-3 cl9">
-            Blog
-        </a>
-
-        <span class="breadcrumb-item f1-s-3 cl9">
-            Nulla non interdum metus non laoreet nisi tellus eget aliquam lorem pellentesque
-        </span>
-    </div>
-@endsection
-=======
->>>>>>> project
 
 @section('main')
     <!-- Content -->
@@ -78,12 +50,73 @@
                     </span>
 
                     <span class="f1-s-3 cl8 m-rl-7 txt-center">
-                        5239 Views
+                        <a href=""><i class="fa fa-eye"> view</i></a>
+                        <p>Lượt xem: {{ $getPost->viewCount($getPost->id) }}</p>
+                    </span>
+                    <form action="{{ route('posts.like') }}" method="POST" style="display: inline;">
+                        @csrf
+                        <input type="hidden" name="post_id" value="{{ $getPost->id }}">
+                        <button type="submit" class="f1-s-3 cl8 m-rl-7 txt-center">
+                            <i class="fa fa-heart">like</i>
+                        </button>
+                    </form>
+                    <span class="f1-s-3 cl8 m-rl-7 txt-center">
+                        <a href="#" data-toggle="modal" data-target="#saveModal">
+                            <i class="fa fa-save"> Lưu bài viết </i>
+                        </a>
                     </span>
 
-                    <a href="" class="f1-s-3 cl8 m-rl-7 txt-center hov-cl10 trans-03">
-                        0 Comment
-                    </a>
+                    <!-- Modal: -->
+                    <!-- Modal: Chọn thư mục lưu hoặc tạo thư mục mới -->
+                    <div class="modal fade" id="saveModal" tabindex="-1" role="dialog" aria-labelledby="saveModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="saveModalLabel">Lưu bài viết</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- Form lưu bài viết vào thư mục -->
+								 {{-- thêm vào action	{{ route('save-to-exists-folder') }} --}}
+                                    <form action="" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="post_id" value="">
+									{{-- thêm vào value	{{ $getPost->id }} --}}
+                                    
+                                        <div class="form-group">
+                                            <label for="folderSelect">Chọn thư mục đã có</label>
+                                            <select class="form-control" id="folderSelect" name="folder_id">
+                                                <option value="">Chọn thư mục...</option>
+                                                <!-- Dữ liệu thư mục được lấy từ backend -->
+                                                {{-- @foreach ($folders as $folder)
+                                                    <option value="{{ $folder->folder_id }}">{{ $folder->folder_name }}
+                                                    </option>
+                                                @endforeach --}}
+                                            </select>
+                                        </div>
+
+                                        <!-- Hoặc tạo thư mục mới -->
+                                        <div class="form-group">
+                                            <label for="newFolderName">Tạo thư mục mới</label>
+                                            <input type="text" class="form-control" id="newFolderName"
+                                                name="new_folder_name" placeholder="Tên thư mục mới">
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Hủy</button>
+                                            <button type="submit" class="btn btn-primary">Lưu vào thư mục</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- end modal --}}
                 </div>
             </div>
         </div>
@@ -185,17 +218,17 @@
         </div>
     </section>
 
-	<!-- Content -->
-	<section class="bg0 p-b-140 p-t-10">
-		<div class="container">
-			<div class="row justify-content-center">
-				<div class="col-md-10 col-lg-8 p-b-30">
-					<div class="p-r-10 p-r-0-sr991">
-						<!-- Blog Detail -->
-						<div class="p-b-70">
-							<a href="#" class="f1-s-10 cl2 hov-cl10 trans-03 text-uppercase">
-								Technology
-							</a>
+    <!-- Content -->
+    <section class="bg0 p-b-140 p-t-10">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-10 col-lg-8 p-b-30">
+                    <div class="p-r-10 p-r-0-sr991">
+                        <!-- Blog Detail -->
+                        <div class="p-b-70">
+                            <a href="#" class="f1-s-10 cl2 hov-cl10 trans-03 text-uppercase">
+                                Technology
+                            </a>
 
                             <h3 class="f1-l-3 cl2 p-b-16 p-t-33 respon2">
                                 Nulla non interdum metus non laoreet nisi tellus eget aliquam lorem pellentesque
@@ -206,14 +239,20 @@
                                     <a href="#" class="f1-s-4 cl8 hov-cl10 trans-03">
                                         by John Alvarado
                                     </a>
+
                                     <span class="m-rl-3">-</span>
-                                    <a href="#"><i class="fa fa-comments"></i>Comments</a>
+
+                                    <span>
+                                        Feb 18
+                                    </span>
                                 </span>
+
+                                <span class="f1-s-3 cl8 m-r-15">
+                                    5239 Views
+                                </span>
+
                                 <a href="#" class="f1-s-3 cl8 hov-cl10 trans-03 m-r-15">
-									<i class="fa fa-eye"></i>view
-								 </a>
-                                <a href="#" class="f1-s-3 cl8 hov-cl10 trans-03 m-r-15">
-                                   <i class="fa fa-heart"></i>like
+                                    0 Comment
                                 </a>
                             </div>
 
@@ -417,223 +456,5 @@
                                             May 2018
                                         </span>
 
-                                        <span>
-                                            (29)
-                                        </span>
-                                    </a>
-                                </li>
 
-                                <li class="p-rl-4 p-b-19">
-                                    <a href="#" class="flex-wr-sb-c f1-s-10 text-uppercase cl2 hov-cl10 trans-03">
-                                        <span>
-                                            April 2018
-                                        </span>
-
-                                        <span>
-                                            (35)
-                                        </span>
-                                    </a>
-                                </li>
-
-                                <li class="p-rl-4 p-b-19">
-                                    <a href="#" class="flex-wr-sb-c f1-s-10 text-uppercase cl2 hov-cl10 trans-03">
-                                        <span>
-                                            March 2018
-                                        </span>
-
-                                        <span>
-                                            (22)
-                                        </span>
-                                    </a>
-                                </li>
-
-                                <li class="p-rl-4 p-b-19">
-                                    <a href="#" class="flex-wr-sb-c f1-s-10 text-uppercase cl2 hov-cl10 trans-03">
-                                        <span>
-                                            February 2018
-                                        </span>
-
-                                        <span>
-                                            (32)
-                                        </span>
-                                    </a>
-                                </li>
-
-                                <li class="p-rl-4 p-b-19">
-                                    <a href="#" class="flex-wr-sb-c f1-s-10 text-uppercase cl2 hov-cl10 trans-03">
-                                        <span>
-                                            January 2018
-                                        </span>
-
-                                        <span>
-                                            (21)
-                                        </span>
-                                    </a>
-                                </li>
-
-                                <li class="p-rl-4 p-b-19">
-                                    <a href="#" class="flex-wr-sb-c f1-s-10 text-uppercase cl2 hov-cl10 trans-03">
-                                        <span>
-                                            December 2017
-                                        </span>
-
-                                        <span>
-                                            (26)
-                                        </span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <!-- Popular Posts -->
-                        <div class="p-b-30">
-                            <div class="how2 how2-cl4 flex-s-c">
-                                <h3 class="f1-m-2 cl3 tab01-title">
-                                    Popular Post
-                                </h3>
-                            </div>
-
-                            <ul class="p-t-35">
-                                <li class="flex-wr-sb-s p-b-30">
-                                    <a href="#" class="size-w-10 wrap-pic-w hov1 trans-03">
-                                        <img src="{{ asset('client/images/popular-post-04.jpg') }}" alt="IMG">
-                                    </a>
-
-                                    <div class="size-w-11">
-                                        <h6 class="p-b-4">
-                                            <a href="blog-detail-02.html" class="f1-s-5 cl3 hov-cl10 trans-03">
-                                                Donec metus orci, malesuada et lectus vitae
-                                            </a>
-                                        </h6>
-
-                                        <span class="cl8 txt-center p-b-24">
-                                            <a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
-                                                Music
-                                            </a>
-
-                                            <span class="f1-s-3 m-rl-3">
-                                                -
-                                            </span>
-
-                                            <span class="f1-s-3">
-                                                Feb 18
-                                            </span>
-                                        </span>
-                                    </div>
-                                </li>
-
-                                <li class="flex-wr-sb-s p-b-30">
-                                    <a href="#" class="size-w-10 wrap-pic-w hov1 trans-03">
-                                        <img src="{{ asset('client/images/popular-post-05.jpg') }}" alt="IMG">
-                                    </a>
-
-                                    <div class="size-w-11">
-                                        <h6 class="p-b-4">
-                                            <a href="blog-detail-02.html" class="f1-s-5 cl3 hov-cl10 trans-03">
-                                                Donec metus orci, malesuada et lectus vitae
-                                            </a>
-                                        </h6>
-
-                                        <span class="cl8 txt-center p-b-24">
-                                            <a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
-                                                Game
-                                            </a>
-
-                                            <span class="f1-s-3 m-rl-3">
-                                                -
-                                            </span>
-
-                                            <span class="f1-s-3">
-                                                Feb 16
-                                            </span>
-                                        </span>
-                                    </div>
-                                </li>
-
-                                <li class="flex-wr-sb-s p-b-30">
-                                    <a href="#" class="size-w-10 wrap-pic-w hov1 trans-03">
-                                        <img src="{{ asset('client/images/popular-post-06.jpg') }}" alt="IMG">
-                                    </a>
-
-                                    <div class="size-w-11">
-                                        <h6 class="p-b-4">
-                                            <a href="blog-detail-02.html" class="f1-s-5 cl3 hov-cl10 trans-03">
-                                                Donec metus orci, malesuada et lectus vitae
-                                            </a>
-                                        </h6>
-
-                                        <span class="cl8 txt-center p-b-24">
-                                            <a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
-                                                Celebrity
-                                            </a>
-
-                                            <span class="f1-s-3 m-rl-3">
-                                                -
-                                            </span>
-
-                                            <span class="f1-s-3">
-                                                Feb 12
-                                            </span>
-                                        </span>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <!-- Tag -->
-                        <div>
-                            <div class="how2 how2-cl4 flex-s-c m-b-30">
-                                <h3 class="f1-m-2 cl3 tab01-title">
-                                    Tags
-                                </h3>
-                            </div>
-
-                            <div class="flex-wr-s-s m-rl--5">
-                                <a href="#"
-                                    class="flex-c-c size-h-2 bo-1-rad-20 bocl12 f1-s-1 cl8 hov-btn2 trans-03 p-rl-20 p-tb-5 m-all-5">
-                                    Fashion
-                                </a>
-
-                                <a href="#"
-                                    class="flex-c-c size-h-2 bo-1-rad-20 bocl12 f1-s-1 cl8 hov-btn2 trans-03 p-rl-20 p-tb-5 m-all-5">
-                                    Lifestyle
-                                </a>
-
-                                <a href="#"
-                                    class="flex-c-c size-h-2 bo-1-rad-20 bocl12 f1-s-1 cl8 hov-btn2 trans-03 p-rl-20 p-tb-5 m-all-5">
-                                    Denim
-                                </a>
-
-                                <a href="#"
-                                    class="flex-c-c size-h-2 bo-1-rad-20 bocl12 f1-s-1 cl8 hov-btn2 trans-03 p-rl-20 p-tb-5 m-all-5">
-                                    Streetstyle
-                                </a>
-
-                                <a href="#"
-                                    class="flex-c-c size-h-2 bo-1-rad-20 bocl12 f1-s-1 cl8 hov-btn2 trans-03 p-rl-20 p-tb-5 m-all-5">
-                                    Crafts
-                                </a>
-
-                                <a href="#"
-                                    class="flex-c-c size-h-2 bo-1-rad-20 bocl12 f1-s-1 cl8 hov-btn2 trans-03 p-rl-20 p-tb-5 m-all-5">
-                                    Magazine
-                                </a>
-
-                                <a href="#"
-                                    class="flex-c-c size-h-2 bo-1-rad-20 bocl12 f1-s-1 cl8 hov-btn2 trans-03 p-rl-20 p-tb-5 m-all-5">
-                                    News
-                                </a>
-
-                                <a href="#"
-                                    class="flex-c-c size-h-2 bo-1-rad-20 bocl12 f1-s-1 cl8 hov-btn2 trans-03 p-rl-20 p-tb-5 m-all-5">
-                                    Blogs
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-@endsection
-
+                                    @endsection

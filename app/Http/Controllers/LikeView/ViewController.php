@@ -5,28 +5,36 @@ namespace App\Http\Controllers\LikeView;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\PostView;
+use App\Models\Post;
 class ViewController extends Controller
 {
-    public function show($postId)
+    public function show($encryptedId)
     {
-       
-        $postView = PostView::where('posts_id', $postId)->first();
+        // Giải mã encrypted_id nếu cần
+        $postId = decrypt($encryptedId);
 
-        if (!$postView) {
-            $postView = new PostView([
-                'posts_id' => $postId,
-                'view_count' => 1 ,
-            ]);
-            $postView->save();
-        } else {
-            
-            $postView->increment('view_count');
-        }
-
-     
+        // Lấy bài viết từ cơ sở dữ liệu
+        $getPost = Post::findOrFail($postId);
+        $this->incrementViewCount($postId);
+        $viewCount = $getPost->viewCount($postId);
         return view('posts.show', [
-            'postId' => $postId,
-            'viewCount' => $postView->view_count,
+            'post' => $getPost,
+            'viewCount' =>$viewCount,
         ]);
     }
+    protected function incrementViewCount($postId)
+    {
+        $postview  = PostView::firstWhere('post_id',$postId);
+        if ($postview === null )
+        {
+             PostView::create([
+                'post_id' => $postId,
+                'view_count' => 1
+            ]);
+        } 
+        else {
+            $postview->increment('view_count');
+        }
+    }
+    
 }

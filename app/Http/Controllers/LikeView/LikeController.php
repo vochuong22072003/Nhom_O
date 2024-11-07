@@ -8,13 +8,11 @@ use App\Models\PostLike;
 class LikeController extends Controller
 {
  
-  
      public function getLike(Request $request)
      {
         $post_id = $request->input('post_id');
         $cus_id = $request->input('cus_id');
         $existinglike = PostLike::where('post_id' , $post_id)->where('cus_id',$cus_id)->first();
-        
         if($existinglike)
         {
             // check if do not like 
@@ -24,10 +22,10 @@ class LikeController extends Controller
         else
         {
             // if do not like , will add like
-            $postLike = new PostLike();
-            $postLike->post_id = $post_id;
-            $postLike->cus_id = $cus_id;
-            $postLike->save();
+           PostLike::create([
+                'post_id' => $post_id,
+                'cus_id' => $cus_id,
+            ]);
             
         }
     }
