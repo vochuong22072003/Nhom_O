@@ -10,7 +10,7 @@ class SaveFolder extends Model
     use HasFactory,SoftDeletes;
     protected $table = 'save_folders';
     protected $primaryKey = 'folder_id';
-    protected $filtable = [
+    protected $fillable = [
         'folder_name',
         'description',
         'cus_owned',

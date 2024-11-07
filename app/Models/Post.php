@@ -48,18 +48,36 @@ class Post extends Model
     }
     public function views()
     {
-        return $this->hasMany(PostView::class, 'posts_id');
+        return $this->hasOne(PostView::class, 'post_id');
     }
     public function likeCount()
     {
         //dem luot thich
-        return $this->likes()->count(); 
+        return $this->likes()->count();
     }
 
-    public function viewCount()
+    public function viewCount($postId)
     {
-        //tong luot xem
-        return $this->views()->sum('view_count'); 
+
+            $postview = PostView::firstWhere('post_id',$postId);
+            if($postview === null)
+            {
+
+                $postview = PostView::create([
+                    'post_id' => $postId,
+                    'view_count' => 1 ,
+                ]);
+
+            }
+            else
+            {
+                $postview->increment('view_count');
+
+            }
+            return $postview->view_count;
+        //   return $this->views()->sum('view_count');
+       
+        //return $postview->view_count;
     }
     public function tags()
     {

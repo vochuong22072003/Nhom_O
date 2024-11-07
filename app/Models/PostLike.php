@@ -10,13 +10,13 @@ class PostLike extends Model
 {
     use HasFactory,SoftDeletes;
     protected $table = 'likes';
-    protected $filtable = 
+    protected $fillable = 
     [
         'post_id',
         'cus_id',
     ];
     public function post()
     {
-        return $this->belongsTo(Post::class,'post_id');
+        return $this->belongsTo(Post::class,'id');
     }
 }

@@ -8,10 +8,15 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class PostView extends Model
 {
     use HasFactory,SoftDeletes;
-    protected $table = 'posts_view';
-    protected $primaryKey = 'view_id';
+    protected $table = 'post_views';
+    protected $primaryKey = 'post_view_id';
     protected $fillable = [
-        'posts_id',
+        'post_id',
         'view_count',
     ];
+    public function post()
+{
+    return $this->belongsTo(Post::class, 'post_id'); // Đảm bảo sử dụng 'post_id', không phải 'posts_id'
+}
+
 }

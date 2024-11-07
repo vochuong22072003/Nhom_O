@@ -10,7 +10,7 @@ class Save extends Model
 {
     use HasFactory,SoftDeletes;
     protected $table = 'saves';
-    protected $filtable = [
+    protected $fillable = [
         'save_folder_id',
         'post_id',
         'cus_id',

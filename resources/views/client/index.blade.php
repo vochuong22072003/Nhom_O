@@ -194,6 +194,9 @@
                                                                         {{ isset($val[0]->created_at) ? \Carbon\Carbon::parse($val[0]->created_at)->format('d/m/Y') : '' }}
                                                                     </span>
                                                                 </span>
+                                                                <div class="view-count">
+                                                                    Lượt xem: {{ isset($val[0]->view_count) ? $val[0]->view_count : 0 }}
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
