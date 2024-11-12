@@ -2,24 +2,37 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileUpdateRequest;
+use App\Http\Requests\ProfileUpdateRequest; //(form request unused) need check before remove
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
-class ProfileController extends Controller
+class AccountController extends Controller
 {
     /**
      * Display the user's profile form.
      */
     public function edit(Request $request): View
     {
-        return view('profile.edit', [
-            'user' => $request->user(),
-            'userInfo' => Auth::guard('customer')->user()->customerInfo(),
-        ]);
+        // return view('profile.edit', [
+        //     'user' => $request->user(),
+        //     'userInfo' => Auth::guard('customers')->user()->customerInfo(),
+        // ]);
+        return view('client.account-setting-partials.general');
+    }
+
+    /**
+     * Display the user's profile form.
+     */
+    public function changePassword(Request $request): View
+    {
+        // return view('profile.edit', [
+        //     'user' => $request->user(),
+        //     'userInfo' => Auth::guard('customers')->user()->customerInfo(),
+        // ]);
+        return view('client.account-setting-partials.change-password');
     }
 
     /**

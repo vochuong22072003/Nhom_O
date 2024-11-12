@@ -1,6 +1,8 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\AccountController;
+use App\Http\Controllers\PersonalInfoController;
+use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\AuthController;
@@ -134,8 +136,21 @@ require __DIR__.'/auth.php';
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
+
+/*
+|--------------------------------------------------------------------------
+| Routes for Customer Setting
+|--------------------------------------------------------------------------
+*/
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::name('setting.')->group(function () {
+        Route::get('/account_general', [AccountController::class, 'edit'])->name('general');
+        Route::get('/account_info', [PersonalInfoController::class, 'edit'])->name('account-info');
+        Route::get('/account_change_password', [AccountController::class, 'changePassword'])->name('change-password');
+        Route::get('/account_notifications', [NotificationController::class, 'edit'])->name('notifications');
+    });
 });
