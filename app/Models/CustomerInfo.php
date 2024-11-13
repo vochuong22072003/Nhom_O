@@ -9,7 +9,7 @@ class CustomerInfo extends Model
 {
     use HasFactory;
 
-    protected $table = 'customers_info';
+    protected $table = 'customer_info';
 
     // Khai báo khóa chính
     protected $primaryKey = 'cus_id';
@@ -23,6 +23,19 @@ class CustomerInfo extends Model
         'gender',
         'cus_avt',
     ];
+
+    /**
+     * Return url after "public"
+     * Put it inside asset('')
+     * @return string
+     */
+    public function getAvtUrl(): string {
+        return 'client/images/' . ($this->cus_avt ?? 'upload/avt-default.png');
+    }
+    public function getAtrl() {
+
+        return "";
+    }
 
     // relationship
     public function customer()

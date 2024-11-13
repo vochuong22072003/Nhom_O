@@ -36,21 +36,23 @@
 
                 <button role="button" class="btn dropdown p-0 rounded-circle overflow-hidden text-center"
                     style="width: 30px;height: 30px" data-toggle="dropdown">
-                    <img src="{{ asset('client/images/upload/avt-default.png') }}" class="rounded-circle img-avt">
+                    @php($avt_src = asset(Auth::guard('customers')->user()->customerInfo->getAvtUrl()))
+                    {{--  AVATAR --}}
+                    <img src="{{ $avt_src }}" class="rounded-circle img-avt">
                 </button>
                 <div class="dropdown-menu menu-drop-setting p-1" aria-labelledby="dropdownMenu1">
                     <div class="d-flex justify-content-start align-items-center">
-                        <img src="{{ asset('client/images/upload/avt-default.png') }}" alt=""
-                            class="rounded-circle img-avt m-2">
-                        <p>{{ '@' . Auth::guard('customers')->user()->cus_user}}</p>
+                        <img src="{{ $avt_src }}" alt="" class="rounded-circle img-avt m-2">
+                        <p>{{ '@' . Auth::guard('customers')->user()->cus_user }}</p>
                     </div>
                     <hr style="background-color: azure">
                     {{-- ------------------------------- --}}
 
-                    <a class="dropdown-item item-fix text-light" href="{{ route('setting.general')}}">Setting</a>
+                    <a class="dropdown-item item-fix text-light" href="{{ route('setting.general') }}">Setting</a>
                     <hr style="background-color: azure">
                     {{-- ------------------------------- --}}
-                    <a class="dropdown-item item-fix text-light" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                    <a class="dropdown-item item-fix text-light" href="#"
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                         @csrf
                     </form>
