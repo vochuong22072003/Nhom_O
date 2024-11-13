@@ -151,6 +151,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/account_general', [AccountController::class, 'edit'])->name('general');
         Route::get('/account_info', [PersonalInfoController::class, 'edit'])->name('account-info');
         Route::get('/account_change_password', [AccountController::class, 'changePassword'])->name('change-password');
-        Route::get('/account_notifications', [NotificationController::class, 'edit'])->name('notifications');
+        Route::get('/account_notifications', [NotificationController::class, 'setting'])->name('notifications');
     });
 });
