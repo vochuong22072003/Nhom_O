@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileUpdateRequest; //(form request unused) need check before remove
+use App\Http\Requests\Client\GeneralUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,12 +14,8 @@ class AccountController extends Controller
     /**
      * Display the user's profile form.
      */
-    public function edit(Request $request): View
+    public function edit(): View
     {
-        // return view('profile.edit', [
-        //     'user' => $request->user(),
-        //     'userInfo' => Auth::guard('customers')->user()->customerInfo(),
-        // ]);
         return view('client.account-setting-partials.general');
     }
 
@@ -38,47 +34,17 @@ class AccountController extends Controller
     /**
      * Update the user's profile information.
      */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    public function update(GeneralUpdateRequest $request): RedirectResponse
     {
-        // $validated = $request->validate([
-        //     'cus_user' => [
-        //         'required',
-        //         'string',
-        //         'min:3',
-        //         'max:20',
-        //         'regex:/^[a-zA-Z0-9._]+$/',
-        //         'not_regex:/^[._]|[._]$/',
-        //         'unique:customers,cus_user',
-        //     ],
-        //     'email' => [
-        //         'required',
-        //         'email',
-        //         'unique:customers,email',
-        //     ],
-        //     'password' => [
-        //         'required',
-        //         'string',
-        //         'min:8',
-        //         'regex:/[A-Z]/',
-        //         'regex:/[a-z]/',
-        //         'regex:/[0-9]/', 
-        //         'regex:/[@$!%*?&]/',
-        //         'different:customers',
-        //     ],
-        // ]);
+        $request->merge(['cus_user' => strtolower($request->input('cus_user'))]);
 
-        $request->user()->fill($request->validated());
-        $request->user()->update([
-            'cus_user' => $request->cus_user,
-        ]);
+        $request->user()->update($request->validated());
 
-        // if ($request->user()->isDirty('email')) {
-        //     $request->user()->verified_at = null;
-        // }
+        if ($request->user()->isDirty('email')) {
+            $request->user()->verify_at = null;
+        }
 
-        $request->user()->save();
-
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+      return Redirect::route('setting.general')->with('success', 'Cập nhập thành công');
     }
 
     /**
