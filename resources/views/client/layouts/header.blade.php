@@ -17,6 +17,9 @@
                     <a href="#" class="left-topbar-item">
                         Contact
                     </a>
+                    {{-- <a href="{{ route('myactives') }}" class="left-topbar-item">
+                        Xem bài viết của tôi
+                    </a> --}}
 
                     @guest
                     <a href="{{ route('register') }}" class="left-topbar-item">

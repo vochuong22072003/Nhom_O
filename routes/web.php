@@ -59,12 +59,18 @@ Route::middleware(['auth:web'])->group(function () {
     });
     Route::group(['prefix' => 'permission'], function () {
         Route::get('index', [PermissionController::class, 'index'])->name('permission.index')->middleware(AuthenticateMiddleware::class);
-        Route::get('store', [PermissionController::class, 'store'])->name('permission.store')->middleware(AuthenticateMiddleware::class);;
-        Route::post('create', [PermissionController::class, 'create'])->name('permission.create')->middleware(AuthenticateMiddleware::class);;
-        Route::get('{id}/edit', [PermissionController::class, 'edit'])->name('permission.edit')->middleware(AuthenticateMiddleware::class);;
-        Route::post('{id}/update', [PermissionController::class, 'update'])->name('permission.update')->where(['id' => '[0-9]+'])->middleware(AuthenticateMiddleware::class);;
-        Route::get('{id}/destroy', [PermissionController::class, 'destroy'])->name('permission.destroy')->middleware(AuthenticateMiddleware::class);;
-        Route::post('{id}/delete', [PermissionController::class, 'delete'])->name('permission.delete')->where(['id' => '[0-9]+'])->middleware(AuthenticateMiddleware::class);;
+        Route::get('store', [PermissionController::class, 'store'])->name('permission.store')->middleware(AuthenticateMiddleware::class);
+        ;
+        Route::post('create', [PermissionController::class, 'create'])->name('permission.create')->middleware(AuthenticateMiddleware::class);
+        ;
+        Route::get('{id}/edit', [PermissionController::class, 'edit'])->name('permission.edit')->middleware(AuthenticateMiddleware::class);
+        ;
+        Route::post('{id}/update', [PermissionController::class, 'update'])->name('permission.update')->where(['id' => '[0-9]+'])->middleware(AuthenticateMiddleware::class);
+        ;
+        Route::get('{id}/destroy', [PermissionController::class, 'destroy'])->name('permission.destroy')->middleware(AuthenticateMiddleware::class);
+        ;
+        Route::post('{id}/delete', [PermissionController::class, 'delete'])->name('permission.delete')->where(['id' => '[0-9]+'])->middleware(AuthenticateMiddleware::class);
+        ;
     });
     // == Post catalogue parent Nghĩa
     Route::group(['prefix' => 'post/catalogue/parent'], function () {
@@ -97,40 +103,46 @@ Route::middleware(['auth:web'])->group(function () {
         Route::post('{id}/update', [PostController::class, 'update'])->name('post.update')->where(['id' => '[0-9]+'])->middleware(AuthenticateMiddleware::class);
         Route::get('{id}/destroy', [PostController::class, 'destroy'])->name('post.destroy')->middleware(AuthenticateMiddleware::class);
         Route::post('{id}/delete', [PostController::class, 'delete'])->name('post.delete')->where(['id' => '[0-9]+'])->middleware(AuthenticateMiddleware::class);
+        //Route::get('/search', [PostController::class, 'search'])->name('posts.search');
+
+
     });
-    Route::get('ajax/postCatalogue/getPostCatalogue',[PostCatalogueController::class, 'getPostCatalogue'])->name('ajax.postCatalogue.getPostCatalogue')->middleware(AuthenticateMiddleware::class);
+    Route::get('ajax/postCatalogue/getPostCatalogue', [PostCatalogueController::class, 'getPostCatalogue'])->name('ajax.postCatalogue.getPostCatalogue')->middleware(AuthenticateMiddleware::class);
 });
 
-  
-    Route::name('client.')->group(function () {
-        Route::get('/', [HomeController::class, 'index'])->name('index');
-        // Route::get('/about', [HomeController::class, 'about'])->name('about');
-        // Route::get('/blog-grid', [HomeController::class, 'blogGrid'])->name('blog-grid');
-        // Route::get('/detail', [HomeController::class, 'detail'])->name('detail');
-        Route::get('{id}/{model}/category', [HomeController::class, 'category'])->name('category');
-        Route::get('{id}/detail', [HomeController::class, 'detail'])->name('detail');
-        // Route::get('/blog-list', [HomeController::class, 'blogList'])->name('blog-list');
-    });
+
+Route::name('client.')->group(function () {
+    Route::get('/', [HomeController::class, 'index'])->name('index');
+    Route::get('{id}/{model}/category', [HomeController::class, 'category'])->name('category');
+    Route::get('{id}/detail', [HomeController::class, 'detail'])->name('detail');
+    Route::get('/myactives',[HomeController::class,'myactives'])->name('myactives');
+    // Route::get('/blog-list', [HomeController::class, 'blogList'])->name('blog-list');    
+});
 
 
 // các route liên quan đến post và like view tags khiêm
 Route::prefix('posts')->group(function () {
-    //Route::get('/{$encryptedId}', [ViewController::class, 'show'])->name('client.view');
     Route::post('/like', [LikeController::class, 'getLike'])->name('posts.like');
+  
+
     // Route cho tags của bài viết
-    Route::post('{postId}/tags', [PostTagController::class, 'addTagsToPost']);
-    Route::get('{postId}/tags', [PostTagController::class, 'getPostTags']);
+    //Route::post('{postId}/tags', [PostTagController::class, 'addTagsToPost']);
+    //Route::get('{postId}/tags', [PostTagController::class, 'getPostTags']);
     Route::delete('{postId}/tags/{tagId}', [PostTagController::class, 'removeTagFromPost']);
 });
 // Group cho các route liên quan đến lưu vào danh mục và tạo danh mục Khiêm
-Route::prefix('folders')->group(function () {
-    Route::post('save-to-exists-folder', [SaveController::class, 'getSave']);
-    Route::post('save-to-new-folder', [SaveController::class, 'saveToNewFolder']);
-    Route::delete('{folderId}/posts/{postId}', [SaveController::class, 'deletePostFromFolder']);
+Route::prefix('folder')->group(function () {
+    Route::post('/create-folder', [SaveFolderController::class, 'getSave'])->name('create-folder');
+    Route::post('/saveToFolder', [SaveFolderController::class, 'savePostToFolder'])->name('posts.saveToFolder');
+    //Route::get('/save-post-to-folder', [SaveFolderController::class, 'savePostToFolder'])->name('save.post.to.folder');
     Route::delete('{folderId}', [SaveFolderController::class, 'deteleFolder']);
-});
 
-require __DIR__.'/auth.php';
+});
+// Route::post('/save-post-to-folder', [PostController::class, 'savePostToFolder'])->name('save.post.to.folder');
+
+
+
+require __DIR__ . '/auth.php';
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');

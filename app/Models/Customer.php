@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 //related
 use App\Models\CusomerInfo;
+use Psy\Readline\Hoa\Console;
 
 class Customer extends Authenticatable
 {
@@ -38,4 +39,10 @@ class Customer extends Authenticatable
     {
         return $this->hasOne(CustomerInfo::class, 'cus_id', 'cus_id');
     }
+    public function saveFolders()
+    {
+        
+        return $this->hasMany(SaveFolder::class, 'cus_owned');
+    }
+   
 }

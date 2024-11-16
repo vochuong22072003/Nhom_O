@@ -53,86 +53,90 @@
                         <a href=""><i class="fa fa-eye"> view</i></a>
                         <p>Lượt xem: {{ $getPost->viewCount($getPost->id) }}</p>
                     </span>
-                    <form action="{{ route('posts.like') }}" method="POST" style="display: inline;">
-                        @csrf
-                        <input type="hidden" name="post_id" value="{{ $getPost->id }}">
-                        <button type="submit" class="f1-s-3 cl8 m-rl-7 txt-center">
-                            <i class="fa fa-heart">like</i>
-                        </button>
-                    </form>
                     <span class="f1-s-3 cl8 m-rl-7 txt-center">
-                        <a href="#" data-toggle="modal" data-target="#saveModal">
-                            <i class="fa fa-save"> Lưu bài viết </i>
-                        </a>
+
+                        @auth
+                            <i class="fa fa-heart {{ $getPost->isLike() == true ? 'liked' : '' }}" id="likeButton"
+                                data-post-id="{{ $getPost->id }}">
+                                @if ($getPost->isLike())
+                                    Unlike
+                                @else
+                                    Like
+                                @endif
+                            </i>
+                        @else
+                            <i class="fa fa-heart" id="likeButton" data-post-id="{{ $getPost->id }}">Like</i>
+                        @endauth
                     </span>
 
-                    <!-- Modal: -->
-                    <!-- Modal: Chọn thư mục lưu hoặc tạo thư mục mới -->
-                    <div class="modal fade" id="saveModal" tabindex="-1" role="dialog" aria-labelledby="saveModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="saveModalLabel">Lưu bài viết</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <!-- Form lưu bài viết vào thư mục -->
-								 {{-- thêm vào action	{{ route('save-to-exists-folder') }} --}}
-                                    <form action="" method="POST">
-                                        @csrf
-                                        <input type="hidden" name="post_id" value="">
-									{{-- thêm vào value	{{ $getPost->id }} --}}
-                                    
-                                        <div class="form-group">
-                                            <label for="folderSelect">Chọn thư mục đã có</label>
-                                            <select class="form-control" id="folderSelect" name="folder_id">
-                                                <option value="">Chọn thư mục...</option>
-                                                <!-- Dữ liệu thư mục được lấy từ backend -->
-                                                {{-- @foreach ($folders as $folder)
-                                                    <option value="{{ $folder->folder_id }}">{{ $folder->folder_name }}
-                                                    </option>
-                                                @endforeach --}}
-                                            </select>
-                                        </div>
-
-                                        <!-- Hoặc tạo thư mục mới -->
-                                        <div class="form-group">
-                                            <label for="newFolderName">Tạo thư mục mới</label>
-                                            <input type="text" class="form-control" id="newFolderName"
-                                                name="new_folder_name" placeholder="Tên thư mục mới">
-                                        </div>
-
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-dismiss="modal">Hủy</button>
-                                            <button type="submit" class="btn btn-primary">Lưu vào thư mục</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
+                    <span class="f1-s-3 cl8 m-rl-7 txt-center">
+                        <i class="fa fa-save" data-toggle="modal" data-post-id="{{ $getPost->id }}"
+                            data-target="#saveModal"> Lưu bài viết </i>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!-- Modal: -->
+        <!-- Modal: Chọn thư mục lưu hoặc tạo thư mục mới -->
+        <div class="modal fade" id="saveModal" tabindex="-1" aria-labelledby="saveModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="saveModalLabel">Lưu bài viết vào danh mục</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
+                    <div class="modal-body">
+                        <form id="savePostForm" action="{{ route('posts.saveToFolder') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="post_id" id="post_id" value="{{ $getPost->id }}">
+                            <!-- Danh sách danh mục (không bắt buộc) -->
+                            <div class="mb-3">
+                                <h4 class="text-center">các danh mục sẵn có của bạn</h4>
+                                <!-- Options -->
+                                @auth('customers')
+                                    <div class="text-center">
+                                        @foreach (Auth::guard('customers')->user()->saveFolders as $y)
+                                            <div class="checkbox-item">
+                                                <input class="folder-checkbox" type="checkbox"
+                                                    data-folder-id="{{ $y->folder_id }}"
+                                                    data-folder-name="{{ $y->folder_name }}" name="folder[]"
+                                                    {{ $y->isSave($getPost->id, $y->folder_id) ? 'checked' : '' }}>
+                                                <span>{{ $y->folder_name }}</span>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                @endauth
 
-                    {{-- end modal --}}
+                            </div>
+
+                            {{-- <input type="hidden" name="post_id" value="{{ $getPost->id }}"> --}}
+                            <!-- Form nhập tên danh mục mới -->
+                            <div class="mb-3">
+                                <label for="save_folder_name" class="form-label text-center">Hoặc tạo danh mục mới:</label>
+                                <input type="text" class="form-control" name="save_folder_name" id="save_folder_name"
+                                    placeholder="Nhập tên danh mục mới">
+                            </div>
+                            <button type="submit" class="btn btn-primary" id="savePost">Lưu</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
 
+        {{-- end modal --}}
         <!-- Detail -->
         <div class="container p-t-50">
             <div class="row justify-content-center">
                 <div class="col-md-10 col-lg-8 p-b-100">
                     <div class="p-r-10 p-r-0-sr991">
                         <!-- Blog Detail -->
+
                         <div class="p-b-70 blog-content-wrap">
-                            <p class="f1-s-11 cl6">
+                            <p class="f1-s-11 cl6" id="postContent">
                                 {!! $getPost->post_content !!}
                             </p>
 
-
+                            <button id="readButton">Đọc bài viết</button>
                             <!-- Tag -->
                             <div class="flex-s-s p-t-12 p-b-15">
                                 <span class="f1-s-12 cl5 m-r-8">
@@ -140,13 +144,15 @@
                                 </span>
 
                                 <div class="flex-wr-s-s size-w-0">
+                                    <br>
+                                    <i class="fa fa-tag"></i>
+
+
                                     <a href="#" class="f1-s-12 cl8 hov-link1 m-r-15">
                                         Streetstyle
                                     </a>
 
-                                    <a href="#" class="f1-s-12 cl8 hov-link1 m-r-15">
-                                        Crafts
-                                    </a>
+
                                 </div>
                             </div>
 
@@ -157,28 +163,18 @@
                                 </span>
 
                                 <div class="flex-wr-s-s size-w-0">
-                                    <a href="#"
+                                    <a href="https://www.facebook.com/sharer/sharer.php?u=https://example.com/path-to-article"
+                                        target="_blank"
                                         class="dis-block f1-s-13 cl0 bg-facebook borad-3 p-tb-4 p-rl-18 hov-btn1 m-r-3 m-b-3 trans-03">
                                         <i class="fab fa-facebook-f m-r-7"></i>
                                         Facebook
                                     </a>
 
-                                    <a href="#"
+                                    <a href="https://twitter.com/share?url=https://example.com/path-to-article&text=Nội+dung+tuyệt+vời!"
+                                        target="_blank"
                                         class="dis-block f1-s-13 cl0 bg-twitter borad-3 p-tb-4 p-rl-18 hov-btn1 m-r-3 m-b-3 trans-03">
                                         <i class="fab fa-twitter m-r-7"></i>
                                         Twitter
-                                    </a>
-
-                                    <a href="#"
-                                        class="dis-block f1-s-13 cl0 bg-google borad-3 p-tb-4 p-rl-18 hov-btn1 m-r-3 m-b-3 trans-03">
-                                        <i class="fab fa-google-plus-g m-r-7"></i>
-                                        Google+
-                                    </a>
-
-                                    <a href="#"
-                                        class="dis-block f1-s-13 cl0 bg-pinterest borad-3 p-tb-4 p-rl-18 hov-btn1 m-r-3 m-b-3 trans-03">
-                                        <i class="fab fa-pinterest-p m-r-7"></i>
-                                        Pinterest
                                     </a>
                                 </div>
                             </div>
