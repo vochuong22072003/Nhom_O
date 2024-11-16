@@ -11,15 +11,16 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('post_tags', function (Blueprint $table) {
-            $table->id('post_tag_id');
+          
             $table->unsignedBigInteger('post_id');
             $table->unsignedBigInteger('tag_id');
+            $table->primary(['post_id', 'tag_id']);
             $table->timestamps();
 
             $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
             $table->foreign('tag_id')->references('tag_id')->on('tags')->onDelete('cascade');
 
-            $table->unique(['post_id', 'tag_id']); // Đảm bảo mỗi bài viết chỉ có một tag duy nhất
+           
         });
     }
 
