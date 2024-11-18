@@ -104,12 +104,10 @@ Route::middleware(['auth:web'])->group(function () {
   
     Route::name('client.')->group(function () {
         Route::get('/', [HomeController::class, 'index'])->name('index');
-        // Route::get('/about', [HomeController::class, 'about'])->name('about');
-        // Route::get('/blog-grid', [HomeController::class, 'blogGrid'])->name('blog-grid');
-        // Route::get('/detail', [HomeController::class, 'detail'])->name('detail');
         Route::get('{id}/{model}/category', [HomeController::class, 'category'])->name('category');
         Route::get('{id}/detail', [HomeController::class, 'detail'])->name('detail');
-        // Route::get('/blog-list', [HomeController::class, 'blogList'])->name('blog-list');
+        Route::get('/search-result', [HomeController::class, 'search'])->name('search-result');
+        Route::post('/search', [HomeController::class, 'search'])->name('search');
     });
 
 
