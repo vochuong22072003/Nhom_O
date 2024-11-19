@@ -36,10 +36,5 @@ class Save extends Model
     {
         return $this->hasMany(Save::class, 'save_folder_id', 'folder_id');
     }
-    public function setKeysForSaveQuery($query)
-    {
-        return $query->where('post_id', $this->getAttribute('post_id'))
-                     ->where('save_folder_id', $this->getAttribute('save_folder_id'))
-                     ->where('cus_id', $this->getAttribute('cus_id'));
-    }
+    
 }

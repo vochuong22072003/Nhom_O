@@ -103,6 +103,8 @@ Route::middleware(['auth:web'])->group(function () {
         Route::post('{id}/update', [PostController::class, 'update'])->name('post.update')->where(['id' => '[0-9]+'])->middleware(AuthenticateMiddleware::class);
         Route::get('{id}/destroy', [PostController::class, 'destroy'])->name('post.destroy')->middleware(AuthenticateMiddleware::class);
         Route::post('{id}/delete', [PostController::class, 'delete'])->name('post.delete')->where(['id' => '[0-9]+'])->middleware(AuthenticateMiddleware::class);
+        Route::post('{id}/addtag',[PostController::class,'index'])->name('post.addtag')->middleware(AuthenticateMiddleware::class);
+        //Route::get('liked-posts', [PostController::class, 'getLikedPosts'])->name('post.liked')->middleware(AuthenticateMiddleware::class);
         //Route::get('/search', [PostController::class, 'search'])->name('posts.search');
 
 
@@ -115,7 +117,7 @@ Route::name('client.')->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('index');
     Route::get('{id}/{model}/category', [HomeController::class, 'category'])->name('category');
     Route::get('{id}/detail', [HomeController::class, 'detail'])->name('detail');
-    Route::get('/myactives',[HomeController::class,'myactives'])->name('myactives');
+    Route::get('/myactive',[HomeController::class,'myactives'])->name('myactive');
     // Route::get('/blog-list', [HomeController::class, 'blogList'])->name('blog-list');    
 });
 
@@ -123,22 +125,14 @@ Route::name('client.')->group(function () {
 // các route liên quan đến post và like view tags khiêm
 Route::prefix('posts')->group(function () {
     Route::post('/like', [LikeController::class, 'getLike'])->name('posts.like');
-  
-
-    // Route cho tags của bài viết
-    //Route::post('{postId}/tags', [PostTagController::class, 'addTagsToPost']);
-    //Route::get('{postId}/tags', [PostTagController::class, 'getPostTags']);
-    Route::delete('{postId}/tags/{tagId}', [PostTagController::class, 'removeTagFromPost']);
+    Route::get('/liked-posts', [LikeController::class, 'getLikedPosts'])->name('liked-posts.index');
 });
 // Group cho các route liên quan đến lưu vào danh mục và tạo danh mục Khiêm
 Route::prefix('folder')->group(function () {
     Route::post('/create-folder', [SaveFolderController::class, 'getSave'])->name('create-folder');
     Route::post('/saveToFolder', [SaveFolderController::class, 'savePostToFolder'])->name('posts.saveToFolder');
-    //Route::get('/save-post-to-folder', [SaveFolderController::class, 'savePostToFolder'])->name('save.post.to.folder');
-    Route::delete('{folderId}', [SaveFolderController::class, 'deteleFolder']);
-
 });
-// Route::post('/save-post-to-folder', [PostController::class, 'savePostToFolder'])->name('save.post.to.folder');
+
 
 
 

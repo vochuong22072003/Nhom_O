@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Services\Interfaces\HomeServiceInterface as HomeService;
-
+use App\Models\Post;
 class HomeController extends Controller
 {
     protected $homeService;
@@ -21,22 +21,18 @@ class HomeController extends Controller
         foreach ($lastestNews as $new) {
             $new->encrypted_id = $this->encryptId($new->id);
         }
-        // dd($lastestNews);   
         $config = $this->config();
         $template = 'client.layouts.layout';
         $getCatalogue = $this->homeService->getActiveParentCategoriesWithChildren();
-        // dd($getCatalogue);
         $cate_ids = [];
         foreach ($getCatalogue as $cateParent) {
             $cate_ids[] = $cateParent->id;
             foreach ($cateParent->post_catalogue_children as $cateChild)
                 $cateChild->encrypted_id = $this->encryptId($cateChild->id);
         }
-        // dd($cate_ids);
         $count = 0;
         $results = [];
         foreach ($cate_ids as $key => $val) {
-            // dd($val);
             if ($count > 4) {
                 break;
             }
@@ -50,25 +46,29 @@ class HomeController extends Controller
                 }
             ];
             $lastestNewsByCateChild = $this->homeService->getLastestNew(4, $relation, $conditions);
-            // dd($lastestNewsByCateChild);
             $results[] = $lastestNewsByCateChild;
             $count++;
         }
-        // dd($results);
-        // dd($getCatalogue);
         foreach ($lastestNewsByCateChild as $new) {
             $new->encrypted_id = $this->encryptId($new->id);
         }
-        // dd($getCatalogue);
+        $posts = $this->getPostLike();
+
         foreach ($results as $cate) {
             foreach ($cate as $post) {
                 $post->encrypted_id = $this->encryptId($post->id);
             }
-        }
-        // $getPostByCate =  $this->homeService->getPostsByCategory($id, $model);
-        // dd($getCatalogue);
-        // dd($categories);
-        return view('client.index', compact('template', 'config', 'lastestNews', 'getCatalogue', 'results'));
+        }     
+        return view('client.index', compact('template', 'config', 'lastestNews', 'getCatalogue', 'results', 'posts'));
+    }
+    public function getPostLike()
+    {
+        $posts = Post::withCount('likes')
+            ->having('likes_count', '>=', 2)
+            ->orderBy('likes_count', 'desc')
+            ->take(6)->get();
+
+        return $posts;
     }
     public function category($id, $model)
     {
@@ -115,6 +115,11 @@ class HomeController extends Controller
         // dd($getPost);
 
         return view($template, compact('config', 'getPost'));
+    }
+    public function myactives()
+    {
+        $config = $this->config();
+        return view('client.myactive', compact('config'));
     }
     private function config()
     {

@@ -3,9 +3,13 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use DB;
 use Illuminate\Http\Request;
 use App\Services\Interfaces\PostServiceInterface as PostService;
 use App\Http\Requests\StorePostRequest;
+use App\Models\Tag;
+use App\Models\Post;
+use App\Models\PostLike;
 use App\Repositories\Interfaces\PostRepositoryInterface as PostRepository;
 use App\Repositories\Interfaces\PostCatalogueParentRepositoryInterface as PostCatalogueParentRepository;
 use App\Repositories\Interfaces\PostCatalogueChildrenRepositoryInterface as PostCatalogueChildrenRepository;
@@ -32,7 +36,7 @@ class PostController extends Controller
         $this->userRepository = $userRepository;
         $this->userInfoRepository = $userInfoRepository;
     }
-   
+
 
 
 
@@ -86,6 +90,7 @@ class PostController extends Controller
     public function create(StorePostRequest $request)
     {
         if ($this->postService->createPost($request)) {
+            $this->addTags($request);
             return redirect()->route('post.index')->with('success', 'Thêm mới bài viết thành công');
         }
         return redirect()->route('post.index')->with('error', 'Thêm mới bài viết thất bại. Hãy thử lại');
@@ -167,6 +172,33 @@ class PostController extends Controller
         }
         return redirect()->route('post.index')->with('error', 'Xóa bài viết thất bại. Hãy thử lại');
     }
+  // xử lý thêm tag 
+    private function addTags(Request $request)
+    {
+        $postId = Post::where('post_name', $request->input('post_name'))
+        ->whereDate('created_at', now()
+        ->toDateString())
+        ->value('id');
+        $strTags = $request->input('tags');
+        $tags = explode(' ', $strTags);
+        foreach ($tags as $tagName) {
+            $tag = DB::table('tags')->where('tag_name', $tagName)->first();
+            if (!$tag) {
+                $tagId = DB::table('tags')->insertGetId([
+                    'tag_name' => $tagName,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+            } else {
+                $tagId = $tag->id;
+            }
+            DB::table('post_tags')->updateOrInsert([
+                'post_id' => $postId,
+                'tag_id' => $tagId,
+            ]);
+        }
+        return redirect()->back()->with('success', 'Tags đã được thêm vào bài viết!');
+    }
     private function configIndex()
     {
         return [
@@ -198,6 +230,7 @@ class PostController extends Controller
             'model' => 'Post'
         ];
     }
+
     private function configCUD()
     {
         return [

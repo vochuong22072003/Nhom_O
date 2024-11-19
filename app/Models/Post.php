@@ -50,12 +50,6 @@ class Post extends Model
     {
         return $this->hasOne(PostView::class, 'post_id');
     }
-    public function likeCount()
-    {
-        //dem luot thich
-        return $this->likes()->count();
-    }
-
     public function viewCount($postId)
     {
 
@@ -73,11 +67,7 @@ class Post extends Model
         }
         return $postview->view_count;
     }
-    public function tags()
-    {
-        return $this->belongsToMany(Tag::class, 'post_tags', 'post_id', 'tag_id');
-    }
-
+  
     public function posts()
     {
         return $this->hasMany(Post::class, 'save_folder_id');
@@ -88,10 +78,18 @@ class Post extends Model
         if (!$userId) {
             return true;
         }
-       $hasLiked = PostLike::where('post_id',$this->id)
-       ->where('cus_id',$userId)
-       ->whereNull('deleted_at')->exists();
+        $hasLiked = PostLike::where('post_id', $this->id)
+            ->where('cus_id', $userId)
+            ->whereNull('deleted_at')->exists();
         return $hasLiked;
     }
-
+    public function edit($id)
+    {
+        $post = Post::findOrFail($id);
+        return view('Backend.dashboard.edit', compact('post'));
+    }
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'post_tags', 'post_id', 'tag_id');
+    }
 }

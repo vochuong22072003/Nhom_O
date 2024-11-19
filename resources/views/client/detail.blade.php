@@ -67,6 +67,7 @@
                         @else
                             <i class="fa fa-heart" id="likeButton" data-post-id="{{ $getPost->id }}">Like</i>
                         @endauth
+                        {{-- <p>tổng lượt thích {{ $getPost->getTotalLikes($getPost->id)}}</p> --}}
                     </span>
 
                     <span class="f1-s-3 cl8 m-rl-7 txt-center">
@@ -146,13 +147,11 @@
                                 <div class="flex-wr-s-s size-w-0">
                                     <br>
                                     <i class="fa fa-tag"></i>
-
-
-                                    <a href="#" class="f1-s-12 cl8 hov-link1 m-r-15">
-                                        Streetstyle
+                                    <a href="" class="f1-s-12 cl8 hov-link1 m-r-15">
+                                        @foreach ($getPost->tags as $tag)
+                                            {{ $tag->tag_name }}
+                                        @endforeach
                                     </a>
-
-
                                 </div>
                             </div>
 
