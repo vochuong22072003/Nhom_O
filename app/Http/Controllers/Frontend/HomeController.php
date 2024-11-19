@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use Illuminate\Pagination\LengthAwarePaginator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Services\Interfaces\HomeServiceInterface as HomeService;
@@ -49,8 +50,14 @@ class HomeController extends Controller
             $results[] = $lastestNewsByCateChild;
             $count++;
         }
-        foreach ($lastestNewsByCateChild as $new) {
-            $new->encrypted_id = $this->encryptId($new->id);
+        // dd($results);
+        // dd($getCatalogue);
+        if (!empty($lastestNewsByCateChild)) {
+            foreach ($lastestNewsByCateChild as $new) {
+                $new->encrypted_id = $this->encryptId($new->id);
+            }
+        } else {
+            $lastestNewsByCateChild = null;
         }
         $posts = $this->getPostLike();
 
@@ -79,11 +86,11 @@ class HomeController extends Controller
         if (!preg_match('/^[0-9A-Za-z=]+$/', $id)) {
             return redirect()->route('client.index')->withErrors('ID không hợp lệ. Vui lòng sử dụng ID đã mã hóa.');
         }
-        // dd($id);
+     
         $categoryInfo = $this->homeService->getCategoryInfo($id, $model);
-        // dd( $categoryInfo);
         $category = $this->homeService->getPostsByCategory($id, $model);
-
+        //    dd($category);
+        
         foreach ($category as $cate) {
             foreach ($cate->posts as $post) {
                 $post->encrypted_id = $this->encryptId($post->id);
@@ -116,6 +123,24 @@ class HomeController extends Controller
 
         return view($template, compact('config', 'getPost'));
     }
+    
+    public function search(Request $request) {
+        $template = 'client.search-result';
+        $config = $this->config();
+
+     
+
+        $requestInput = $request->input('search');
+        $results = $this->homeService->getPostsBySearch($requestInput);
+        foreach ($results as $result) {
+            $result->encrypted_id = $this->encryptId($result->id);
+        }
+        
+        // dd($results);
+
+        return view($template, compact('config','results'));
+    }
+    
     public function myactives()
     {
         $config = $this->config();

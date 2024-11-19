@@ -13,6 +13,7 @@
                         // Lấy bài viết đầu tiên
                         if ($lastestNews->isNotEmpty()) {
                             $firstPost = $lastestNews->get(0); // Lấy bài viết đầu tiên
+                            if (!is_null($firstPost->postCatalogueParent)){
                     ?>
 
                     <div class="bg-img1 size-a-3 how1 pos-relative"
@@ -49,8 +50,12 @@
                     </div>
                 </div>
                 <?php 
-                        }        
-                ?>
+                        }   
+                    }
+                    else { ?>
+                    <h2>Không có dữ liệu</h2>
+                <?php } ?>
+
 
                 <div class="col-md-6 p-rl-1">
                     <div class="row m-rl--1">
@@ -58,7 +63,7 @@
             // Lấy bài viết thứ 2 đến thứ 4 và hiển thị chúng
             for ($i = 1; $i <= 3; $i++) {
                 $post = $lastestNews->get($i);
-                if ($post) {
+                if ($post && !is_null($post->postCatalogueParent)) {
                     // Gán id riêng cho 2 phần tử col-sm-6
                     $colId = '';
                     if ($i === 2) {
@@ -162,7 +167,7 @@
                                     <div class="row">
                                         @if (count($results))
                                             @foreach ($results as $key => $val)
-                                                @if ($key == $count)
+                                                @if ($key == $count && !empty($val[0]))
                                                     <div class="col-sm-6 p-r-25 p-r-15-sr991">
                                                         <!-- Item post -->
                                                         <div class="m-b-30">
@@ -170,8 +175,8 @@
                                                                 class="wrap-pic-w hov1 trans-03">
                                                                 <img src="{{ isset($val[0]->image) ? asset($val[0]->image) : '' }}"
                                                                     alt="IMG">
-                                                            </a> 
-                                                            
+                                                            </a>
+
                                                             <div class="p-t-20">
                                                                 <h5 class="p-b-5">
                                                                     <a href="{{ route('client.detail', $val[0]->encrypted_id) }}"
@@ -254,7 +259,7 @@
                     @php $count++; @endphp
                 @endforeach
             @else
-                <h2>Khong co danh muc</h2>
+                <h2>Không có dữ liệu</h2>
             @endif
         </div>
     </div>
@@ -325,11 +330,11 @@
             </div>
 
             <!--  -->
-            <div class="flex-c-s p-t-8">
+            {{-- <div class="flex-c-s p-t-8">
                 <a href="#">
                     <img class="max-w-full" src="images/banner-02.jpg" alt="IMG">
                 </a>
-            </div>
+            </div> --}}
 
             <!--  -->
             <div class="p-t-50">
@@ -458,47 +463,6 @@
 
     <div class="col-md-10 col-lg-4">
         <div class="p-l-10 p-rl-0-sr991 p-b-20">
-            <!-- Video -->
-            <div class="p-b-55">
-                <div class="how2 how2-cl4 flex-s-c m-b-35">
-                    <h3 class="f1-m-2 cl3 tab01-title">
-                        Featured Video
-                    </h3>
-                </div>
-
-                <div>
-                    <div class="wrap-pic-w pos-relative">
-                        <img src="{{ asset('client/images/video-01.jpg') }}" alt="IMG">
-
-                        <button class="s-full ab-t-l flex-c-c fs-32 cl0 hov-cl10 trans-03" data-toggle="modal"
-                            data-target="#modal-video-01">
-                            <span class="fab fa-youtube"></span>
-                        </button>
-                    </div>
-
-                    <div class="p-tb-16 p-rl-25 bg3">
-                        <h5 class="p-b-5">
-                            <a href="#" class="f1-m-3 cl0 hov-cl10 trans-03">
-                                Music lorem ipsum dolor sit amet consectetur
-                            </a>
-                        </h5>
-
-                        <span class="cl15">
-                            <a href="#" class="f1-s-4 cl8 hov-cl10 trans-03">
-                                by John Alvarado
-                            </a>
-
-                            <span class="f1-s-3 m-rl-3">
-                                -
-                            </span>
-
-                            <span class="f1-s-3">
-                                Feb 18
-                            </span>
-                        </span>
-                    </div>
-                </div>
-            </div>
 
             <!-- Subscribe -->
             <div class="bg10 p-rl-35 p-t-28 p-b-35 m-b-55">

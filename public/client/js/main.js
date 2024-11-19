@@ -191,22 +191,22 @@
 
     /*==================================================================
     [ Play video 01 ]*/
-    try {
-        var srcOld = $('.video-mo-01').children('iframe').attr('src');
+    // try {
+    //     var srcOld = $('.video-mo-01').children('iframe').attr('src');
 
-        $('[data-target="#modal-video-01"]').on('click',function(){
-            $('.video-mo-01').children('iframe')[0].src += "&autoplay=1";
+    //     $('[data-target="#modal-video-01"]').on('click',function(){
+    //         $('.video-mo-01').children('iframe')[0].src += "&autoplay=1";
 
-            setTimeout(function(){
-                $('.video-mo-01').css('opacity','1');
-            },300);      
-        });
+    //         setTimeout(function(){
+    //             $('.video-mo-01').css('opacity','1');
+    //         },300);      
+    //     });
 
-        $('[data-dismiss="modal"]').on('click',function(){
-            $('.video-mo-01').children('iframe')[0].src = srcOld;
-            $('.video-mo-01').css('opacity','0');
-        });
-    } catch(er) {console.log(er);}
+    //     $('[data-dismiss="modal"]').on('click',function(){
+    //         $('.video-mo-01').children('iframe')[0].src = srcOld;
+    //         $('.video-mo-01').css('opacity','0');
+    //     });
+    // } catch(er) {console.log(er);}
    
 
     /*==================================================================
@@ -222,46 +222,46 @@
     /*==================================================================
     [ Slide100 txt ]*/
 
-    try {
-        $('.slide100-txt').each(function(){
-            var slideTxt = $(this);
-            var itemSlideTxt = $(this).find('.slide100-txt-item'); 
-            var data = [];
-            var count = 0;
-            var animIn = $(this).data('in');
-            var animOut = $(this).data('out');
+    // try {
+    //     $('.slide100-txt').each(function(){
+    //         var slideTxt = $(this);
+    //         var itemSlideTxt = $(this).find('.slide100-txt-item'); 
+    //         var data = [];
+    //         var count = 0;
+    //         var animIn = $(this).data('in');
+    //         var animOut = $(this).data('out');
 
-            for(var i=0; i<itemSlideTxt.length; i++) {
-                data[i] = $(itemSlideTxt[i]).clone();
-                $(data[i]).addClass('clone');
-            }
+    //         for(var i=0; i<itemSlideTxt.length; i++) {
+    //             data[i] = $(itemSlideTxt[i]).clone();
+    //             $(data[i]).addClass('clone');
+    //         }
 
-            $(window).on('load', function(){
-                $(slideTxt).find('.slide100-txt-item').remove();
-                $(slideTxt).append($(data[0]).clone());
-                $(slideTxt).find('.slide100-txt-item.clone').addClass(animIn + ' visible-true');
-                count = 0;
-            });
+    //         $(window).on('load', function(){
+    //             $(slideTxt).find('.slide100-txt-item').remove();
+    //             $(slideTxt).append($(data[0]).clone());
+    //             $(slideTxt).find('.slide100-txt-item.clone').addClass(animIn + ' visible-true');
+    //             count = 0;
+    //         });
             
-            setInterval(function(){
-                $(slideTxt).find('.slide100-txt-item.ab-t-l.' + animOut).remove();
-                $(slideTxt).find('.slide100-txt-item').addClass('ab-t-l ' + animOut);
+    //         setInterval(function(){
+    //             $(slideTxt).find('.slide100-txt-item.ab-t-l.' + animOut).remove();
+    //             $(slideTxt).find('.slide100-txt-item').addClass('ab-t-l ' + animOut);
 
                 
-                if(count >= data.length-1) {
-                    count = 0;
-                }
-                else {
-                    count++;
-                }
+    //             if(count >= data.length-1) {
+    //                 count = 0;
+    //             }
+    //             else {
+    //                 count++;
+    //             }
 
-                console.log($(data[count]).text());
+    //             // console.log($(data[count]).text());
 
-                $(slideTxt).append($(data[count]).clone());
-                $(slideTxt).find('.slide100-txt-item.clone').addClass(animIn + ' visible-true');
-            },5000); 
-        });
-    } catch(er) {console.log(er);}
+    //             $(slideTxt).append($(data[count]).clone());
+    //             $(slideTxt).find('.slide100-txt-item.clone').addClass(animIn + ' visible-true');
+    //         },5000); 
+    //     });
+    // } catch(er) {console.log(er);}
             
 
 })(jQuery);
