@@ -13,6 +13,7 @@
                         // Lấy bài viết đầu tiên
                         if ($lastestNews->isNotEmpty()) {
                             $firstPost = $lastestNews->get(0); // Lấy bài viết đầu tiên
+                            if (!is_null($firstPost->postCatalogueParent)){
                     ?>
 
                     <div class="bg-img1 size-a-3 how1 pos-relative"
@@ -49,8 +50,12 @@
                     </div>
                 </div>
                 <?php 
-                        }        
-                ?>
+                        }   
+                    }
+                    else { ?>
+                    <h2>Không có dữ liệu</h2>
+                <?php } ?>
+
 
                 <div class="col-md-6 p-rl-1">
                     <div class="row m-rl--1">
@@ -58,7 +63,7 @@
             // Lấy bài viết thứ 2 đến thứ 4 và hiển thị chúng
             for ($i = 1; $i <= 3; $i++) {
                 $post = $lastestNews->get($i);
-                if ($post) {
+                if ($post && !is_null($post->postCatalogueParent)) {
                     // Gán id riêng cho 2 phần tử col-sm-6
                     $colId = '';
                     if ($i === 2) {
@@ -162,7 +167,7 @@
                                     <div class="row">
                                         @if (count($results))
                                             @foreach ($results as $key => $val)
-                                                @if ($key == $count)
+                                                @if ($key == $count && !empty($val[0]))
                                                     <div class="col-sm-6 p-r-25 p-r-15-sr991">
                                                         <!-- Item post -->
                                                         <div class="m-b-30">
@@ -170,8 +175,8 @@
                                                                 class="wrap-pic-w hov1 trans-03">
                                                                 <img src="{{ isset($val[0]->image) ? asset($val[0]->image) : '' }}"
                                                                     alt="IMG">
-                                                            </a> 
-                                                            
+                                                            </a>
+
                                                             <div class="p-t-20">
                                                                 <h5 class="p-b-5">
                                                                     <a href="{{ route('client.detail', $val[0]->encrypted_id) }}"
@@ -195,7 +200,8 @@
                                                                     </span>
                                                                 </span>
                                                                 <div class="view-count">
-                                                                    Lượt xem: {{ isset($val[0]->view_count) ? $val[0]->view_count : 0 }}
+                                                                    Lượt xem:
+                                                                    {{ isset($val[0]->view_count) ? $val[0]->view_count : 0 }}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -255,7 +261,7 @@
                     @php $count++; @endphp
                 @endforeach
             @else
-                <h2>Khong co danh muc</h2>
+                <h2>Không có dữ liệu</h2>
             @endif
         </div>
     </div>

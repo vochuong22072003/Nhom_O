@@ -89,4 +89,5 @@ class HomeRepository extends BaseRepository implements HomeRepositoryInterface
         // dd($getPost);
         return $getPost;
     }
+  
 }

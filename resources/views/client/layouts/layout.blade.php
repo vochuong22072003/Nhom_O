@@ -20,42 +20,20 @@
 
     <!-- Headline -->
     <div class="container">
-        <div class="bg0 flex-wr-sb-c p-rl-20 p-tb-8">
+        <div class="bg0 flex-wr-sb-c p-rl-20 p-tb-8 flex-nowrap">
             {{-- Breadcrumb --}}
             @section('breadcrumb')
                 <div class="f2-s-1 p-r-30 size-w-0 m-tb-6 flex-wr-s-c">
-                    <span class="text-uppercase cl2 p-r-8">
-                        Trending Now:
-                    </span>
-
-                    <span class="dis-inline-block cl6 slide100-txt pos-relative size-w-0" data-in="fadeInDown"
-                        data-out="fadeOutDown">
-                        <span class="dis-inline-block slide100-txt-item animated visible-false">
-                            Interest rate angst trips up US equity bull market
-                        </span>
-
-                        <span class="dis-inline-block slide100-txt-item animated visible-false">
-                            Designer fashion show kicks off Variety Week
-                        </span>
-
-                        <span class="dis-inline-block slide100-txt-item animated visible-false">
-                            Microsoft quisque at ipsum vel orci eleifend ultrices
-                        </span>
-                    </span>
                 </div>
             @show
 
-            @csrf
-            <div class="pos-relative size-a-2 bo-1-rad-22 of-hidden bocl11 m-tb-6">
-                <input class="f1-s-1 cl6 plh9 s-full p-l-25 p-r-45" type="text" name="search" id="searchInput"
-                    placeholder="Nhập hoặc nói để tìm kiếm">
-                <button class="flex-c-c size-a-1 ab-t-r fs-20 cl2 hov-cl10 trans-03" onclick="startRecognition()"
-                    type="submit">
-                    🎤
+            <form action="{{ route('client.search') }}" method="post" class="pos-relative size-a-2 bo-1-rad-22 of-hidden bocl11 m-tb-6">
+                @csrf
+                <input class="f1-s-1 cl6 plh9 s-full p-l-25 p-r-45" type="text" name="search" placeholder="Search" value="">
+                <button class="flex-c-c size-a-1 ab-t-r fs-20 cl2 hov-cl10 trans-03" type="submit">
+                    <i class="zmdi zmdi-search"></i>
                 </button>
-            </div>
-
-
+            </form>
         </div>
     </div>
 
@@ -216,23 +194,7 @@
             </div>
         </div>
 
-        <div class="bg11">
-            <div class="container size-h-4 flex-c-c p-tb-15">
-                <span class="f1-s-1 cl0 txt-center">
-                    Copyright © 2018
-
-                    <a href="#"
-                        class="f1-s-1 cl10 hov-link1"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        Copyright &copy;
-                        <script>
-                            document.write(new Date().getFullYear());
-                        </script> All rights reserved | This template is made with <i
-                            class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com"
-                            target="_blank">Colorlib</a>
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                </span>
-            </div>
-        </div>
+       
     </footer>
 
     <!-- Back to top -->
@@ -242,17 +204,6 @@
         </span>
     </div>
 
-    <!-- Modal Video 01-->
-    <div class="modal fade" id="modal-video-01" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog" role="document" data-dismiss="modal">
-            <div class="close-mo-video-01 trans-0-4" data-dismiss="modal" aria-label="Close">&times;</div>
-            <div class="wrap-video-mo-01">
-                <div class="video-mo-01">
-                    <iframe src="https://www.youtube.com/embed/mHP9_0LCKcU?si=wGiaJg1TzTWQ8RBm" allowfullscreen></iframe>
-                </div>
-            </div>
-        </div>
-    </div>
 
     @if (isset($config['js']) && is_array($config['js']))
         @foreach ($config['js'] as $key => $val)
