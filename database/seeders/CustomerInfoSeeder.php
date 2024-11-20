@@ -21,7 +21,7 @@ class CustomerInfoSeeder extends Seeder
                 'cus_id'     => $cus,
                 'cus_name'   => $faker->name,
                 'birth_date' => $faker->date,
-                'cus_phone'  => $faker->phoneNumber,
+                'cus_phone'  => $faker->numerify(str_repeat('#', mt_rand(10, 15))),
                 'address'    => $faker->address,
                 'gender'     => $faker->randomElement(['Male', 'Female', 'Other']),
                 'cus_avt'    => null,

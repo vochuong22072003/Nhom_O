@@ -36,7 +36,7 @@
 
                 <button role="button" class="btn dropdown p-0 rounded-circle overflow-hidden text-center"
                     style="width: 30px;height: 30px" data-toggle="dropdown">
-                    @php($avt_src = asset(Auth::guard('customers')->user()->customerInfo->getAvtUrl()))
+                    @php($avt_src = Auth::guard('customers')->user()->customerInfo->getAvtUrl())
                     {{--  AVATAR --}}
                     <img src="{{ $avt_src }}" class="rounded-circle img-avt">
                 </button>

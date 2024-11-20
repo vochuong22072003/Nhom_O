@@ -153,7 +153,12 @@ Route::middleware('auth')->group(function () {
 
 
         Route::get('/account_info', [PersonalInfoController::class, 'edit'])->name('account-info');
+        Route::patch('/account_info', [PersonalInfoController::class, 'update'])->name('account-info-update');
+        
         Route::get('/account_change_password', [AccountController::class, 'changePassword'])->name('change-password');
         Route::get('/account_notifications', [NotificationController::class, 'edit'])->name('notifications');
+
+        Route::get('debug',[PersonalInfoController::class, '_debug']);
+        Route::post('debug',[PersonalInfoController::class, '_debug2']);
     });
 });

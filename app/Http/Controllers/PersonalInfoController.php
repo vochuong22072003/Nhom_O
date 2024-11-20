@@ -2,63 +2,41 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Client\PersonalInfoRequest;
+use App\Models\CustomerInfo;
 use Illuminate\Http\Request;
+use League\CommonMark\Extension\CommonMark\Node\Block\HtmlBlock;
+use Storage;
 
 class PersonalInfoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the account infomation
      */
     public function edit()
     {
-        return view('client.account-setting-partials.account-info');
+        $genders = CustomerInfo::getEnumGenders();
+        return view('client.account-setting-partials.account-info', compact('genders'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(PersonalInfoRequest $request)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        $validatedData = $request->validated();
+        if ($request->hasFile('cus_avt')) {
+            $file = $request->file('cus_avt');
+            $fileName = uniqid() . '_' . time() . '.' . $file->getClientOriginalExtension();
+            $path = $file->storeAs('avatars', $fileName, 'upload');
+            $oldAvt = $request->user()->customerInfo->cus_avt;
+            if ($oldAvt) {
+                Storage::disk('upload')->delete($oldAvt);
+            }
+            $validatedData['cus_avt'] = $path;
+        }
+        $request->user()->customerInfo->update($validatedData);
+        return redirect()->back()->with('success', 'Cập nhật thông tin thành công!');
     }
 }
