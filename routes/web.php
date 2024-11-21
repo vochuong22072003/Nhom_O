@@ -22,7 +22,7 @@ use App\Http\Controllers\LikeView\ViewController;
 use App\Http\Controllers\LikeView\LikeController;
 use App\Http\Controllers\LikeView\SaveController;
 use App\Http\Controllers\LikeView\SaveFolderController;
-use App\Http\Controllers\LikeView\PostTagController;
+use App\Http\Controllers\LikeView\TagController;
 
 
 Route::get('dashboard/index', [DashboardController::class, 'index'])->name('dashboard.index')->middleware(AuthenticateMiddleware::class);
@@ -103,6 +103,8 @@ Route::middleware(['auth:web'])->group(function () {
         Route::post('{id}/update', [PostController::class, 'update'])->name('post.update')->where(['id' => '[0-9]+'])->middleware(AuthenticateMiddleware::class);
         Route::get('{id}/destroy', [PostController::class, 'destroy'])->name('post.destroy')->middleware(AuthenticateMiddleware::class);
         Route::post('{id}/delete', [PostController::class, 'delete'])->name('post.delete')->where(['id' => '[0-9]+'])->middleware(AuthenticateMiddleware::class);
+        Route::post('{id}/addtag',[PostController::class,'index'])->name('post.addtag')->middleware(AuthenticateMiddleware::class);
+        //Route::get('liked-posts', [PostController::class, 'getLikedPosts'])->name('post.liked')->middleware(AuthenticateMiddleware::class);
         //Route::get('/search', [PostController::class, 'search'])->name('posts.search');
 
 
@@ -115,31 +117,27 @@ Route::middleware(['auth:web'])->group(function () {
         Route::get('/', [HomeController::class, 'index'])->name('index');
         Route::get('{id}/{model}/category', [HomeController::class, 'category'])->name('category');
         Route::get('{id}/detail', [HomeController::class, 'detail'])->name('detail');
+        Route::get('/myactive',[HomeController::class,'myactives'])->name('myactive');
         Route::get('/search-result', [HomeController::class, 'search'])->name('search-result');
         Route::post('/search', [HomeController::class, 'search'])->name('search');
+        Route::get('/tag/{tagId}', [HomeController::class,'tagPostResult'])->name('tag.posts');
     });
 
 
 // các route liên quan đến post và like view tags khiêm
 Route::prefix('posts')->group(function () {
     Route::post('/like', [LikeController::class, 'getLike'])->name('posts.like');
-  
-
-    // Route cho tags của bài viết
-    //Route::post('{postId}/tags', [PostTagController::class, 'addTagsToPost']);
-    //Route::get('{postId}/tags', [PostTagController::class, 'getPostTags']);
-    Route::delete('{postId}/tags/{tagId}', [PostTagController::class, 'removeTagFromPost']);
+    Route::get('/liked-posts', [LikeController::class, 'getLikedPosts'])->name('liked-posts.index');
 });
 // Group cho các route liên quan đến lưu vào danh mục và tạo danh mục Khiêm
 Route::prefix('folder')->group(function () {
     Route::post('/create-folder', [SaveFolderController::class, 'getSave'])->name('create-folder');
     Route::post('/saveToFolder', [SaveFolderController::class, 'savePostToFolder'])->name('posts.saveToFolder');
-    //Route::get('/save-post-to-folder', [SaveFolderController::class, 'savePostToFolder'])->name('save.post.to.folder');
-    Route::delete('{folderId}', [SaveFolderController::class, 'deteleFolder']);
-
+    Route::delete('/{folderId}', [SaveFolderController::class, 'deteleFolder'])->name('folders.delete');
+    Route::delete('{folderId}/posts/{postId}' , [SaveFolderController::class, 'detelePostFromFolder'])->name('folders.posts.delete');
 });
-// Route::post('/save-post-to-folder', [PostController::class, 'savePostToFolder'])->name('save.post.to.folder');
 
+    //Route::get('/tag/{tagId}', [TagController::class,'tagPostResult'])->name('tag.posts');
 
 
 require __DIR__ . '/auth.php';

@@ -389,20 +389,14 @@
 </script>
 <script>
     document.getElementById('readButton').addEventListener('click', function() {
-        // Lấy nội dung bài viết
-        const postContent = document.getElementById('postContent').innerText; // Giả sử bài viết có ID 'postContent'
-
-        // Kiểm tra xem API SpeechSynthesis có sẵn không
+     
+        const postContent = document.getElementById('postContent').innerText; 
         if ('speechSynthesis' in window) {
             const speech = new SpeechSynthesisUtterance(postContent);
-
-            // Tuỳ chỉnh cài đặt giọng nói
-            speech.lang = 'en-US'; // Thiết lập ngôn ngữ đọc là Tiếng Việt
-            speech.volume = 1; // Mức âm lượng (0 - 1)
-            speech.rate = 1; // Tốc độ đọc (0.1 - 10)
-            speech.pitch = 1; // Độ cao giọng nói (0 - 2)
-
-            // Bắt đầu đọc
+            speech.lang = 'en-US'; 
+            speech.volume = 1; 
+            speech.rate = 1; 
+            speech.pitch = 1; 
             window.speechSynthesis.speak(speech);
         } else {
             alert("Trình duyệt của bạn không hỗ trợ tính năng đọc giọng nói.");
@@ -410,4 +404,22 @@
     });
 </script>
 
+<script>
+    document.querySelectorAll('.folder-name').forEach(function(folder) {
+        folder.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Lấy ID của thư mục được nhấn
+            var folderId = this.getAttribute('data-folder-id');
+            var savedPostsDiv = document.getElementById('folder-' + folderId);
+
+            // Hiển thị hoặc ẩn danh sách bài viết đã lưu
+            if (savedPostsDiv.style.display === 'none') {
+                savedPostsDiv.style.display = 'block';
+            } else {
+                savedPostsDiv.style.display = 'none';
+            }
+        });
+    });
+</script>
 </html>

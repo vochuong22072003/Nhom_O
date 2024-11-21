@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers\LikeView;
-
+use App\Models\Post;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\PostLike;
+
 class LikeController extends Controller
 {
  
@@ -14,7 +15,7 @@ class LikeController extends Controller
         $cus_id = auth()->id();
         if (!$cus_id)
         {
-            return response()->json(['error' => 'Bạn cần đăng nhập để thực hiện thao tác này.'], 403);
+            return redirect()->back()->with('error', 'bạn cần đăng nhập để thực hiện thao tác này');
         }
         $existinglike = PostLike::withTrashed()->where('post_id', $post_id)
         ->where('cus_id',$cus_id)
@@ -43,5 +44,15 @@ class LikeController extends Controller
             return response()->json(['status' => 'unliked']);
         } 
     }
+    public function getLikedPosts()
+    {
+        $cus_id = auth()->id();
+        if (!$cus_id) {
+            return redirect()->route('login')->with('error', 'Bạn cần đăng nhập để xem các bài viết đã thích.');
+        }
+        $likedPosts = PostLike::with('post')->where('cus_id',$cus_id)->whereNull('deleted_at')->get()->pluck('post');
+        return view('client.myactive', compact('likedPosts'));  
+    }
+
      
 } 

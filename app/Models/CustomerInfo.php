@@ -29,4 +29,8 @@ class CustomerInfo extends Model
     {
         return $this->belongsTo(Customer::class, 'cus_id', 'cus_id');
     }
+    public function likes()
+    {
+        return $this->hasMany(PostLike::class,'cus_id');
+    }
 }
