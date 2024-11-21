@@ -83,7 +83,6 @@ class HomeController extends Controller
             ->having('likes_count', '>=', 2)
             ->orderBy('likes_count', 'desc')
             ->take(4)->get();
-
         return $posts;
     }
     public function getTopViewedPosts()
