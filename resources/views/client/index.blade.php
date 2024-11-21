@@ -429,13 +429,14 @@
             <div class="col-sm-6 p-r-25 p-r-15-sr991">
                 <!-- Item latest -->
                 <div class="m-b-45">
-                    <a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
+                    <a href="{{ route('client.detail', $post->encrypted_id) }}" class="wrap-pic-w hov1 trans-03">
+                        <h1>{{ $post->encrypted_idaa}}</h1>
                         <img src="{{ asset($post->image) }}" alt="IMG">
-                    </a>
-
+                    </a> 
+                    
                     <div class="p-t-16">
                         <h5 class="p-b-5">
-                            <a href="{{ route('client.detail', $firstPost->encrypted_id) }}" class="f1-m-3 cl2 hov-cl10 trans-03">
+                            <a href="{{ route('client.detail', $post->encrypted_id) }}" class="f1-m-3 cl2 hov-cl10 trans-03">
                                 {{ $post->post_name}}
                             </a>
                         </h5>
@@ -450,7 +451,7 @@
                             </span>
 
                             <span class="f1-s-3">
-                                {{ \Carbon\Carbon::parse($firstPost->created_at)->format('d/m/Y') }}
+                                {{ \Carbon\Carbon::parse($post->created_at)->format('d/m/Y') }}
                             </span>
                         </span>
                     </div>
@@ -536,7 +537,62 @@
         </div>
 
     </div>
+
+
+    
 </div>
 </div>
 </section>
+
+
+
+<section class="bg0 ">
+    <div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-12 p-b-20">
+            <div class="how2 how2-cl4 flex-s-c m-r-10 m-r-0-sr991">
+                <h3 class="f1-m-2 cl3 tab01-title">
+                    các bài viết được xem nhiều nhất 
+                </h3>
+            </div>
+    
+            <div class="row p-t-35">
+                @foreach ($view as $views)
+                <div class="col-sm-4 p-r-25 p-r-15-sr991">
+                    <!-- Item latest -->
+                    <div class="m-b-45">
+                        <a href="{{ route('client.detail',$views->encrypted_id) }}" class="wrap-pic-w hov1 trans-03">
+                            <img src="{{ asset($views->image) }}" alt="IMG">
+                        </a>
+    
+                        <div class="p-t-16">
+                            <h5 class="p-b-5">
+                                <a href="{{ route('client.detail',$views->id) }}" class="f1-m-3 cl2 hov-cl10 trans-03">
+                                    {{ $views->post_name}}
+                                </a>
+                            </h5>
+    
+                            <span class="cl8">
+                                <a href="#" class="f1-s-4 cl8 hov-cl10 trans-03">
+                                    by {{ $views->userInfo->name}}
+                                </a>
+    
+                                <span class="f1-s-3 m-rl-3">
+                                    -
+                                </span>
+    
+                                <span class="f1-s-3">
+                                    {{ \Carbon\Carbon::parse($views->created_at)->format('d/m/Y') }}
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+                
+            </div>
+        </div>   
+    </div>
+    </div>
+    </section>
 @endsection

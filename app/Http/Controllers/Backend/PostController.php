@@ -190,7 +190,7 @@ class PostController extends Controller
                     'updated_at' => now(),
                 ]);
             } else {
-                $tagId = $tag->id;
+                $tagId = $tag->tag_id;
             }
             DB::table('post_tags')->updateOrInsert([
                 'post_id' => $postId,

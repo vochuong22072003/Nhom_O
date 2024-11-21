@@ -22,7 +22,7 @@ use App\Http\Controllers\LikeView\ViewController;
 use App\Http\Controllers\LikeView\LikeController;
 use App\Http\Controllers\LikeView\SaveController;
 use App\Http\Controllers\LikeView\SaveFolderController;
-use App\Http\Controllers\LikeView\PostTagController;
+use App\Http\Controllers\LikeView\TagController;
 
 
 Route::get('dashboard/index', [DashboardController::class, 'index'])->name('dashboard.index')->middleware(AuthenticateMiddleware::class);
@@ -120,6 +120,7 @@ Route::middleware(['auth:web'])->group(function () {
         Route::get('/myactive',[HomeController::class,'myactives'])->name('myactive');
         Route::get('/search-result', [HomeController::class, 'search'])->name('search-result');
         Route::post('/search', [HomeController::class, 'search'])->name('search');
+        Route::get('/tag/{tagId}', [HomeController::class,'tagPostResult'])->name('tag.posts');
     });
 
 
@@ -132,9 +133,11 @@ Route::prefix('posts')->group(function () {
 Route::prefix('folder')->group(function () {
     Route::post('/create-folder', [SaveFolderController::class, 'getSave'])->name('create-folder');
     Route::post('/saveToFolder', [SaveFolderController::class, 'savePostToFolder'])->name('posts.saveToFolder');
+    Route::delete('/{folderId}', [SaveFolderController::class, 'deteleFolder'])->name('folders.delete');
+    Route::delete('{folderId}/posts/{postId}' , [SaveFolderController::class, 'detelePostFromFolder'])->name('folders.posts.delete');
 });
 
-
+    //Route::get('/tag/{tagId}', [TagController::class,'tagPostResult'])->name('tag.posts');
 
 
 require __DIR__ . '/auth.php';

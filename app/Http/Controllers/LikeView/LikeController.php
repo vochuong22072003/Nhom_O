@@ -15,7 +15,7 @@ class LikeController extends Controller
         $cus_id = auth()->id();
         if (!$cus_id)
         {
-            return response()->json(['error' => 'Bạn cần đăng nhập để thực hiện thao tác này.'], 403);
+            return redirect()->back()->with('error', 'bạn cần đăng nhập để thực hiện thao tác này');
         }
         $existinglike = PostLike::withTrashed()->where('post_id', $post_id)
         ->where('cus_id',$cus_id)

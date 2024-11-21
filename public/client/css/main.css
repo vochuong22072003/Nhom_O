@@ -125,8 +125,57 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
     opacity: 0;
   }
 }
+.table-center {
+  margin: 0 auto;
+  border-collapse: collapse; 
+  width: 60%;
+}
+
+.table-center th, .table-center td {
+  text-align: center;
+  vertical-align: middle;
+  padding: 10px; 
+  border: 1px solid #ddd; 
+}
 
 
+.table-center th {
+  background-color: #f4f4f4; 
+  font-weight: bold; 
+}
+
+
+.table-center a {
+  text-decoration: none;
+  color: #007bff;
+}
+
+.table-center a:hover {
+  text-decoration: underline; 
+}
+
+
+.container1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+button {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+button:hover {
+  background-color: #c0392b;
+} 
+
+form {
+  display: inline-block;
+}
 /*//////////////////////////////////////////////////////////////////
 [ BUTTON BACK TO TOP ]*/
 .btn-back-to-top {

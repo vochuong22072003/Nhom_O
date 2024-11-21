@@ -69,55 +69,24 @@
                         @endauth
                         {{-- <p>tổng lượt thích {{ $getPost->getTotalLikes($getPost->id)}}</p> --}}
                     </span>
+                    <span class="f1-s-3 cl8 m-rl-7 txt-center">
+                        <i class="fa fa-save" data-toggle="modal" data-post-id="{{ $getPost->id }}"
+                            data-target="#saveModal"> Lưu bài viết </i>
+                    </span>
+                    
 
                     <!-- Modal: -->
                     <!-- Modal: Chọn thư mục lưu hoặc tạo thư mục mới -->
-                    <div class="modal fade" id="saveModal" tabindex="-1" role="dialog" aria-labelledby="saveModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="saveModalLabel">Lưu bài viết</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <!-- Form lưu bài viết vào thư mục -->
-                                    {{-- thêm vào action	{{ route('save-to-exists-folder') }} --}}
-                                    <form action="" method="POST">
-                                        @csrf
-                                        <input type="hidden" name="post_id" value="">
-                                        {{-- thêm vào value	{{ $getPost->id }} --}}
-
-                                        <div class="form-group">
-                                            <label for="folderSelect">Chọn thư mục đã có</label>
-                                            <select class="form-control" id="folderSelect" name="folder_id">
-                                                <option value="">Chọn thư mục...</option>
-                                                <!-- Dữ liệu thư mục được lấy từ backend -->
-                                                {{-- @foreach ($folders as $folder)
-                                                    <option value="{{ $folder->folder_id }}">{{ $folder->folder_name }}
-                                                    </option>
-                                                @endforeach --}}
-                                            </select>
-                                        </div>
-
-                                        <!-- Hoặc tạo thư mục mới -->
-                                        <div class="form-group">
-                                            <label for="newFolderName">Tạo thư mục mới</label>
-                                            <input type="text" class="form-control" id="newFolderName"
-                                                name="new_folder_name" placeholder="Tên thư mục mới">
-                                        </div>
-
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-dismiss="modal">Hủy</button>
-                                            <button type="submit" class="btn btn-primary">Lưu vào thư mục</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
+                </div>
+            </div>
+            
+        </div>
+        <div class="modal fade" id="saveModal" tabindex="-1" aria-labelledby="saveModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="saveModalLabel">Lưu bài viết vào danh mục</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <form id="savePostForm" action="{{ route('posts.saveToFolder') }}" method="POST">
@@ -125,12 +94,12 @@
                             <input type="hidden" name="post_id" id="post_id" value="{{ $getPost->id }}">
                             <!-- Danh sách danh mục (không bắt buộc) -->
                             <div class="mb-3">
-                                <h4 class="text-center">các danh mục sẵn có của bạn</h4>
+                                <h1 class="text-center" style="margin-left: 120px; color:red;">các danh mục sẵn có của bạn</h1>
                                 <!-- Options -->
                                 @auth('customers')
-                                    <div class="text-center">
+                                    <div class="text-center" style="margin-left: 100px">
                                         @foreach (Auth::guard('customers')->user()->saveFolders as $y)
-                                            <div class="checkbox-item">
+                                            <div class="checkbox-item" style="color:yellow">
                                                 <input class="folder-checkbox" type="checkbox"
                                                     data-folder-id="{{ $y->folder_id }}"
                                                     data-folder-name="{{ $y->folder_name }}" name="folder[]"
@@ -140,23 +109,23 @@
                                         @endforeach
                                     </div>
                                 @endauth
-
                             </div>
 
+                    {{-- end modal --}}
                             {{-- <input type="hidden" name="post_id" value="{{ $getPost->id }}"> --}}
                             <!-- Form nhập tên danh mục mới -->
                             <div class="mb-3">
-                                <label for="save_folder_name" class="form-label text-center">Hoặc tạo danh mục mới:</label>
+                                <label for="save_folder_name" class="form-label text-center" style="margin-left: 120px ; color:red;">Hoặc tạo danh mục mới:</label>
                                 <input type="text" class="form-control" name="save_folder_name" id="save_folder_name"
-                                    placeholder="Nhập tên danh mục mới">
+                                    placeholder="Nhập tên danh mục mới"  style="margin-left: 80px">
                             </div>
-                            <button type="submit" class="btn btn-primary" id="savePost">Lưu</button>
+                            <button type="submit" class="btn btn-primary" style="margin-left: 180px;" id="savePost" >Lưu</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-
+       
         {{-- end modal --}}
         <!-- Detail -->
         <div class="container p-t-50">
@@ -182,7 +151,9 @@
                                     <i class="fa fa-tag"></i>
                                     <a href="" class="f1-s-12 cl8 hov-link1 m-r-15">
                                         @foreach ($getPost->tags as $tag)
+                                        <a href="{{ route('client.tag.posts', ['tagId' => $tag->tag_id]) }}" class="f1-s-12 cl8 hov-link1 m-r-15">
                                             {{ $tag->tag_name }}
+                                        </a>
                                         @endforeach
                                     </a>
                                 </div>

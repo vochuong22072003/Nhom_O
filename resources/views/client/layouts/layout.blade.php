@@ -404,4 +404,22 @@
     });
 </script>
 
+<script>
+    document.querySelectorAll('.folder-name').forEach(function(folder) {
+        folder.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Lấy ID của thư mục được nhấn
+            var folderId = this.getAttribute('data-folder-id');
+            var savedPostsDiv = document.getElementById('folder-' + folderId);
+
+            // Hiển thị hoặc ẩn danh sách bài viết đã lưu
+            if (savedPostsDiv.style.display === 'none') {
+                savedPostsDiv.style.display = 'block';
+            } else {
+                savedPostsDiv.style.display = 'none';
+            }
+        });
+    });
+</script>
 </html>
