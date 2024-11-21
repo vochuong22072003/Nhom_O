@@ -41,7 +41,7 @@
                 @foreach ($savedFolders as $folderId => $folderGroup)
                     <tr>
                         <td>
-                            <a href="#folder{{ $folderId }}" data-toggle="collapse" class="btn btn-link">
+                            <a href="#folder{{ $folderId }}" data-toggle="collapse" class="btn btn-link" data-folder-id="{{ $folderId }}">
                                 {{ $folderGroup[0]->folder_name }}
                             </a>
                         </td>
@@ -52,7 +52,7 @@
     
         <!-- Danh sách bài viết trong từng thư mục -->
         @foreach ($savedFolders as $folderId => $folderGroup)
-            <div id="folder{{ $folderId }}" class="collapse">
+            <div id="folder{{ $folderId }}" class="saved-posts collapse">
                 <table class="table table-striped table-bordered mt-3">
                     <thead>
                         <tr>

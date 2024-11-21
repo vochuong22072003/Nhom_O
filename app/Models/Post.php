@@ -52,7 +52,6 @@ class Post extends Model
     }
     public function viewCount($postId)
     {
-
         $postview = PostView::firstWhere('post_id', $postId);
         if ($postview === null) {
 
@@ -67,6 +66,7 @@ class Post extends Model
         }
         return $postview->view_count;
     }
+    
   
     public function posts()
     {
