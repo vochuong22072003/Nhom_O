@@ -53,7 +53,7 @@
                         }   
                     }
                     else { ?>
-                    <h2>Không có dữ liệu</h2>
+                <h2>Không có dữ liệu</h2>
                 <?php } ?>
 
 
@@ -197,10 +197,10 @@
 
                                                                     <span class="f1-s-3">
                                                                         {{ isset($val[0]->created_at) ? \Carbon\Carbon::parse($val[0]->created_at)->format('d/m/Y') : '' }}
-                                                                        
+
                                                                     </span>
                                                                 </span>
-                                                                
+
                                                             </div>
                                                         </div>
                                                     </div>
@@ -272,59 +272,26 @@
             <div>
                 <div class="how2 how2-cl4 flex-s-c">
                     <h3 class="f1-m-2 cl3 tab01-title">
-                        Most Popular
+                        các bài viết được xem hàng đầu
                     </h3>
                 </div>
-
                 <ul class="p-t-35">
+                    @php
+                        $count = 1;
+                    @endphp
                     <li class="flex-wr-sb-s p-b-22">
-                        <div class="size-a-8 flex-c-c borad-3 size-a-8 bg9 f1-m-4 cl0 m-b-6">
-                            1
-                        </div>
-
-                        <a href="#" class="size-w-3 f1-s-7 cl3 hov-cl10 trans-03">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                        </a>
-                    </li>
-
-                    <li class="flex-wr-sb-s p-b-22">
-                        <div class="size-a-8 flex-c-c borad-3 size-a-8 bg9 f1-m-4 cl0 m-b-6">
-                            2
-                        </div>
-
-                        <a href="#" class="size-w-3 f1-s-7 cl3 hov-cl10 trans-03">
-                            Proin velit consectetur non neque
-                        </a>
-                    </li>
-
-                    <li class="flex-wr-sb-s p-b-22">
-                        <div class="size-a-8 flex-c-c borad-3 size-a-8 bg9 f1-m-4 cl0 m-b-6">
-                            3
-                        </div>
-
-                        <a href="#" class="size-w-3 f1-s-7 cl3 hov-cl10 trans-03">
-                            Nunc vestibulum, enim vitae condimentum volutpat lobortis ante
-                        </a>
-                    </li>
-
-                    <li class="flex-wr-sb-s p-b-22">
-                        <div class="size-a-8 flex-c-c borad-3 size-a-8 bg9 f1-m-4 cl0 m-b-6">
-                            4
-                        </div>
-
-                        <a href="#" class="size-w-3 f1-s-7 cl3 hov-cl10 trans-03">
-                            Proin velit justo consectetur non neque elementum
-                        </a>
-                    </li>
-
-                    <li class="flex-wr-sb-s p-b-22">
-                        <div class="size-a-8 flex-c-c borad-3 size-a-8 bg9 f1-m-4 cl0">
-                            5
-                        </div>
-
-                        <a href="#" class="size-w-3 f1-s-7 cl3 hov-cl10 trans-03">
-                            Proin velit consectetur non neque
-                        </a>
+                        @foreach ($view as $views)
+                            <div class="size-a-8 flex-c-c borad-3 size-a-8 bg9 f1-m-4 cl0 m-b-6">
+                                {{ $count }}
+                            </div>
+                            <a href="{{ route('client.detail', $views->encrypted_id) }}"
+                                class="size-w-3 f1-s-7 cl3 hov-cl10 trans-03">
+                                {{ $views->post_name }}
+                            </a>
+                            @php
+                            $count++; 
+                        @endphp
+                        @endforeach
                     </li>
                 </ul>
             </div>
@@ -426,46 +393,46 @@
 
         <div class="row p-t-35">
             @foreach ($posts as $post)
-            <div class="col-sm-6 p-r-25 p-r-15-sr991">
-                <!-- Item latest -->
-                <div class="m-b-45">
-                    <a href="{{ route('client.detail', $post->encrypted_id) }}" class="wrap-pic-w hov1 trans-03">
-                        <h1>{{ $post->encrypted_idaa}}</h1>
-                        <img src="{{ asset($post->image) }}" alt="IMG">
-                    </a> 
-                    
-                    <div class="p-t-16">
-                        <h5 class="p-b-5">
-                            <a href="{{ route('client.detail', $post->encrypted_id) }}" class="f1-m-3 cl2 hov-cl10 trans-03">
-                                {{ $post->post_name}}
-                            </a>
-                        </h5>
+                <div class="col-sm-6 p-r-25 p-r-15-sr991">
+                    <!-- Item latest -->
+                    <div class="m-b-45">
+                        <a href="{{ route('client.detail', $post->encrypted_id) }}"
+                            class="wrap-pic-w hov1 trans-03">
+                            <h1>{{ $post->encrypted_idaa }}</h1>
+                            <img src="{{ asset($post->image) }}" alt="IMG">
+                        </a>
 
-                        <span class="cl8">
-                            <a href="#" class="f1-s-4 cl8 hov-cl10 trans-03">
-                                by {{ $post->userInfo->name}}
-                            </a>
+                        <div class="p-t-16">
+                            <h5 class="p-b-5">
+                                <a href="{{ route('client.detail', $post->encrypted_id) }}"
+                                    class="f1-m-3 cl2 hov-cl10 trans-03">
+                                    {{ $post->post_name }}
+                                </a>
+                            </h5>
 
-                            <span class="f1-s-3 m-rl-3">
-                                -
+                            <span class="cl8">
+                                <a href="#" class="f1-s-4 cl8 hov-cl10 trans-03">
+                                    by {{ $post->userInfo->name }}
+                                </a>
+
+                                <span class="f1-s-3 m-rl-3">
+                                    -
+                                </span>
+
+                                <span class="f1-s-3">
+                                    {{ \Carbon\Carbon::parse($post->created_at)->format('d/m/Y') }}
+                                </span>
                             </span>
-
-                            <span class="f1-s-3">
-                                {{ \Carbon\Carbon::parse($post->created_at)->format('d/m/Y') }}
-                            </span>
-                        </span>
+                        </div>
                     </div>
                 </div>
-            </div>
             @endforeach
-            
+
         </div>
     </div>
 
     <div class="col-md-10 col-lg-4">
         <div class="p-l-10 p-rl-0-sr991 p-b-20">
-
-            <!-- Subscribe -->
             <div class="bg10 p-rl-35 p-t-28 p-b-35 m-b-55">
                 <h5 class="f1-m-5 cl0 p-b-10">
                     Subscribe
@@ -492,54 +459,23 @@
                         Tags
                     </h3>
                 </div>
-
+                @foreach ($tags as $tag)
+                    
+                
                 <div class="flex-wr-s-s m-rl--5">
-                    <a href="#"
+                    <a href=" {{ route('client.tag.posts', ['tagId' => $tag->tag_id]) }}"
                         class="flex-c-c size-h-2 bo-1-rad-20 bocl12 f1-s-1 cl8 hov-btn2 trans-03 p-rl-20 p-tb-5 m-all-5">
-                        Fashion
+                       {{$tag->tag_name}}
                     </a>
-
-                    <a href="#"
-                        class="flex-c-c size-h-2 bo-1-rad-20 bocl12 f1-s-1 cl8 hov-btn2 trans-03 p-rl-20 p-tb-5 m-all-5">
-                        Lifestyle
-                    </a>
-
-                    <a href="#"
-                        class="flex-c-c size-h-2 bo-1-rad-20 bocl12 f1-s-1 cl8 hov-btn2 trans-03 p-rl-20 p-tb-5 m-all-5">
-                        Denim
-                    </a>
-
-                    <a href="#"
-                        class="flex-c-c size-h-2 bo-1-rad-20 bocl12 f1-s-1 cl8 hov-btn2 trans-03 p-rl-20 p-tb-5 m-all-5">
-                        Streetstyle
-                    </a>
-
-                    <a href="#"
-                        class="flex-c-c size-h-2 bo-1-rad-20 bocl12 f1-s-1 cl8 hov-btn2 trans-03 p-rl-20 p-tb-5 m-all-5">
-                        Crafts
-                    </a>
-
-                    <a href="#"
-                        class="flex-c-c size-h-2 bo-1-rad-20 bocl12 f1-s-1 cl8 hov-btn2 trans-03 p-rl-20 p-tb-5 m-all-5">
-                        Magazine
-                    </a>
-
-                    <a href="#"
-                        class="flex-c-c size-h-2 bo-1-rad-20 bocl12 f1-s-1 cl8 hov-btn2 trans-03 p-rl-20 p-tb-5 m-all-5">
-                        News
-                    </a>
-                    <a href="#"
-                        class="flex-c-c size-h-2 bo-1-rad-20 bocl12 f1-s-1 cl8 hov-btn2 trans-03 p-rl-20 p-tb-5 m-all-5">
-                        Blogs
-                    </a>
+                    @endforeach
                 </div>
+             
             </div>
         </div>
-
     </div>
 
 
-    
+
 </div>
 </div>
 </section>
@@ -547,40 +483,42 @@
 
 
 <section class="bg0 ">
-    <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-10 col-lg-12 p-b-20">
-            <div class="how2 how2-cl4 flex-s-c m-r-10 m-r-0-sr991">
-                <h3 class="f1-m-2 cl3 tab01-title">
-                    các bài viết được xem nhiều nhất 
-                </h3>
-            </div>
-    
-            <div class="row p-t-35">
-                @foreach ($view as $views)
+<div class="container">
+<div class="row justify-content-center">
+    <div class="col-md-10 col-lg-12 p-b-20">
+        <div class="how2 how2-cl4 flex-s-c m-r-10 m-r-0-sr991">
+            <h3 class="f1-m-2 cl3 tab01-title">
+                các bài viết được xem nhiều nhất
+            </h3>
+        </div>
+
+        <div class="row p-t-35">
+            @foreach ($view as $views)
                 <div class="col-sm-4 p-r-25 p-r-15-sr991">
                     <!-- Item latest -->
                     <div class="m-b-45">
-                        <a href="{{ route('client.detail',$views->encrypted_id) }}" class="wrap-pic-w hov1 trans-03">
+                        <a href="{{ route('client.detail', $views->encrypted_id) }}"
+                            class="wrap-pic-w hov1 trans-03">
                             <img src="{{ asset($views->image) }}" alt="IMG">
                         </a>
-    
+
                         <div class="p-t-16">
                             <h5 class="p-b-5">
-                                <a href="{{ route('client.detail',$views->id) }}" class="f1-m-3 cl2 hov-cl10 trans-03">
-                                    {{ $views->post_name}}
+                                <a href="{{ route('client.detail', $views->id) }}"
+                                    class="f1-m-3 cl2 hov-cl10 trans-03">
+                                    {{ $views->post_name }}
                                 </a>
                             </h5>
-    
+
                             <span class="cl8">
                                 <a href="#" class="f1-s-4 cl8 hov-cl10 trans-03">
-                                    by {{ $views->userInfo->name}}
+                                    by {{ $views->userInfo->name }}
                                 </a>
-    
+
                                 <span class="f1-s-3 m-rl-3">
                                     -
                                 </span>
-    
+
                                 <span class="f1-s-3">
                                     {{ \Carbon\Carbon::parse($views->created_at)->format('d/m/Y') }}
                                 </span>
@@ -588,11 +526,11 @@
                         </div>
                     </div>
                 </div>
-                @endforeach
-                
-            </div>
-        </div>   
+            @endforeach
+
+        </div>
     </div>
-    </div>
-    </section>
+</div>
+</div>
+</section>
 @endsection

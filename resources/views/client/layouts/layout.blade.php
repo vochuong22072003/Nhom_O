@@ -230,16 +230,11 @@
 </body>
 {{-- xử lý like --}}
 <script>
-    // SỬ LÝ LIKE
     $(document).ready(function() {
         $('#likeButton').on('click', function(event) {
             event.preventDefault();
-            // Lấy URL và token từ form
             //var token = $('input[name="_token"]').val();
-
             var post_id = $(this).data('post-id');
-
-            // Gửi yêu cầu AJAX
             $.ajax({
                 url: '{{ route('posts.like') }}',
                 type: 'POST',
@@ -286,7 +281,6 @@
             e.preventDefault();
             var formData = new FormData(this);
             formData.append('post_id', $('#post_id').val());
-            // Đảm bảo post_id được gửi đi
             $.ajax({
                 url: '{{ route('create-folder') }}',
                 type: 'POST',
@@ -353,71 +347,24 @@
         });
     });
 </script>
-{{-- xử lý nút micro cho việc tìm kiếm bằng giọng nói  --}}
-<script>
-    function startRecognition() {
-
-        if (!('webkitSpeechRecognition' in window)) {
-            alert('Trình duyệt không hỗ trợ nhận diện giọng nói.');
-            return;
-        }
-
-        const recognition = new webkitSpeechRecognition();
-        recognition.lang = 'vi-VN';
-        recognition.interimResults = false;
-        recognition.maxAlternatives = 1;
-
-        recognition.onresult = (event) => {
-
-            const transcript = event.results[0][0].transcript;
-            document.getElementById('searchInput').value = transcript;
-
-            performSearch(transcript);
-        };
-
-        recognition.onerror = (event) => {
-            alert('Có lỗi xảy ra: ' + event.error);
-        };
-
-        recognition.start();
-    }
-
-    function performSearch(query) {
-        console.log("Tìm kiếm: " + query);
-
-    }
-</script>
-<script>
-    document.getElementById('readButton').addEventListener('click', function() {
-     
-        const postContent = document.getElementById('postContent').innerText; 
-        if ('speechSynthesis' in window) {
-            const speech = new SpeechSynthesisUtterance(postContent);
-            speech.lang = 'en-US'; 
-            speech.volume = 1; 
-            speech.rate = 1; 
-            speech.pitch = 1; 
-            window.speechSynthesis.speak(speech);
-        } else {
-            alert("Trình duyệt của bạn không hỗ trợ tính năng đọc giọng nói.");
-        }
-    });
-</script>
-
+{{-- Xử lý hiện ẩn bài viế đã lưu vào thư mục  --}}
 <script>
     document.querySelectorAll('.folder-name').forEach(function(folder) {
         folder.addEventListener('click', function(e) {
             e.preventDefault();
-            
+
             // Lấy ID của thư mục được nhấn
             var folderId = this.getAttribute('data-folder-id');
             var savedPostsDiv = document.getElementById('folder-' + folderId);
 
-            // Hiển thị hoặc ẩn danh sách bài viết đã lưu
-            if (savedPostsDiv.style.display === 'none') {
-                savedPostsDiv.style.display = 'block';
-            } else {
-                savedPostsDiv.style.display = 'none';
+            // Đóng tất cả các thư mục
+            document.querySelectorAll('.saved-posts').forEach(function(div) {
+                div.classList.remove('show'); // Dùng Bootstrap "collapse" class
+            });
+
+            // Mở thư mục được nhấn
+            if (!savedPostsDiv.classList.contains('show')) {
+                savedPostsDiv.classList.add('show');
             }
         });
     });
