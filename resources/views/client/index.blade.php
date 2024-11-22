@@ -104,6 +104,17 @@
     </section>
 
 
+    <section class="bg0 p-t-70">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-12 col-md-12">
+                    <div id="result"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
     <!-- Post -->
     <section class="bg0 p-t-70">
         <div class="container">
@@ -370,15 +381,6 @@
 </div>
 </section>
 
-
-<!-- Banner -->
-<div class="container">
-<div class="flex-c-c">
-<a href="#">
-    <img class="max-w-full" src="{{ asset('client/images/banner-01.jpg') }}" alt="IMG">
-</a>
-</div>
-</div>
 
 <!-- Latest -->
 <section class="bg0 p-t-60 p-b-35">

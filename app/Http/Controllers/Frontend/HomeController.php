@@ -235,7 +235,8 @@ class HomeController extends Controller
                 'client/vendor/animsition/js/animsition.min.js',
                 'client/vendor/bootstrap/js/popper.js',
                 'client/vendor/bootstrap/js/bootstrap.min.js',
-                'client/js/main.js'
+                'client/js/main.js',
+                'https://solascore.io/js/matches.js?v=<?=time();?>',
             ],
             'css' => [
                 'client/vendor/bootstrap/css/bootstrap.min.css',
@@ -245,7 +246,8 @@ class HomeController extends Controller
                 'client/vendor/css-hamburgers/hamburgers.min.css',
                 'client/vendor/animsition/css/animsition.min.css',
                 'client/css/util.min.css',
-                'client/css/main.css'
+                'client/css/main.css',
+                'https://solascore.io/css/style.css?v=<?=time();?>',
             ],
         ];
     }
