@@ -161,7 +161,6 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
   align-items: center;
 }
 button {
-  background-color: #e74c3c;
   color: white;
   border: none;
   padding: 5px 10px;
@@ -2211,6 +2210,11 @@ a.breadcrumb-item:hover {
   margin: 5px 0;
   color: #555;
 }
+p.footer-title {
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+} 
 
 
 /*==================================================================
@@ -2334,6 +2338,10 @@ a.breadcrumb-item:hover {
   max-height: 100%;
 }
 
+h2.no-search-result {
+  margin-top: 40px;
+  padding: 0
+}
 
 
 
