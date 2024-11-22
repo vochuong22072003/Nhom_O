@@ -41,7 +41,7 @@
                 <div class="form-group">
                     <label class="form-label">Birthday</label>
                     <input id="birth_date" name="birth_date" type="text" maxlength="10" class="form-control"
-                        value="{{ old('birth_date', $cusInfo->birth_date->format('d-m-Y')) }}" oninput="checkDate(this);">
+                        value="{{ old('birth_date', optional($cusInfo->birth_date)->format('d-m-Y')) }}" oninput="checkDate(this);">
                     @error('birth_date')
                         <div class="alert alert-danger mt-3 mb-0">
                             {{ $errors->first('birth_date') }}
