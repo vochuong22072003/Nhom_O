@@ -75,15 +75,16 @@ class HomeController extends Controller
                 $post->encrypted_id = $this->encryptId($post->id);
             }
         }
-        return view('client.index', compact('template', 'config', 'lastestNews', 'getCatalogue', 'results', 'posts', 'view', 'post'));
+        $tags = $this->getAllTag();
+        return view('client.index', compact('template', 'config', 'lastestNews', 'getCatalogue', 'results', 'posts', 'view', 'post','tags',));
     }
+    
     public function getPostLike()
     {
         $posts = Post::withCount('likes')
             ->having('likes_count', '>=', 2)
             ->orderBy('likes_count', 'desc')
             ->take(4)->get();
-
         return $posts;
     }
     public function getTopViewedPosts()
@@ -96,6 +97,11 @@ class HomeController extends Controller
             ->get();
 
         return $posts;
+    }
+    public function getAllTag()
+    {
+        $tags = Tag::all();
+        return $tags;
     }
     public function category($id, $model)
     {
@@ -164,8 +170,7 @@ class HomeController extends Controller
     public function tagPostResult($tagId)
     {
         $tag = $this->getPostsByTag($tagId);
-        foreach($tag->posts as $tags)
-        {
+        foreach ($tag->posts as $tags) {
             $tags->encrypted_id = $this->encryptId($tags->id);
         }
         $posts = $tag->posts;
@@ -180,7 +185,7 @@ class HomeController extends Controller
     public function myactives()
     {
         $customerId = auth()->id();
-        
+
         $likes = $this->getUserLikes($customerId);
         foreach ($likes as $like) {
             $like->encrypted_id = $this->encryptId($like->id);
@@ -208,11 +213,13 @@ class HomeController extends Controller
             ->join('saves', 'save_folders.folder_id', '=', 'saves.save_folder_id')
             ->join('posts', 'saves.post_id', '=', 'posts.id')
             ->where('save_folders.cus_owned', $customerId)
-            ->select('save_folders.folder_id',
-             'save_folders.folder_name',
-              'save_folders.description',
-              'posts.id as post_id', 
-              'posts.post_name') 
+            ->select(
+                'save_folders.folder_id',
+                'save_folders.folder_name',
+                'save_folders.description',
+                'posts.id as post_id',
+                'posts.post_name'
+            )
             ->get();
         $groupedFolders = $savedFolders->groupBy('folder_id');
         foreach ($savedFolders as $folder) {

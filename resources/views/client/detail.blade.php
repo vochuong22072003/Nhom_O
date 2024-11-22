@@ -50,7 +50,7 @@
                     </span>
 
                     <span class="f1-s-3 cl8 m-rl-7 txt-center">
-                        <a href=""><i class="fa fa-eye"> view</i></a>
+                        <i class="fa fa-eye"> view</i>
                         <p>Lượt xem: {{ $getPost->viewCount($getPost->id) }}</p>
                     </span>
                     <span class="f1-s-3 cl8 m-rl-7 txt-center">

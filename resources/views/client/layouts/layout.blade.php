@@ -142,16 +142,11 @@
 </body>
 {{-- xử lý like --}}
 <script>
-    // SỬ LÝ LIKE
     $(document).ready(function() {
         $('#likeButton').on('click', function(event) {
             event.preventDefault();
-            // Lấy URL và token từ form
             //var token = $('input[name="_token"]').val();
-
             var post_id = $(this).data('post-id');
-
-            // Gửi yêu cầu AJAX
             $.ajax({
                 url: '{{ route('posts.like') }}',
                 type: 'POST',
@@ -198,7 +193,6 @@
             e.preventDefault();
             var formData = new FormData(this);
             formData.append('post_id', $('#post_id').val());
-            // Đảm bảo post_id được gửi đi
             $.ajax({
                 url: '{{ route('create-folder') }}',
                 type: 'POST',
@@ -316,6 +310,8 @@
     });
 </script>
 
+{{-- Xử lý hiện ẩn bài viế đã lưu vào thư mục  --}}
+
 <script>
     document.querySelectorAll('.folder-name').forEach(function(folder) {
         folder.addEventListener('click', function(e) {
@@ -325,11 +321,14 @@
             var folderId = this.getAttribute('data-folder-id');
             var savedPostsDiv = document.getElementById('folder-' + folderId);
 
-            // Hiển thị hoặc ẩn danh sách bài viết đã lưu
-            if (savedPostsDiv.style.display === 'none') {
-                savedPostsDiv.style.display = 'block';
-            } else {
-                savedPostsDiv.style.display = 'none';
+            // Đóng tất cả các thư mục
+            document.querySelectorAll('.saved-posts').forEach(function(div) {
+                div.classList.remove('show'); // Dùng Bootstrap "collapse" class
+            });
+
+            // Mở thư mục được nhấn
+            if (!savedPostsDiv.classList.contains('show')) {
+                savedPostsDiv.classList.add('show');
             }
         });
     });
