@@ -93,6 +93,12 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
   transform: translate(-50%, -50%);
 }
 
+.liked {
+  color: red;
+}
+.Unlike {
+  color: red;
+}
 .loader05 {
   width: 56px;
   height: 56px;
@@ -119,8 +125,56 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
     opacity: 0;
   }
 }
+.table-center {
+  margin: 0 auto;
+  border-collapse: collapse; 
+  width: 60%;
+}
+
+.table-center th, .table-center td {
+  text-align: center;
+  vertical-align: middle;
+  padding: 10px; 
+  border: 1px solid #ddd; 
+}
 
 
+.table-center th {
+  background-color: #f4f4f4; 
+  font-weight: bold; 
+}
+
+
+.table-center a {
+  text-decoration: none;
+  color: #007bff;
+}
+
+.table-center a:hover {
+  text-decoration: underline; 
+}
+
+
+.container1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+button {
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+button:hover {
+  background-color: #c0392b;
+} 
+
+form {
+  display: inline-block;
+}
 /*//////////////////////////////////////////////////////////////////
 [ BUTTON BACK TO TOP ]*/
 .btn-back-to-top {
@@ -2121,6 +2175,47 @@ a.breadcrumb-item:hover {
   text-overflow: ellipsis;
 }
 
+.checkbox-list {
+
+  display: block;
+}
+
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+
+}
+
+.checkbox-item input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+.search-results {
+  margin-top: 20px;
+}
+
+.search-result-item {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.search-result-item h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.search-result-item p {
+  margin: 5px 0;
+  color: #555;
+}
+p.footer-title {
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+} 
+
 
 /*==================================================================
    OTHER OTHER OTHER OTHER OTHER OTHER OTHER OTHER OTHER OTHER OTHER 
@@ -2243,6 +2338,10 @@ a.breadcrumb-item:hover {
   max-height: 100%;
 }
 
+h2.no-search-result {
+  margin-top: 40px;
+  padding: 0
+}
 
 
 

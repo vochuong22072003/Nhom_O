@@ -13,6 +13,7 @@ class CustomerInfo extends Model
 
     // Khai báo khóa chính
     protected $primaryKey = 'cus_id';
+    public $incrementing = false;
     public $timestamps = false;
     protected $casts = [
         'birth_date' => 'datetime',
@@ -20,6 +21,7 @@ class CustomerInfo extends Model
 
     protected $guard = 'cus_id';
     protected $fillable = [
+        'cus_id', 
         'cus_name',
         'birth_date',
         'cus_phone',
@@ -64,5 +66,9 @@ class CustomerInfo extends Model
     public function customer()
     {
         return $this->belongsTo(Customer::class, 'cus_id', 'cus_id');
+    }
+    public function likes()
+    {
+        return $this->hasMany(PostLike::class,'cus_id');
     }
 }

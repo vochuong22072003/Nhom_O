@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tags', function (Blueprint $table) {
-            $table->id('tag_id');
-            $table->string('tag_name', 40)->unique();
-            $table->timestamps();
-
+        Schema::create('cus_password_reset_tokens', function (Blueprint $table) {
+            $table->string('email')->index();
+            $table->string('token');
+            $table->timestamp('created_at')->nullable();
         });
     }
 
@@ -24,7 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-       
-        Schema::dropIfExists('tags');
+        Schema::dropIfExists('cus_password_reset_tokens');
     }
 };

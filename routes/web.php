@@ -24,8 +24,9 @@ use App\Http\Controllers\LikeView\ViewController;
 use App\Http\Controllers\LikeView\LikeController;
 use App\Http\Controllers\LikeView\SaveController;
 use App\Http\Controllers\LikeView\SaveFolderController;
-use App\Http\Controllers\LikeView\PostTagController;
+use App\Http\Controllers\LikeView\TagController;
 
+require __DIR__ . '/auth.php';
 
 Route::get('dashboard/index', [DashboardController::class, 'index'])->name('dashboard.index')->middleware(AuthenticateMiddleware::class);
 Route::get('admin', [AuthController::class, 'index'])->name('auth.admin')->middleware(LoginMiddleware::class);
@@ -61,12 +62,18 @@ Route::middleware(['auth:web'])->group(function () {
     });
     Route::group(['prefix' => 'permission'], function () {
         Route::get('index', [PermissionController::class, 'index'])->name('permission.index')->middleware(AuthenticateMiddleware::class);
-        Route::get('store', [PermissionController::class, 'store'])->name('permission.store')->middleware(AuthenticateMiddleware::class);;
-        Route::post('create', [PermissionController::class, 'create'])->name('permission.create')->middleware(AuthenticateMiddleware::class);;
-        Route::get('{id}/edit', [PermissionController::class, 'edit'])->name('permission.edit')->middleware(AuthenticateMiddleware::class);;
-        Route::post('{id}/update', [PermissionController::class, 'update'])->name('permission.update')->where(['id' => '[0-9]+'])->middleware(AuthenticateMiddleware::class);;
-        Route::get('{id}/destroy', [PermissionController::class, 'destroy'])->name('permission.destroy')->middleware(AuthenticateMiddleware::class);;
-        Route::post('{id}/delete', [PermissionController::class, 'delete'])->name('permission.delete')->where(['id' => '[0-9]+'])->middleware(AuthenticateMiddleware::class);;
+        Route::get('store', [PermissionController::class, 'store'])->name('permission.store')->middleware(AuthenticateMiddleware::class);
+        ;
+        Route::post('create', [PermissionController::class, 'create'])->name('permission.create')->middleware(AuthenticateMiddleware::class);
+        ;
+        Route::get('{id}/edit', [PermissionController::class, 'edit'])->name('permission.edit')->middleware(AuthenticateMiddleware::class);
+        ;
+        Route::post('{id}/update', [PermissionController::class, 'update'])->name('permission.update')->where(['id' => '[0-9]+'])->middleware(AuthenticateMiddleware::class);
+        ;
+        Route::get('{id}/destroy', [PermissionController::class, 'destroy'])->name('permission.destroy')->middleware(AuthenticateMiddleware::class);
+        ;
+        Route::post('{id}/delete', [PermissionController::class, 'delete'])->name('permission.delete')->where(['id' => '[0-9]+'])->middleware(AuthenticateMiddleware::class);
+        ;
     });
     // == Post catalogue parent Nghĩa
     Route::group(['prefix' => 'post/catalogue/parent'], function () {
@@ -99,43 +106,41 @@ Route::middleware(['auth:web'])->group(function () {
         Route::post('{id}/update', [PostController::class, 'update'])->name('post.update')->where(['id' => '[0-9]+'])->middleware(AuthenticateMiddleware::class);
         Route::get('{id}/destroy', [PostController::class, 'destroy'])->name('post.destroy')->middleware(AuthenticateMiddleware::class);
         Route::post('{id}/delete', [PostController::class, 'delete'])->name('post.delete')->where(['id' => '[0-9]+'])->middleware(AuthenticateMiddleware::class);
+        Route::post('{id}/addtag',[PostController::class,'index'])->name('post.addtag')->middleware(AuthenticateMiddleware::class);
+        //Route::get('liked-posts', [PostController::class, 'getLikedPosts'])->name('post.liked')->middleware(AuthenticateMiddleware::class);
+        //Route::get('/search', [PostController::class, 'search'])->name('posts.search');
+
+
     });
-    Route::get('ajax/postCatalogue/getPostCatalogue',[PostCatalogueController::class, 'getPostCatalogue'])->name('ajax.postCatalogue.getPostCatalogue')->middleware(AuthenticateMiddleware::class);
+    Route::get('ajax/postCatalogue/getPostCatalogue', [PostCatalogueController::class, 'getPostCatalogue'])->name('ajax.postCatalogue.getPostCatalogue')->middleware(AuthenticateMiddleware::class);
 });
 
   
     Route::name('client.')->group(function () {
         Route::get('/', [HomeController::class, 'index'])->name('index');
-        // Route::get('/about', [HomeController::class, 'about'])->name('about');
-        // Route::get('/blog-grid', [HomeController::class, 'blogGrid'])->name('blog-grid');
-        // Route::get('/detail', [HomeController::class, 'detail'])->name('detail');
         Route::get('{id}/{model}/category', [HomeController::class, 'category'])->name('category');
         Route::get('{id}/detail', [HomeController::class, 'detail'])->name('detail');
-        // Route::get('/blog-list', [HomeController::class, 'blogList'])->name('blog-list');
+        Route::get('/myactive',[HomeController::class,'myactives'])->name('myactive');
+        Route::get('/search-result', [HomeController::class, 'search'])->name('search-result');
+        Route::post('/search', [HomeController::class, 'search'])->name('search');
+        Route::get('/tag/{tagId}', [HomeController::class,'tagPostResult'])->name('tag.posts');
     });
 
 
 // các route liên quan đến post và like view tags khiêm
 Route::prefix('posts')->group(function () {
-    //Route::get('/{$encryptedId}', [ViewController::class, 'show'])->name('client.view');
     Route::post('/like', [LikeController::class, 'getLike'])->name('posts.like');
-    // Route cho tags của bài viết
-    Route::post('{postId}/tags', [PostTagController::class, 'addTagsToPost']);
-    Route::get('{postId}/tags', [PostTagController::class, 'getPostTags']);
-    Route::delete('{postId}/tags/{tagId}', [PostTagController::class, 'removeTagFromPost']);
+    Route::get('/liked-posts', [LikeController::class, 'getLikedPosts'])->name('liked-posts.index');
 });
 // Group cho các route liên quan đến lưu vào danh mục và tạo danh mục Khiêm
-Route::prefix('folders')->group(function () {
-    Route::post('save-to-exists-folder', [SaveController::class, 'getSave']);
-    Route::post('save-to-new-folder', [SaveController::class, 'saveToNewFolder']);
-    Route::delete('{folderId}/posts/{postId}', [SaveController::class, 'deletePostFromFolder']);
-    Route::delete('{folderId}', [SaveFolderController::class, 'deteleFolder']);
+Route::prefix('folder')->group(function () {
+    Route::post('/create-folder', [SaveFolderController::class, 'getSave'])->name('create-folder');
+    Route::post('/saveToFolder', [SaveFolderController::class, 'savePostToFolder'])->name('posts.saveToFolder');
+    Route::delete('/{folderId}', [SaveFolderController::class, 'deteleFolder'])->name('folders.delete');
+    Route::delete('{folderId}/posts/{postId}' , [SaveFolderController::class, 'detelePostFromFolder'])->name('folders.posts.delete');
 });
 
-require __DIR__.'/auth.php';
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+    //Route::get('/tag/{tagId}', [TagController::class,'tagPostResult'])->name('tag.posts');
 
 /*
 |--------------------------------------------------------------------------
@@ -143,22 +148,17 @@ Route::get('/dashboard', function () {
 |--------------------------------------------------------------------------
 */
 Route::middleware('auth')->group(function () {
-    // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
+    
     Route::name('setting.')->group(function () {
         Route::get('/account_general', [AccountController::class, 'edit'])->name('general');
         Route::patch('/account_general', [AccountController::class, 'update'])->name('general-update');
-
 
         Route::get('/account_info', [PersonalInfoController::class, 'edit'])->name('account-info');
         Route::patch('/account_info', [PersonalInfoController::class, 'update'])->name('account-info-update');
         
         Route::get('/account_change_password', [AccountController::class, 'changePassword'])->name('change-password');
-        Route::get('/account_notifications', [NotificationController::class, 'edit'])->name('notifications');
+        //Route::put (password.update) from ./routes/auth.php
 
-        Route::get('debug',[PersonalInfoController::class, '_debug']);
-        Route::post('debug',[PersonalInfoController::class, '_debug2']);
+        Route::get('/account_notifications', [NotificationController::class, 'edit'])->name('notifications');
     });
 });

@@ -3,16 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-//related
-use App\Models\CusomerInfo;
+use Illuminate\Contracts\Auth\CanResetPassword;
 
-class Customer extends Authenticatable implements MustVerifyEmail
+class Customer extends Authenticatable implements MustVerifyEmail, CanResetPassword
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, Notifiable;
 
     protected $table = 'customers';
     protected $primaryKey = 'cus_id';
@@ -26,6 +25,7 @@ class Customer extends Authenticatable implements MustVerifyEmail
         'updated_at',
         'deleted_at',
     ];
+    protected $hidden = 'cus_pass';
 
     protected $dates = ['deleted_at'];
 
@@ -33,42 +33,30 @@ class Customer extends Authenticatable implements MustVerifyEmail
     {
         return $this->cus_pass;
     }
+    public function hasVerifiedEmail()
+    {
+        return ! is_null($this->verify_at);
+    }
+    public function markEmailAsVerified()
+    {
+        return $this->forceFill([
+            'verify_at' => $this->freshTimestamp(),
+        ])->save();
+    }
+    public function getEmailVerifiedAtColumn()
+    {
+        return 'verify_at';
+    }
 
-    /**
-     * relation customerInfo
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
+    //relationship
     public function customerInfo()
     {
         return $this->hasOne(CustomerInfo::class, 'cus_id', 'cus_id');
     }
-
-    /**
-     * override hasVerifiedEmail of MustVerifyEmail
-     * @return bool
-     */
-    public function hasVerifiedEmail()
+    public function saveFolders()
     {
-        return !is_null($this->verify_at);
+        
+        return $this->hasMany(SaveFolder::class, 'cus_owned');
     }
-
-    /**
-     * override hasVerifiedEmail of markEmailAsVerified
-     * @return void
-     */
-    public function markEmailAsVerified()
-    {
-        $this->forceFill([
-            'cus_verified_at' => $this->freshTimestamp(),
-        ])->save();
-    }
-
-    /**
-     * override getEmailForVerification of MustVerifyEmail
-     * @return mixed
-     */
-    public function getEmailForVerification()
-    {
-        return $this->email; 
-    }
+   
 }

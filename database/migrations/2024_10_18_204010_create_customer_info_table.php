@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('customer_info', function (Blueprint $table) {
             $table->unsignedBigInteger('cus_id')->primary(); // BIGINT(20), Primary Key, Weak 
             $table->string('cus_name', 255); 
-            $table->date('birth_date'); 
-            $table->string('cus_phone', 20); 
-            $table->string('address', 255); 
+            $table->date('birth_date')->nullable(); 
+            $table->string('cus_phone', 20)->nullable(); 
+            $table->string('address', 255)->nullable(); 
             $table->enum('gender', ['Male', 'Female', 'Other'])->default('Other'); 
             $table->string('cus_avt', 100)->nullable(); // Avatar (nullable)
 

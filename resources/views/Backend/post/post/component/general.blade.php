@@ -8,6 +8,7 @@
         </div>
     </div>
 </div>
+
 <div class="row mb30">
     <div class="col-lg-12">
         <div class="form-row">
@@ -46,3 +47,6 @@
         </div>
     </div>
 </div>
+
+@include('Backend.post.post.Tag')
+
