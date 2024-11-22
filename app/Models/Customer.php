@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Mail\NewPostEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -35,7 +36,7 @@ class Customer extends Authenticatable implements MustVerifyEmail, CanResetPassw
     }
     public function hasVerifiedEmail()
     {
-        return ! is_null($this->verify_at);
+        return !is_null($this->verify_at);
     }
     public function markEmailAsVerified()
     {
@@ -48,15 +49,27 @@ class Customer extends Authenticatable implements MustVerifyEmail, CanResetPassw
         return 'verify_at';
     }
 
-    //relationship
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function customerInfo()
     {
         return $this->hasOne(CustomerInfo::class, 'cus_id', 'cus_id');
     }
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function saveFolders()
     {
-        
+
         return $this->hasMany(SaveFolder::class, 'cus_owned');
     }
-   
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function follows()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'cus_id', 'user_id');
+    }
 }

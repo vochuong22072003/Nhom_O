@@ -52,4 +52,11 @@ class User extends Authenticatable
         return $this->belongsTo(UserCatalogue::class,'user_catalogue_id', 'id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function followers()
+    {
+        return $this->belongsToMany(Customer::class, 'follows', 'user_id', 'cus_id');
+    }
 }

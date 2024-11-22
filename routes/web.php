@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\debugController;
+use App\Http\Controllers\FollowController;
 use App\Http\Controllers\PersonalInfoController;
 use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Route;
@@ -162,3 +164,5 @@ Route::middleware('auth')->group(function () {
         Route::get('/account_notifications', [NotificationController::class, 'edit'])->name('notifications');
     });
 });
+
+Route::post('/follow', [FollowController::class])->middleware('auth')->name('follow');
