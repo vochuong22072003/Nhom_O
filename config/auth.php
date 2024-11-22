@@ -15,7 +15,7 @@ return [
 
     'defaults' => [
         'guard' => 'customers',
-        'passwords' => 'users',
+        'passwords' => 'customers',
     ],
 
     /*
@@ -102,7 +102,7 @@ return [
         ],
         'customers' => [
             'provider' => 'customers',
-            'table' => 'cus_password_reset_tokens', //need check
+            'table' => 'cus_password_reset_tokens',
             'expire' => 60,
             'throttle' => 60,
         ],
