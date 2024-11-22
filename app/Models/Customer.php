@@ -8,9 +8,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Contracts\Auth\CanResetPassword;
-//related
-use App\Models\CusomerInfo;
-use Psy\Readline\Hoa\Console;
 
 class Customer extends Authenticatable implements MustVerifyEmail, CanResetPassword
 {

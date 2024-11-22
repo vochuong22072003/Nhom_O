@@ -1,6 +1,8 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\AccountController;
+use App\Http\Controllers\PersonalInfoController;
+use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\AuthController;
@@ -24,6 +26,7 @@ use App\Http\Controllers\LikeView\SaveController;
 use App\Http\Controllers\LikeView\SaveFolderController;
 use App\Http\Controllers\LikeView\TagController;
 
+require __DIR__ . '/auth.php';
 
 Route::get('dashboard/index', [DashboardController::class, 'index'])->name('dashboard.index')->middleware(AuthenticateMiddleware::class);
 Route::get('admin', [AuthController::class, 'index'])->name('auth.admin')->middleware(LoginMiddleware::class);
@@ -139,13 +142,23 @@ Route::prefix('folder')->group(function () {
 
     //Route::get('/tag/{tagId}', [TagController::class,'tagPostResult'])->name('tag.posts');
 
-
-require __DIR__ . '/auth.php';
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+/*
+|--------------------------------------------------------------------------
+| Routes for Customer Setting
+|--------------------------------------------------------------------------
+*/
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    
+    Route::name('setting.')->group(function () {
+        Route::get('/account_general', [AccountController::class, 'edit'])->name('general');
+        Route::patch('/account_general', [AccountController::class, 'update'])->name('general-update');
+
+        Route::get('/account_info', [PersonalInfoController::class, 'edit'])->name('account-info');
+        Route::patch('/account_info', [PersonalInfoController::class, 'update'])->name('account-info-update');
+        
+        Route::get('/account_change_password', [AccountController::class, 'changePassword'])->name('change-password');
+        //Route::put (password.update) from ./routes/auth.php
+
+        Route::get('/account_notifications', [NotificationController::class, 'edit'])->name('notifications');
+    });
 });

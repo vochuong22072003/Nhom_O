@@ -2370,3 +2370,61 @@ h2.no-search-result {
 
 
 @media (max-width: 480px) {}
+
+
+/*------------------------------------------------------------------
+[ layouts/topbar.blade.php ]*/
+.no-box-shadow:focus {
+  box-shadow: none !important;
+}
+
+.img-avt {
+  object-fit: cover;
+  width: 30px;
+  height: 30px
+}
+
+
+.menu-drop-setting {
+  color: whitesmoke;
+  background-color: #282828;
+  height: fit-content;
+  z-index: 1010;
+}
+.item-fix:hover, .item-fix:focus {
+  background-color: #404040;
+  color: whitesmoke;
+}
+.item-fix:active {
+  background-color: #404040;
+}
+
+/*------------------------------------------------------------------
+[ ../general-setting.blade.php ]*/
+.btn-sendemail {
+  transition-timing-function: cubic-bezier(.4,0,.2,1);
+  transition-duration: .15s;
+  color: rgb(255 255 255 / 1);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: .75rem;
+  line-height: 1rem;
+  padding: .5rem 1rem!important;
+  background-color: rgb(31 41 55 / 1);
+  border-color: transparent;
+  border-width: 1px;
+  border-radius: .375rem;
+} 
+.btn-sendemail:forcus {
+  --tw-ring-offset-width: 2px;
+  --tw-ring-color: rgb(99 102 241 / 1);
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+  background-color: rgb(55 65 81 /1);
+}
+.btn-sendemail:hover {
+  background-color: rgb(55 65 81 / 1);
+  color: rgb(223, 223, 223);
+}

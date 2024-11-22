@@ -27,6 +27,9 @@ class DatabaseSeeder extends Seeder
             'user_catalogue_id'=>'1'
         ]);
 
-        $this->call(CustomerSeeder::class);
+        $this->call([
+            CustomerSeeder::class,
+            CustomerInfoSeeder::class,
+        ]);
     }
 }
