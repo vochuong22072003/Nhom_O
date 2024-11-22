@@ -12,13 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('post_views', function (Blueprint $table) {
-            $table->id('post_view_id'); // Tạo cột post_view_id kiểu bigInt, auto increment, primary key
-            $table->unsignedBigInteger('post_id'); // Cột post_id kiểu bigInt, not null
-            $table->unsignedBigInteger('view_count')->default(0); // Cột view_count kiểu bigInt, default 0
-            $table->timestamp('deleted_at')->nullable(); // Cột deleted_at kiểu timestamp, có thể null
-            $table->timestamps(); // Tạo các cột created_at và updated_at kiểu timestamp, có thể null
-
-            // Định nghĩa khóa ngoại
+            $table->id('post_view_id'); 
+            $table->unsignedBigInteger('post_id'); 
+            $table->unsignedBigInteger('view_count')->default(0); 
+            $table->timestamp('deleted_at')->nullable(); 
+            $table->timestamps(); 
             $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
         });
     }

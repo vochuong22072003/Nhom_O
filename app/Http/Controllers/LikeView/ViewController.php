@@ -5,28 +5,23 @@ namespace App\Http\Controllers\LikeView;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\PostView;
+use App\Models\SaveFolder;
+use App\Models\Post;
 class ViewController extends Controller
 {
-    public function show($postId)
+    
+    protected function incrementViewCount($postId)
     {
        
-        $postView = PostView::where('posts_id', $postId)->first();
-
-        if (!$postView) {
-            $postView = new PostView([
-                'posts_id' => $postId,
-                'view_count' => 1 ,
+        $postView = PostView::firstWhere('post_id', $postId);
+        if ($postView === null) {
+            PostView::create([
+                'post_id' => $postId,
+                'view_count' => 1,
             ]);
-            $postView->save();
         } else {
-            
             $postView->increment('view_count');
         }
-
-     
-        return view('posts.show', [
-            'postId' => $postId,
-            'viewCount' => $postView->view_count,
-        ]);
     }
+   
 }

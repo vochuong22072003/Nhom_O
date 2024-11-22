@@ -10,7 +10,9 @@ class PostLike extends Model
 {
     use HasFactory,SoftDeletes;
     protected $table = 'likes';
-    protected $filtable = 
+    protected $primaryKey = 'likes_id';
+    protected $dates = ['deleted_at'];
+    protected $fillable = 
     [
         'post_id',
         'cus_id',
@@ -19,4 +21,10 @@ class PostLike extends Model
     {
         return $this->belongsTo(Post::class,'post_id');
     }
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'cus_id');
+    }
+    
 }
+

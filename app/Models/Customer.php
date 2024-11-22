@@ -10,6 +10,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Contracts\Auth\CanResetPassword;
 //related
 use App\Models\CusomerInfo;
+use Psy\Readline\Hoa\Console;
 
 class Customer extends Authenticatable implements MustVerifyEmail, CanResetPassword
 {
@@ -55,4 +56,10 @@ class Customer extends Authenticatable implements MustVerifyEmail, CanResetPassw
     {
         return $this->hasOne(CustomerInfo::class, 'cus_id', 'cus_id');
     }
+    public function saveFolders()
+    {
+        
+        return $this->hasMany(SaveFolder::class, 'cus_owned');
+    }
+   
 }

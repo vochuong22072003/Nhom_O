@@ -17,12 +17,16 @@
                     <a href="#" class="left-topbar-item">
                         Contact
                     </a>
-
+                    @auth
+                    <a href="{{ route('client.myactive') }}" class="left-topbar-item">
+                        Xem bài viết của tôi
+                    </a>
+                    @endauth
                     @guest
                     <a href="{{ route('register') }}" class="left-topbar-item">
                         Sign up
                     </a>
-
+                    
                     <a href="{{ route('login') }}" class="left-topbar-item">
                         Log in
                     </a>
