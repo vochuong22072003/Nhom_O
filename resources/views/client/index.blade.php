@@ -13,6 +13,7 @@
                         // Lấy bài viết đầu tiên
                         if ($lastestNews->isNotEmpty()) {
                             $firstPost = $lastestNews->get(0); // Lấy bài viết đầu tiên
+                            if (!is_null($firstPost->postCatalogueParent)){
                     ?>
 
                     <div class="bg-img1 size-a-3 how1 pos-relative"
@@ -49,8 +50,12 @@
                     </div>
                 </div>
                 <?php 
-                        }        
-                ?>
+                        }   
+                    }
+                    else { ?>
+                <h2>Không có dữ liệu</h2>
+                <?php } ?>
+
 
                 <div class="col-md-6 p-rl-1">
                     <div class="row m-rl--1">
@@ -58,7 +63,7 @@
             // Lấy bài viết thứ 2 đến thứ 4 và hiển thị chúng
             for ($i = 1; $i <= 3; $i++) {
                 $post = $lastestNews->get($i);
-                if ($post) {
+                if ($post && !is_null($post->postCatalogueParent)) {
                     // Gán id riêng cho 2 phần tử col-sm-6
                     $colId = '';
                     if ($i === 2) {
@@ -95,6 +100,17 @@
                 </div>
             </div>
         </div>
+        </div>
+    </section>
+
+
+    <section class="bg0 p-t-70">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-12 col-md-12">
+                    <div id="result"></div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -162,7 +178,7 @@
                                     <div class="row">
                                         @if (count($results))
                                             @foreach ($results as $key => $val)
-                                                @if ($key == $count)
+                                                @if ($key == $count && !empty($val[0]))
                                                     <div class="col-sm-6 p-r-25 p-r-15-sr991">
                                                         <!-- Item post -->
                                                         <div class="m-b-30">
@@ -170,8 +186,8 @@
                                                                 class="wrap-pic-w hov1 trans-03">
                                                                 <img src="{{ isset($val[0]->image) ? asset($val[0]->image) : '' }}"
                                                                     alt="IMG">
-                                                            </a> 
-                                                            
+                                                            </a>
+
                                                             <div class="p-t-20">
                                                                 <h5 class="p-b-5">
                                                                     <a href="{{ route('client.detail', $val[0]->encrypted_id) }}"
@@ -192,11 +208,10 @@
 
                                                                     <span class="f1-s-3">
                                                                         {{ isset($val[0]->created_at) ? \Carbon\Carbon::parse($val[0]->created_at)->format('d/m/Y') : '' }}
+
                                                                     </span>
                                                                 </span>
-                                                                <div class="view-count">
-                                                                    Lượt xem: {{ isset($val[0]->view_count) ? $val[0]->view_count : 0 }}
-                                                                </div>
+
                                                             </div>
                                                         </div>
                                                     </div>
@@ -255,7 +270,7 @@
                     @php $count++; @endphp
                 @endforeach
             @else
-                <h2>Khong co danh muc</h2>
+                <h2>Không có dữ liệu</h2>
             @endif
         </div>
     </div>
@@ -268,59 +283,26 @@
             <div>
                 <div class="how2 how2-cl4 flex-s-c">
                     <h3 class="f1-m-2 cl3 tab01-title">
-                        Most Popular
+                        các bài viết được xem hàng đầu
                     </h3>
                 </div>
-
                 <ul class="p-t-35">
+                    @php
+                        $count = 1;
+                    @endphp
                     <li class="flex-wr-sb-s p-b-22">
-                        <div class="size-a-8 flex-c-c borad-3 size-a-8 bg9 f1-m-4 cl0 m-b-6">
-                            1
-                        </div>
-
-                        <a href="#" class="size-w-3 f1-s-7 cl3 hov-cl10 trans-03">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                        </a>
-                    </li>
-
-                    <li class="flex-wr-sb-s p-b-22">
-                        <div class="size-a-8 flex-c-c borad-3 size-a-8 bg9 f1-m-4 cl0 m-b-6">
-                            2
-                        </div>
-
-                        <a href="#" class="size-w-3 f1-s-7 cl3 hov-cl10 trans-03">
-                            Proin velit consectetur non neque
-                        </a>
-                    </li>
-
-                    <li class="flex-wr-sb-s p-b-22">
-                        <div class="size-a-8 flex-c-c borad-3 size-a-8 bg9 f1-m-4 cl0 m-b-6">
-                            3
-                        </div>
-
-                        <a href="#" class="size-w-3 f1-s-7 cl3 hov-cl10 trans-03">
-                            Nunc vestibulum, enim vitae condimentum volutpat lobortis ante
-                        </a>
-                    </li>
-
-                    <li class="flex-wr-sb-s p-b-22">
-                        <div class="size-a-8 flex-c-c borad-3 size-a-8 bg9 f1-m-4 cl0 m-b-6">
-                            4
-                        </div>
-
-                        <a href="#" class="size-w-3 f1-s-7 cl3 hov-cl10 trans-03">
-                            Proin velit justo consectetur non neque elementum
-                        </a>
-                    </li>
-
-                    <li class="flex-wr-sb-s p-b-22">
-                        <div class="size-a-8 flex-c-c borad-3 size-a-8 bg9 f1-m-4 cl0">
-                            5
-                        </div>
-
-                        <a href="#" class="size-w-3 f1-s-7 cl3 hov-cl10 trans-03">
-                            Proin velit consectetur non neque
-                        </a>
+                        @foreach ($view as $views)
+                            <div class="size-a-8 flex-c-c borad-3 size-a-8 bg9 f1-m-4 cl0 m-b-6">
+                                {{ $count }}
+                            </div>
+                            <a href="{{ route('client.detail', $views->encrypted_id) }}"
+                                class="size-w-3 f1-s-7 cl3 hov-cl10 trans-03">
+                                {{ $views->post_name }}
+                            </a>
+                            @php
+                            $count++; 
+                        @endphp
+                        @endforeach
                     </li>
                 </ul>
             </div>
@@ -400,15 +382,6 @@
 </section>
 
 
-<!-- Banner -->
-<div class="container">
-<div class="flex-c-c">
-<a href="#">
-    <img class="max-w-full" src="{{ asset('client/images/banner-01.jpg') }}" alt="IMG">
-</a>
-</div>
-</div>
-
 <!-- Latest -->
 <section class="bg0 p-t-60 p-b-35">
 <div class="container">
@@ -416,203 +389,52 @@
     <div class="col-md-10 col-lg-8 p-b-20">
         <div class="how2 how2-cl4 flex-s-c m-r-10 m-r-0-sr991">
             <h3 class="f1-m-2 cl3 tab01-title">
-                Latest Articles
+                các bài viết nhiều lượt thích
             </h3>
         </div>
 
         <div class="row p-t-35">
-            <div class="col-sm-6 p-r-25 p-r-15-sr991">
-                <!-- Item latest -->
-                <div class="m-b-45">
-                    <a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
-                        <img src="{{ asset('client/images/latest-01.jpg') }}" alt="IMG">
-                    </a>
+            @foreach ($posts as $post)
+                <div class="col-sm-6 p-r-25 p-r-15-sr991">
+                    <!-- Item latest -->
+                    <div class="m-b-45">
+                        <a href="{{ route('client.detail', $post->encrypted_id) }}"
+                            class="wrap-pic-w hov1 trans-03">
+                            <h1>{{ $post->encrypted_idaa }}</h1>
+                            <img src="{{ asset($post->image) }}" alt="IMG">
+                        </a>
 
-                    <div class="p-t-16">
-                        <h5 class="p-b-5">
-                            <a href="blog-detail-01.html" class="f1-m-3 cl2 hov-cl10 trans-03">
-                                You wish lorem ipsum dolor sit amet consectetur
-                            </a>
-                        </h5>
+                        <div class="p-t-16">
+                            <h5 class="p-b-5">
+                                <a href="{{ route('client.detail', $post->encrypted_id) }}"
+                                    class="f1-m-3 cl2 hov-cl10 trans-03">
+                                    {{ $post->post_name }}
+                                </a>
+                            </h5>
 
-                        <span class="cl8">
-                            <a href="#" class="f1-s-4 cl8 hov-cl10 trans-03">
-                                by John Alvarado
-                            </a>
+                            <span class="cl8">
+                                <a href="#" class="f1-s-4 cl8 hov-cl10 trans-03">
+                                    by {{ $post->userInfo->name }}
+                                </a>
 
-                            <span class="f1-s-3 m-rl-3">
-                                -
+                                <span class="f1-s-3 m-rl-3">
+                                    -
+                                </span>
+
+                                <span class="f1-s-3">
+                                    {{ \Carbon\Carbon::parse($post->created_at)->format('d/m/Y') }}
+                                </span>
                             </span>
-
-                            <span class="f1-s-3">
-                                Feb 18
-                            </span>
-                        </span>
+                        </div>
                     </div>
                 </div>
-            </div>
+            @endforeach
 
-            <div class="col-sm-6 p-r-25 p-r-15-sr991">
-                <!-- Item latest -->
-                <div class="m-b-45">
-                    <a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
-                        <img src="{{ asset('client/images/latest-02.jpg') }}" alt="IMG">
-                    </a>
-
-                    <div class="p-t-16">
-                        <h5 class="p-b-5">
-                            <a href="blog-detail-01.html" class="f1-m-3 cl2 hov-cl10 trans-03">
-                                You wish lorem ipsum dolor sit amet consectetur
-                            </a>
-                        </h5>
-
-                        <span class="cl8">
-                            <a href="#" class="f1-s-4 cl8 hov-cl10 trans-03">
-                                by John Alvarado
-                            </a>
-
-                            <span class="f1-s-3 m-rl-3">
-                                -
-                            </span>
-
-                            <span class="f1-s-3">
-                                Feb 16
-                            </span>
-                        </span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-6 p-r-25 p-r-15-sr991">
-                <!-- Item latest -->
-                <div class="m-b-45">
-                    <a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
-                        <img src="{{ asset('client/images/latest-03.jpg') }}" alt="IMG">
-                    </a>
-
-                    <div class="p-t-16">
-                        <h5 class="p-b-5">
-                            <a href="blog-detail-01.html" class="f1-m-3 cl2 hov-cl10 trans-03">
-                                You wish lorem ipsum dolor sit amet consectetur
-                            </a>
-                        </h5>
-
-                        <span class="cl8">
-                            <a href="#" class="f1-s-4 cl8 hov-cl10 trans-03">
-                                by John Alvarado
-                            </a>
-
-                            <span class="f1-s-3 m-rl-3">
-                                -
-                            </span>
-
-                            <span class="f1-s-3">
-                                Feb 15
-                            </span>
-                        </span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-6 p-r-25 p-r-15-sr991">
-                <!-- Item latest -->
-                <div class="m-b-45">
-                    <a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
-                        <img src="{{ asset('client/images/latest-04.jpg') }}" alt="IMG">
-                    </a>
-
-                    <div class="p-t-16">
-                        <h5 class="p-b-5">
-                            <a href="blog-detail-01.html" class="f1-m-3 cl2 hov-cl10 trans-03">
-                                You wish lorem ipsum dolor sit amet consectetur
-                            </a>
-                        </h5>
-
-                        <span class="cl8">
-                            <a href="#" class="f1-s-4 cl8 hov-cl10 trans-03">
-                                by John Alvarado
-                            </a>
-
-                            <span class="f1-s-3 m-rl-3">
-                                -
-                            </span>
-
-                            <span class="f1-s-3">
-                                Feb 13
-                            </span>
-                        </span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-6 p-r-25 p-r-15-sr991">
-                <!-- Item latest -->
-                <div class="m-b-45">
-                    <a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
-                        <img src="{{ asset('client/images/latest-05.jpg') }}" alt="IMG">
-                    </a>
-
-                    <div class="p-t-16">
-                        <h5 class="p-b-5">
-                            <a href="blog-detail-01.html" class="f1-m-3 cl2 hov-cl10 trans-03">
-                                You wish lorem ipsum dolor sit amet consectetur
-                            </a>
-                        </h5>
-
-                        <span class="cl8">
-                            <a href="#" class="f1-s-4 cl8 hov-cl10 trans-03">
-                                by John Alvarado
-                            </a>
-
-                            <span class="f1-s-3 m-rl-3">
-                                -
-                            </span>
-
-                            <span class="f1-s-3">
-                                Feb 10
-                            </span>
-                        </span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-6 p-r-25 p-r-15-sr991">
-                <!-- Item latest -->
-                <div class="m-b-45">
-                    <a href="blog-detail-01.html" class="wrap-pic-w hov1 trans-03">
-                        <img src="{{ asset('client/images/latest-06.jpg') }}" alt="IMG">
-                    </a>
-
-                    <div class="p-t-16">
-                        <h5 class="p-b-5">
-                            <a href="blog-detail-01.html" class="f1-m-3 cl2 hov-cl10 trans-03">
-                                You wish lorem ipsum dolor sit amet consectetur
-                            </a>
-                        </h5>
-
-                        <span class="cl8">
-                            <a href="#" class="f1-s-4 cl8 hov-cl10 trans-03">
-                                by John Alvarado
-                            </a>
-
-                            <span class="f1-s-3 m-rl-3">
-                                -
-                            </span>
-
-                            <span class="f1-s-3">
-                                Feb 09
-                            </span>
-                        </span>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 
     <div class="col-md-10 col-lg-4">
         <div class="p-l-10 p-rl-0-sr991 p-b-20">
-
-            <!-- Subscribe -->
             <div class="bg10 p-rl-35 p-t-28 p-b-35 m-b-55">
                 <h5 class="f1-m-5 cl0 p-b-10">
                     Subscribe
@@ -639,51 +461,76 @@
                         Tags
                     </h3>
                 </div>
-
+                @foreach ($tags as $tag)
+                    
+                
                 <div class="flex-wr-s-s m-rl--5">
-                    <a href="#"
+                    <a href=" {{ route('client.tag.posts', ['tagId' => $tag->tag_id]) }}"
                         class="flex-c-c size-h-2 bo-1-rad-20 bocl12 f1-s-1 cl8 hov-btn2 trans-03 p-rl-20 p-tb-5 m-all-5">
-                        Fashion
+                       {{$tag->tag_name}}
                     </a>
-
-                    <a href="#"
-                        class="flex-c-c size-h-2 bo-1-rad-20 bocl12 f1-s-1 cl8 hov-btn2 trans-03 p-rl-20 p-tb-5 m-all-5">
-                        Lifestyle
-                    </a>
-
-                    <a href="#"
-                        class="flex-c-c size-h-2 bo-1-rad-20 bocl12 f1-s-1 cl8 hov-btn2 trans-03 p-rl-20 p-tb-5 m-all-5">
-                        Denim
-                    </a>
-
-                    <a href="#"
-                        class="flex-c-c size-h-2 bo-1-rad-20 bocl12 f1-s-1 cl8 hov-btn2 trans-03 p-rl-20 p-tb-5 m-all-5">
-                        Streetstyle
-                    </a>
-
-                    <a href="#"
-                        class="flex-c-c size-h-2 bo-1-rad-20 bocl12 f1-s-1 cl8 hov-btn2 trans-03 p-rl-20 p-tb-5 m-all-5">
-                        Crafts
-                    </a>
-
-                    <a href="#"
-                        class="flex-c-c size-h-2 bo-1-rad-20 bocl12 f1-s-1 cl8 hov-btn2 trans-03 p-rl-20 p-tb-5 m-all-5">
-                        Magazine
-                    </a>
-
-                    <a href="#"
-                        class="flex-c-c size-h-2 bo-1-rad-20 bocl12 f1-s-1 cl8 hov-btn2 trans-03 p-rl-20 p-tb-5 m-all-5">
-                        News
-                    </a>
-
-                    <a href="#"
-                        class="flex-c-c size-h-2 bo-1-rad-20 bocl12 f1-s-1 cl8 hov-btn2 trans-03 p-rl-20 p-tb-5 m-all-5">
-                        Blogs
-                    </a>
+                    @endforeach
                 </div>
+             
             </div>
         </div>
+    </div>
 
+
+
+</div>
+</div>
+</section>
+
+
+
+<section class="bg0 ">
+<div class="container">
+<div class="row justify-content-center">
+    <div class="col-md-10 col-lg-12 p-b-20">
+        <div class="how2 how2-cl4 flex-s-c m-r-10 m-r-0-sr991">
+            <h3 class="f1-m-2 cl3 tab01-title">
+                các bài viết được xem nhiều nhất
+            </h3>
+        </div>
+
+        <div class="row p-t-35">
+            @foreach ($view as $views)
+                <div class="col-sm-4 p-r-25 p-r-15-sr991">
+                    <!-- Item latest -->
+                    <div class="m-b-45">
+                        <a href="{{ route('client.detail', $views->encrypted_id) }}"
+                            class="wrap-pic-w hov1 trans-03">
+                            <img src="{{ asset($views->image) }}" alt="IMG">
+                        </a>
+
+                        <div class="p-t-16">
+                            <h5 class="p-b-5">
+                                <a href="{{ route('client.detail', $views->id) }}"
+                                    class="f1-m-3 cl2 hov-cl10 trans-03">
+                                    {{ $views->post_name }}
+                                </a>
+                            </h5>
+
+                            <span class="cl8">
+                                <a href="#" class="f1-s-4 cl8 hov-cl10 trans-03">
+                                    by {{ $views->userInfo->name }}
+                                </a>
+
+                                <span class="f1-s-3 m-rl-3">
+                                    -
+                                </span>
+
+                                <span class="f1-s-3">
+                                    {{ \Carbon\Carbon::parse($views->created_at)->format('d/m/Y') }}
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+
+        </div>
     </div>
 </div>
 </div>

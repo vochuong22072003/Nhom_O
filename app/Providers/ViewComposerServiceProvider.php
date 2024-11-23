@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
-use App\Repositories\Interfaces\HomeRepositoryInterface as  HomeRepository;
+use App\Repositories\Interfaces\HomeRepositoryInterface as HomeRepository;
 
 class ViewComposerServiceProvider extends ServiceProvider
 {
@@ -32,8 +32,20 @@ class ViewComposerServiceProvider extends ServiceProvider
             }
             $view->with('menus', $menus);
         });
+
+
+        /**
+         *   Variable for setting
+         */
+        \View::composer('client.account-setting-partials.*', function ($view) {
+            $view->with([
+                'cus' => auth('customers')->user(),
+                'cusInfo' => auth('customers')->user()->customerInfo
+            ]);
+        });
     }
-    public function encryptId($id) {
+    public function encryptId($id)
+    {
         $salt = "chuoi_noi_voi_id";
         return base64_encode($id . $salt);
     }

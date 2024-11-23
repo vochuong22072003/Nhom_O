@@ -29,6 +29,6 @@ class DeletePostCatalogueParentRequest extends FormRequest
     public function hadPostCatelogueChildren(): bool
     {
         $postCatalogueParent = PostCatalogueParent::findOrFail($this->route('id'));
-        return $postCatalogueParent->postCatalogueChildren()->exists();
+        return $postCatalogueParent->post_catalogue_children()->exists();
     }
 }

@@ -42,7 +42,7 @@ class Post extends Model
         return $this->hasOneThrough(UserInfo::class, User::class, 'id', 'user_id', 'user_id', 'id');
     }
 
-    public function like()
+    public function likes()
     {
         return $this->hasMany(PostLike::class, 'post_id');
     }
@@ -50,34 +50,43 @@ class Post extends Model
     {
         return $this->hasOne(PostView::class, 'post_id');
     }
-    public function likeCount()
-    {
-        //dem luot thich
-        return $this->likes()->count();
-    }
-
     public function viewCount($postId)
     {
+        $postview = PostView::firstWhere('post_id', $postId);
+        if ($postview === null) {
 
-            $postview = PostView::firstWhere('post_id',$postId);
-            if($postview === null)
-            {
+            $postview = PostView::create([
+                'post_id' => $postId,
+                'view_count' => 1,
+            ]);
 
-                $postview = PostView::create([
-                    'post_id' => $postId,
-                    'view_count' => 1 ,
-                ]);
+        } else {
+            $postview->increment('view_count');
 
-            }
-            else
-            {
-                $postview->increment('view_count');
-
-            }
-            return $postview->view_count;
-        //   return $this->views()->sum('view_count');
-       
-        //return $postview->view_count;
+        }
+        return $postview->view_count;
+    }
+    
+  
+    public function posts()
+    {
+        return $this->hasMany(Post::class, 'save_folder_id');
+    }
+    public function isLike()
+    {
+        $userId = \Auth::guard('customers')->id();
+        if (!$userId) {
+            return true;
+        }
+        $hasLiked = PostLike::where('post_id', $this->id)
+            ->where('cus_id', $userId)
+            ->whereNull('deleted_at')->exists();
+        return $hasLiked;
+    }
+    public function edit($id)
+    {
+        $post = Post::findOrFail($id);
+        return view('Backend.dashboard.edit', compact('post'));
     }
     public function tags()
     {
