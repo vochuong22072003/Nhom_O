@@ -144,13 +144,7 @@
                         {{-- Info --}}
                         <a class="list-group-item list-group-item-action {{ request()->is('account_account_info') ? 'active' : '' }}"
                             href="{{ route('setting.account-info') }} ">Info</a>
-                        {{-- Social links --}}
-                        <a class="list-group-item list-group-item-action {{ request()->is('account_social_links') ? 'active' : '' }}"
-                            href="{{ Route::has('setting.social-links') }} ">Social
-                            links</a>
-                        {{-- Connections --}}
-                        <a class="list-group-item list-group-item-action {{ request()->is('account_connections') ? 'active' : '' }}"
-                            href="{{ Route::has('setting.connections') }} ">Connections</a>
+                        
                         {{-- Notifications --}}
                         <a class="list-group-item list-group-item-action {{ request()->is('account_notifications') ? 'active' : '' }}"
                             href="{{ route('setting.notifications') }} ">Notifications</a>

@@ -73,13 +73,13 @@
                         <i class="fa fa-save" data-toggle="modal" data-post-id="{{ $getPost->id }}"
                             data-target="#saveModal"> Lưu bài viết </i>
                     </span>
-                    
+
 
                     <!-- Modal: -->
                     <!-- Modal: Chọn thư mục lưu hoặc tạo thư mục mới -->
                 </div>
             </div>
-            
+
         </div>
         <div class="modal fade" id="saveModal" tabindex="-1" aria-labelledby="saveModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -94,7 +94,8 @@
                             <input type="hidden" name="post_id" id="post_id" value="{{ $getPost->id }}">
                             <!-- Danh sách danh mục (không bắt buộc) -->
                             <div class="mb-3">
-                                <h1 class="text-center" style="margin-left: 120px; color:red;">các danh mục sẵn có của bạn</h1>
+                                <h1 class="text-center" style="margin-left: 120px; color:red;">các danh mục sẵn có của bạn
+                                </h1>
                                 <!-- Options -->
                                 @auth('customers')
                                     <div class="text-center" style="margin-left: 100px">
@@ -111,21 +112,23 @@
                                 @endauth
                             </div>
 
-                    {{-- end modal --}}
+                            {{-- end modal --}}
                             {{-- <input type="hidden" name="post_id" value="{{ $getPost->id }}"> --}}
                             <!-- Form nhập tên danh mục mới -->
                             <div class="mb-3">
-                                <label for="save_folder_name" class="form-label text-center" style="margin-left: 120px ; color:red;">Hoặc tạo danh mục mới:</label>
+                                <label for="save_folder_name" class="form-label text-center"
+                                    style="margin-left: 120px ; color:red;">Hoặc tạo danh mục mới:</label>
                                 <input type="text" class="form-control" name="save_folder_name" id="save_folder_name"
-                                    placeholder="Nhập tên danh mục mới"  style="margin-left: 80px">
+                                    placeholder="Nhập tên danh mục mới" style="margin-left: 80px">
                             </div>
-                            <button type="submit" class="btn btn-primary" style="margin-left: 180px;" id="savePost" >Lưu</button>
+                            <button type="submit" class="btn btn-primary" style="margin-left: 180px;"
+                                id="savePost">Lưu</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-       
+
         {{-- end modal --}}
         <!-- Detail -->
         <div class="container p-t-50">
@@ -151,9 +154,10 @@
                                     <i class="fa fa-tag"></i>
                                     <a href="" class="f1-s-12 cl8 hov-link1 m-r-15">
                                         @foreach ($getPost->tags as $tag)
-                                        <a href="{{ route('client.tag.posts', ['tagId' => $tag->tag_id]) }}" class="f1-s-12 cl8 hov-link1 m-r-15">
-                                            {{ $tag->tag_name }}
-                                        </a>
+                                            <a href="{{ route('client.tag.posts', ['tagId' => $tag->tag_id]) }}"
+                                                class="f1-s-12 cl8 hov-link1 m-r-15">
+                                                {{ $tag->tag_name }}
+                                            </a>
                                         @endforeach
                                     </a>
                                 </div>
@@ -179,6 +183,31 @@
                                         <i class="fab fa-twitter m-r-7"></i>
                                         Twitter
                                     </a>
+                                </div>
+                            </div>
+                            <div class="flex-s-s">
+                                <span class="f1-s-12 cl5 p-t-1 m-r-15">
+                                    Author: {{ $getPost->userInfo->name }}
+                                </span>
+                                <div class="flex-wr-s-s size-w-0">
+                                    <form action="{{ route('follow') }}" method="post">
+                                        @csrf
+                                        <input name="author_name" type="hidden" value="{{ $getPost->userInfo->name }}">
+                                        <input name="author_id" type="hidden" value="{{ $getPost->users->id }}">
+                                        @if ($getPost->users->followers->contains('cus_id', auth('customers')->user()->cus_id))
+                                            <button type="submit"
+                                                class="dis-block f1-s-13 cl0 bg-danger borad-3 p-tb-4 p-rl-18 hov-btn1 m-r-3 m-b-3 trans-03">
+                                                <i class="fa-solid fa-bell m-r-7"></i>
+                                                Unfollow
+                                            </button>
+                                        @else
+                                            <button type="submit"
+                                                class="dis-block f1-s-13 cl0 bg-danger borad-3 p-tb-4 p-rl-18 hov-btn1 m-r-3 m-b-3 trans-03">
+                                                <i class="fa-regular fa-bell m-r-7"></i>
+                                                Follow
+                                            </button>
+                                        @endif
+                                    </form>
                                 </div>
                             </div>
                         </div>

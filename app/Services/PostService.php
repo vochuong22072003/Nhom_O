@@ -7,6 +7,7 @@ use App\Repositories\Interfaces\PostRepositoryInterface as PostRepository;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use App\Events\AuthorAddPost;
 
 
 /**
@@ -57,6 +58,7 @@ class PostService implements PostServiceInterface
             // dd($payload);
             $post = $this->postRepository->create($payload);
             DB::commit();
+            event(new AuthorAddPost($post, $request->user()));
             return true;
         } catch (\Exception $ex) {
             DB::rollBack();
