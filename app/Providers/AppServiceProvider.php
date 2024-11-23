@@ -46,6 +46,9 @@ class AppServiceProvider extends ServiceProvider
         //client
         'App\Services\Interfaces\HomeServiceInterface' => 'App\Services\HomeService',
         'App\Repositories\Interfaces\HomeRepositoryInterface' => 'App\Repositories\HomeRepository',
+
+        'App\Services\Interfaces\CommentServiceInterface' => 'App\Services\CommentService',
+        'App\Repositories\Interfaces\CommentRepositoryInterface' => 'App\Repositories\CommentRepository',
     ];
 
     /**
