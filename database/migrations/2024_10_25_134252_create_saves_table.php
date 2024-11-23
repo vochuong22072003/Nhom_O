@@ -12,11 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('saves', function (Blueprint $table) {
-            $table->unsignedBigInteger('save_folder_id'); // Cột save_folder_id kiểu bigInt, làm khóa chính và khóa ngoại
-            $table->unsignedBigInteger('post_id'); // Cột post_id kiểu bigInt, làm khóa chính và khóa ngoại
-            $table->unsignedBigInteger('cus_id'); // Cột cus_id kiểu bigInt, làm khóa chính và khóa ngoại
-            $table->timestamp('deleted_at')->nullable(); // Cột deleted_at kiểu timestamp, có thể null
-
+            $table->unsignedBigInteger('save_folder_id'); 
+            $table->unsignedBigInteger('post_id'); 
+            $table->unsignedBigInteger('cus_id'); 
+            $table->softDeletes(); 
+            $table->timestamps(); 
             // Định nghĩa khóa chính cho cả ba cột
             $table->primary(['save_folder_id', 'post_id', 'cus_id']);
 

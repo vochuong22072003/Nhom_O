@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('tags', function (Blueprint $table) {
             $table->id('tag_id');
             $table->string('tag_name', 40)->unique();
-            $table->string('description', 200)->nullable();
             $table->timestamps();
+
         });
     }
 
@@ -24,6 +24,7 @@ return new class extends Migration
      */
     public function down(): void
     {
+       
         Schema::dropIfExists('tags');
     }
 };

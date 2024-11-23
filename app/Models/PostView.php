@@ -16,7 +16,7 @@ class PostView extends Model
     ];
     public function post()
 {
-    return $this->belongsTo(Post::class, 'post_id'); // Đảm bảo sử dụng 'post_id', không phải 'posts_id'
+    return $this->belongsTo(Post::class, 'post_id'); 
 }
 
 }

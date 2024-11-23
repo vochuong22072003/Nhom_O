@@ -23,6 +23,7 @@ interface BaseRepositoryInterface
     public function findByIds(string $column = '', array $ids = [], array $relation = [], array $orderBy = ['id', 'desc']);
     public function findWhereIn(string $column='', array $ids = []);
     public function findByCondition(array $condition = []);
+    public function findByConditions(array $condition = []);
     public function create(array $payload =[]);
     public function update(int $id=0, array $payload=[]);
     public function updateByWhereIn(string $whereInField='', array $whereIn=[], array $payload=[]);

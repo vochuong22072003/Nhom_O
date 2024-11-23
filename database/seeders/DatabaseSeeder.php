@@ -17,6 +17,23 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+
         $this->call([CustomerSeeder::class, UserCatalogueSeeder::class, UserSeeder::class, UserInfoSeeder::class, PermissionSeeder::class, UserCataloguePermissionSeeder::class, PostCatalogueParentSeeder::class, PostCatalogueChildrenSeeder::class, PostSeeder::class, CommentSeeder::class]);
+
+        DB::table('user_catalogues')->insert([
+            'name'=>'Quản trị viên',
+        ]);
+
+        DB::table('users')->insert([
+            'email'=>'vochuong57@gmail.com',
+            'password'=>Hash::make('123456'),
+            'user_catalogue_id'=>'1'
+        ]);
+
+        $this->call([
+            CustomerSeeder::class,
+            CustomerInfoSeeder::class,
+        ]);
+
     }
 }
