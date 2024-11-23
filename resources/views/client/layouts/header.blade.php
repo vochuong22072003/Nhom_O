@@ -1,4 +1,5 @@
 <header>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Header desktop -->
     <div class="container-menu-desktop">
         <div class="topbar">

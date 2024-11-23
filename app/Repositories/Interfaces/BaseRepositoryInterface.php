@@ -20,6 +20,7 @@ interface BaseRepositoryInterface
         array $rawQuery = []
     );
     public function findById(int $id, array $column=['*'], array $relation =[]);
+    public function findByIds(string $column = '', array $ids = [], array $relation = [], array $orderBy = ['id', 'desc']);
     public function findWhereIn(string $column='', array $ids = []);
     public function findByCondition(array $condition = []);
     public function create(array $payload =[]);
