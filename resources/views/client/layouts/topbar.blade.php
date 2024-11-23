@@ -32,13 +32,15 @@
 
                 <button role="button" class="btn dropdown p-0 rounded-circle overflow-hidden text-center"
                     style="width: 30px;height: 30px" data-toggle="dropdown">
-                    @php($avt_src = Auth::guard('customers')->user()->customerInfo->getAvtUrl())
+                    @php
+                        $avt_src = Auth::guard('customers')->user()->customerInfo->getAvtUrl()
+                    @endphp
                     {{--  AVATAR --}}
-                    <img src="{{ $avt_src }}" class="rounded-circle img-avt">
+                    <img src="{{ $avt_src ?? '' }}" class="rounded-circle img-avt">
                 </button>
                 <div class="dropdown-menu menu-drop-setting p-1" aria-labelledby="dropdownMenu1">
                     <div class="d-flex justify-content-start align-items-center">
-                        <img src="{{ $avt_src }}" alt="" class="rounded-circle img-avt m-2">
+                        <img src="{{ $avt_src ?? '' }}" alt="" class="rounded-circle img-avt m-2">
                         <p>{{ '@' . Auth::guard('customers')->user()->cus_user }}</p>
                     </div>
                     <hr style="background-color: azure">

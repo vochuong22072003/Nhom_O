@@ -9,14 +9,20 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Services\Interfaces\HomeServiceInterface as HomeService;
+use App\Repositories\Interfaces\CommentRepositoryInterface as CommentRepository;
+use App\Services\Interfaces\CommentServiceInterface as CommentService;
 use App\Models\Post;
+use Illuminate\Support\Facades\Auth;
 class HomeController extends Controller
 {
     protected $homeService;
+    protected $commentRepository;
 
-    public function __construct(HomeService $homeService)
+    public function __construct(HomeService $homeService, CommentRepository $commentRepository, CommentService $commentService)
     {
         $this->homeService = $homeService;
+        $this->commentRepository=$commentRepository;
+        $this->commentService=$commentService;
     }
 
     public function index(Request $request)
@@ -76,7 +82,7 @@ class HomeController extends Controller
             }
         }
         $tags = $this->getAllTag();
-        return view('client.index', compact('template', 'config', 'lastestNews', 'getCatalogue', 'results', 'posts', 'view', 'post','tags',));
+        return view('client.index', compact('template', 'config', 'lastestNews', 'getCatalogue', 'results', 'posts', 'view','tags'));
     }
     
     public function getPostLike()
@@ -147,7 +153,62 @@ class HomeController extends Controller
         }
         // dd($getPost);
 
-        return view($template, compact('config', 'getPost'));
+        // --------------------------------------- Comments --------------------------------------
+
+        $condition = [
+            ['post_id', '=', $id],
+            ['parent_id', '=', '0']
+        ];
+
+        $comments = $this->commentRepository->findByConditionsWithRelation($condition,[],['id','desc']);
+
+        $client_logged = Auth::id();
+        // dd($client_logged);
+
+        if($comments->isNotEmpty()){
+            foreach($comments as $comment){
+                $commentIds[]=$comment->id;
+            }
+            // dd($commentIds);
+    
+            $countCommentReplyId = [];
+            foreach($commentIds as $commentId){
+                $countCommentReplyId[]=$this->commentService->countCommentReply($commentId);
+            }
+            // dd($countCommentReplyId);
+    
+            $countReply = $this->commentService->countNestedArray($countCommentReplyId);
+            // dd($countReply);
+    
+            foreach ($comments as $key => $comment) {
+                $comment->reply_count = $countReply[$key] ?? 0;
+            }
+            // dd($comments);
+    
+            $comments->each(function ($comment, $key) use ($countCommentReplyId) {
+                $nestedIds = isset($countCommentReplyId[$key]) ? $this->commentService->collectNestedIds($countCommentReplyId[$key]) : [];
+                $comment->reply_ids = $nestedIds;
+            });
+            // dd($comments);
+    
+            $comments = $comments->map(function ($comment) use ($client_logged) {
+                return [
+                    'id' => $comment->id,
+                    'parent_id' => $comment->parent_id,
+                    'content' => $comment->content,
+                    'created_at' => $comment->created_at,
+                    'reply_ids' => $comment->reply_ids,
+                    'reply_count' => $comment->reply_count,
+                    'customers' => $comment->customers ? $comment->customers->only(['cus_id', 'cus_user', 'email']) : null,
+                    'post_id' => $comment->post_id,
+                    'customer_id' => $comment->customer_id,
+                    'avatar' => asset('Backend/img/not-found.png'),
+                    'img_reply' => asset('Backend/img/Reply.svg'),
+                ];
+            });
+            // dd($comments);
+        }
+        return view($template, compact('config', 'getPost', 'comments', 'client_logged'));
     }
 
     public function search(Request $request)
@@ -237,6 +298,7 @@ class HomeController extends Controller
                 'client/vendor/bootstrap/js/bootstrap.min.js',
                 'client/js/main.js',
                 'https://solascore.io/js/matches.js?v=<?=time();?>',
+                'Backend/libary/client/comment.js',
             ],
             'css' => [
                 'client/vendor/bootstrap/css/bootstrap.min.css',
