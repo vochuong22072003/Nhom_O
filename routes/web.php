@@ -18,6 +18,9 @@ use App\Http\Controllers\Ajax\PostCatalogueController;
 
 use App\Http\Controllers\Frontend\HomeController;
 
+use App\Http\Controllers\Frontend\CommentController;
+use App\Http\Controllers\Ajax\CommentController as AjaxCommentController;
+
 use App\Http\Controllers\LikeView\ViewController;
 use App\Http\Controllers\LikeView\LikeController;
 use App\Http\Controllers\LikeView\SaveController;
@@ -101,6 +104,22 @@ Route::middleware(['auth:web'])->group(function () {
     Route::get('ajax/postCatalogue/getPostCatalogue',[PostCatalogueController::class, 'getPostCatalogue'])->name('ajax.postCatalogue.getPostCatalogue')->middleware(AuthenticateMiddleware::class);
 });
 
+    // Võ Tiến Chương
+    Route::get('/check-login', function () {
+        return response()->json(['loggedIn' => auth()->check()]);
+    });
+
+    // Võ Tiến Chương Comment Function
+    Route::group(['prefix' => 'comment'], function () {
+        Route::post('create', [CommentController::class, 'create'])->name('comment.create');
+    });
+    Route::post('ajax/comment/reply', [AjaxCommentController::class, 'createReply'])->name('ajax.comment.reply');
+    Route::get('ajax/comment/showReply', [AjaxCommentController::class, 'showReply'])->name('ajax.comment.showReply');
+    Route::post('ajax/comment/replyN', [AjaxCommentController::class, 'createReplyN'])->name('ajax.comment.replyN');
+    Route::post('ajax/comment/update', [AjaxCommentController::class, 'update'])->name('ajax.comment.update');
+    Route::post('ajax/comment/updateN', [AjaxCommentController::class, 'updateN'])->name('ajax.comment.updateN');
+    Route::get('ajax/comment/delete', [AjaxCommentController::class, 'delete'])->name('ajax.comment.delete');
+    Route::get('ajax/comment/deleteN', [AjaxCommentController::class, 'deleteN'])->name('ajax.comment.deleteN');
   
     Route::name('client.')->group(function () {
         Route::get('/', [HomeController::class, 'index'])->name('index');

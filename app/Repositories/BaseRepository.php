@@ -59,6 +59,15 @@ class BaseRepository implements BaseRepositoryInterface
     public function findById(int $id, array $column=['*'], array $relation =[]){
         return $this->model->select($column)->with($relation)->findOrFail($id);
     }
+    public function findByIds(string $column = '', array $ids = [], array $relation = [], array $orderBy = ['id', 'desc'])
+    {
+        $query = $this->model->whereIn($column, $ids)->with($relation);
+
+        $query = $query->orderBy($orderBy[0], $orderBy[1]);
+
+        return $query->get();
+    }
+
     public function findWhereIn(string $column='', array $ids = []){
         return $this->model->whereIn($column, $ids)->get();
     }

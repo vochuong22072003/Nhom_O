@@ -8,15 +8,26 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 
-class DatabaseSeeder extends Seeder
+class UserCatalogueSeeder extends Seeder
 {
     /**
      * Seed the application's database.
      */
     public function run(): void
     {
-        $this->call([CustomerSeeder::class, UserCatalogueSeeder::class, UserSeeder::class, UserInfoSeeder::class, PermissionSeeder::class, UserCataloguePermissionSeeder::class, PostCatalogueParentSeeder::class, PostCatalogueChildrenSeeder::class, PostSeeder::class, CommentSeeder::class]);
+        DB::table('user_catalogues')->insert([
+            [
+                'name' => 'Quản trị viên',
+            ],
+            [
+                'name' => 'Cộng tác viên',
+            ],
+            [
+                'name' => 'Tác giả',
+            ]
+        ]);
     }
 }
