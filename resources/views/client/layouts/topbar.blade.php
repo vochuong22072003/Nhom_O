@@ -6,14 +6,6 @@
                     Nhóm O
                 </span>
             </span>
-
-            <a href="#" class="left-topbar-item">
-                About
-            </a>
-
-            <a href="#" class="left-topbar-item">
-                Contact
-            </a>
             @auth
             <a href="{{ route('client.myactive') }}" class="left-topbar-item">
                 Xem bài viết của tôi
