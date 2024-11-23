@@ -27,7 +27,17 @@
                 </div>
             @show
 
-            <form action="{{ route('client.search') }}" method="post"
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            <form action="{{ route('client.search') }}" method="POST"
                 class="pos-relative size-a-2 bo-1-rad-22 of-hidden bocl11 m-tb-6">
                 @csrf
                 <input class="f1-s-1 cl6 plh9 s-full p-l-25 p-r-45" type="text" name="search" placeholder="Search"

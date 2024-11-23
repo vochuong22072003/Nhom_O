@@ -7,12 +7,15 @@ use App\Models\Tag;
 use DB;
 use Illuminate\Pagination\LengthAwarePaginator;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SearchRequest;
 use Illuminate\Http\Request;
 use App\Services\Interfaces\HomeServiceInterface as HomeService;
 use App\Repositories\Interfaces\CommentRepositoryInterface as CommentRepository;
 use App\Services\Interfaces\CommentServiceInterface as CommentService;
 use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
+use Spatie\LaravelIgnition\Recorders\DumpRecorder\DumpHandler;
+
 class HomeController extends Controller
 {
     protected $homeService;
@@ -211,12 +214,10 @@ class HomeController extends Controller
         return view($template, compact('config', 'getPost', 'comments', 'client_logged'));
     }
 
-    public function search(Request $request)
+    public function search(SearchRequest $request)
     {
         $template = 'client.search-result';
         $config = $this->config();
-
-
 
         $requestInput = $request->input('search');
         $results = $this->homeService->getPostsBySearch($requestInput);
@@ -228,6 +229,9 @@ class HomeController extends Controller
 
         return view($template, compact('config', 'results'));
     }
+
+
+
     public function tagPostResult($tagId)
     {
         $tag = $this->getPostsByTag($tagId);
