@@ -8,27 +8,22 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use \App\Models\Post;
+use App\Http\Controllers\Controller;
 
 class NewPostEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
     /**
-     * The post instance added
-     * @var \App\Models\Post
+     *  __construct
+     * @param \App\Models\Post $post
+     * @param string $author_name
      */
-    public $post;
-    /**
-     * The name author 
-     * @var string
-     */
-    public $author_name;
-
-    public function __construct($post, $author_name)
-    {
-        $this->post = $post;
-        $this->$author_name = $author_name;
-    }
+    public function __construct(
+        public Post $post,
+        public string $author_name,
+    ) {}
 
     /**
      * Get the message envelope.
@@ -36,7 +31,7 @@ class NewPostEmail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: $this->post->title,
+            subject: 'New post from: ' . $this->author_name,
         );
     }
 
@@ -45,8 +40,10 @@ class NewPostEmail extends Mailable
      */
     public function content(): Content
     {
+        $encr_id = (new Controller)->encryptId($this->post->id);
         return new Content(
             view: 'emails.new-post',
+            with: ['url' => route('client.detail', ['id' => $encr_id ])]
         );
     }
 

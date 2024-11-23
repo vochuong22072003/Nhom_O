@@ -43,14 +43,14 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>Hello, {{ $author_name }}!</h1>
+            <h1>{{ $post->post_name }}</h1>
         </div>
-        <p>Welcome to our application. We're excited to have you on board!</p>
-        <p>Please click the button below to verify your email address:</p>
-        <p class="center"><a href="#" class="button">View New Post</a></p>
+        <p></p>
+        {!! $post->post_excerpt !!}
+        <p class="center"><a href="{{ $url }}" class="button">View New Post</a></p>
 
         <div class="footer">
-            <p>If you did not create an account, no further action is required.</p>
+            <p>Read more at we website. Nhom O</p>
         </div>
     </div>
 </body>

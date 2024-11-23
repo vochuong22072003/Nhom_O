@@ -10,32 +10,18 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
+use App\Models\Post;
+use App\Models\User;
+
 class AuthorAddPost
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    /**
-     * The post instance added
-     * @var \App\Models\Post
-     */
-    public $post;
-    /**
-     * The name author 
-     * @var string
-     */
-    public $author_name;
-    /**
-     * Customer emails who have followed the author
-     * @var array<string> 
-     */
-    public $customer_emails;
-
-    public function __construct($post, $author_name, $customer_emails)
-    {
-        $this->post = $post;
-        $this->author_name = $author_name;
-        $this->customer_emails = $customer_emails;
-    }
+    public function __construct(
+        public Post $post,
+        public User $author,
+        // public array $customer_emails = $this-> getEmailFollowers(),
+    ) {}
 
     /**
      * Get the channels the event should broadcast on.
@@ -47,5 +33,16 @@ class AuthorAddPost
         return [
             new PrivateChannel('channel-name'),
         ];
+    }
+    public function getEmailFollowers(){
+
+        $followers = $this->author->followers;
+        $emails = [];
+
+        foreach($followers as $f) {
+            array_push($emails, $f->email);
+        }
+        
+        return $emails;
     }
 }

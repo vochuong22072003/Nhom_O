@@ -165,4 +165,4 @@ Route::middleware('auth')->group(function () {
     });
 });
 
-Route::post('/follow', [FollowController::class])->middleware('auth')->name('follow');
+Route::post('/follow', FollowController::class)->middleware('auth')->name('follow');

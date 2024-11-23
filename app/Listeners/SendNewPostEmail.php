@@ -23,6 +23,7 @@ class SendNewPostEmail
      */
     public function handle(AuthorAddPost $event): void
     {
-        Mail::to($event->customer_emails)->send(new NewPostEmail($event->post, $event->author_name));
+        Mail::to($event->getEmailFollowers())->send(new NewPostEmail($event->post, $event->author->user_profile->name));
     }
+
 }
