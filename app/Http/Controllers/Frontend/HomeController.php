@@ -76,9 +76,9 @@ class HomeController extends Controller
             }
         }
         $tags = $this->getAllTag();
-        return view('client.index', compact('template', 'config', 'lastestNews', 'getCatalogue', 'results', 'posts', 'view', 'post','tags',));
+        return view('client.index', compact('template', 'config', 'lastestNews', 'getCatalogue', 'results', 'posts', 'view', 'tags', ));
     }
-    
+
     public function getPostLike()
     {
         $posts = Post::withCount('likes')
@@ -204,8 +204,11 @@ class HomeController extends Controller
         return DB::table('likes')
             ->join('posts', 'likes.post_id', '=', 'posts.id')
             ->where('likes.cus_id', $customerId)
+            ->whereNull('likes.deleted_at')
+            ->whereNull('posts.deleted_at')
             ->select('posts.post_name', 'posts.id', 'likes.created_at')
             ->get();
+
     }
     public function getUserSavePost($customerId)
     {
