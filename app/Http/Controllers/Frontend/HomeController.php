@@ -269,6 +269,7 @@ class HomeController extends Controller
         return DB::table('likes')
             ->join('posts', 'likes.post_id', '=', 'posts.id')
             ->where('likes.cus_id', $customerId)
+            ->whereNull('likes.deleted_at')
             ->select('posts.post_name', 'posts.id', 'likes.created_at')
             ->get();
     }

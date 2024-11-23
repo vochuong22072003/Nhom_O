@@ -8,7 +8,7 @@
             </span>
             @auth
             <a href="{{ route('client.myactive') }}" class="left-topbar-item">
-                Xem bài viết của tôi
+                Xem lịch sử bài viết 
             </a>
             @endauth
             @guest
