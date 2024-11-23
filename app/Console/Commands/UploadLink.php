@@ -2,9 +2,10 @@
 
 namespace App\Console\Commands;
 
-use File;
+// use File;
 use Illuminate\Console\Command;
-// use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class UploadLink extends Command
 {
@@ -27,16 +28,16 @@ class UploadLink extends Command
      */
     public function handle()
     {
-        $source = \Storage::disk('upload')->path('avatars');
+        $source = Storage::disk('upload')->path('avatars');
         $link = public_path('client/images/upload/avatars');
 
         if (file_exists($link)) {
             $this->error("The {$link} link already exists.");
         } else {
             
-            if (!File::exists($source . '/.gitignore')){
-                File::put($source . '/.gitignore', "*\n");
-            }
+            // if (!File::exists($source . '/.gitignore')){
+            //     File::put($source . '/.gitignore', "*\n");
+            // }
             File::link($source, $link);
             $this->info("The {$source} link has been connected to {$link}.");
         }
