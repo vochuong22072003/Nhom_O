@@ -192,30 +192,64 @@
                             <p class="f1-s-13 cl8 p-b-40">
                                 Your email address will not be published. Required fields are marked *
                             </p>
+                            @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                            @endif
+                            <form method="post" action="{{ route('comment.create') }}">
+                                @csrf
+                                <textarea class="bo-1-rad-3 bocl13 size-a-15 f1-s-13 cl5 plh6 p-rl-18 p-tb-14 m-b-20 comments" cols="100" name="content"
+                                    placeholder="Comment...">{{ old('content', ($comment->content) ?? '' ) }}</textarea>
+                                
+                                <input type="hidden" name="post_id" value="{{ $getPost->id }}">
 
-                            <form>
-                                <textarea class="bo-1-rad-3 bocl13 size-a-15 f1-s-13 cl5 plh6 p-rl-18 p-tb-14 m-b-20" name="msg"
-                                    placeholder="Comment..."></textarea>
-
-                                <input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20" type="text"
+                                <!-- <input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20" type="text"
                                     name="name" placeholder="Name*">
 
                                 <input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20" type="text"
                                     name="email" placeholder="Email*">
 
                                 <input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20" type="text"
-                                    name="website" placeholder="Website">
+                                    name="website" placeholder="Website"> -->
 
                                 <button class="size-a-17 bg2 borad-3 f1-s-12 cl0 hov-btn1 trans-03 p-rl-15 m-t-10">
                                     Post Comment
                                 </button>
                             </form>
+
+                            @if($comments->isNotEmpty())
+                            <select class="mt-5" name="arrange" id="arrange-comments">
+                                <option value="date">Mới nhất xếp trước</option>
+                                <option value="popular">Bình luận hàng đầu</option>
+                            </select>
+                            <div class="comment-container mt-5">
+                               
+                            </div>
+                            @else
+                                <h2 class="mt-4">Hãy là người bình luận đầu tiên</h2>
+                            @endif
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+    <script>
+        let comments = @json($comments);
+        let client_logged = @json($client_logged);
+        var getReplyUrl = '{{ route("ajax.comment.reply") }}';
+        var getShowReplyUrl = '{{ route("ajax.comment.showReply") }}';
+        var getReplyNUrl = '{{ route("ajax.comment.replyN") }}';
+        var getCommentUpdate = '{{ route("ajax.comment.update") }}';
+        var getCommentNUpdate = '{{ route("ajax.comment.updateN") }}';
+        var getCommentDelete = '{{ route("ajax.comment.delete") }}';
+        var getCommentNDelete = '{{ route("ajax.comment.deleteN") }}'
+    </script>
 
 
 
