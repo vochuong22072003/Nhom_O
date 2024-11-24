@@ -44,15 +44,4 @@ class LikeController extends Controller
             return response()->json(['status' => 'unliked']);
         } 
     }
-    public function getLikedPosts()
-    {
-        $cus_id = auth()->id();
-        if (!$cus_id) {
-            return redirect()->route('login')->with('error', 'Bạn cần đăng nhập để xem các bài viết đã thích.');
-        }
-        $likedPosts = PostLike::with('post')->where('cus_id',$cus_id)->whereNull('deleted_at')->get()->pluck('post');
-        return view('client.myactive', compact('likedPosts'));  
-    }
-
-     
 } 

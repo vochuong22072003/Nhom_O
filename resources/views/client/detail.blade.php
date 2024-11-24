@@ -51,7 +51,7 @@
 
                     <span class="f1-s-3 cl8 m-rl-7 txt-center">
                         <i class="fa fa-eye"> view</i>
-                        <p>Lượt xem: {{ $getPost->viewCount($getPost->id) }}</p>
+                        <p id="view-count">Lượt xem: {{ $getPost->viewCount($getPost->id) }}</p>
                     </span>
                     <span class="f1-s-3 cl8 m-rl-7 txt-center">
 
