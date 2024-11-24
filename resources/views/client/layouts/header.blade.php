@@ -1,62 +1,8 @@
 <header>
     <!-- Header desktop -->
     <div class="container-menu-desktop">
-        <div class="topbar">
-            <div class="content-topbar container h-100">
-                <div class="left-topbar">
-                    <span class="left-topbar-item flex-wr-s-c">
-                        <span>
-                            Nhóm O
-                        </span>
-                    </span>
 
-                    <a href="#" class="left-topbar-item">
-                        About
-                    </a>
-
-                    <a href="#" class="left-topbar-item">
-                        Contact
-                    </a>
-                    @auth
-                    <a href="{{ route('client.myactive') }}" class="left-topbar-item">
-                        Lịch sử bài viết
-                    </a>
-                    @endauth
-                    @guest
-                    <a href="{{ route('register') }}" class="left-topbar-item">
-                        Sign up
-                    </a>
-                    
-                    <a href="{{ route('login') }}" class="left-topbar-item">
-                        Log in
-                    </a>
-                    @endguest
-                    
-                </div>
-
-                <div class="right-topbar">
-                    <a href="#">
-                        <span class="fab fa-facebook-f"></span>
-                    </a>
-
-                    <a href="#">
-                        <span class="fab fa-twitter"></span>
-                    </a>
-
-                    <a href="#">
-                        <span class="fab fa-pinterest-p"></span>
-                    </a>
-
-                    <a href="#">
-                        <span class="fab fa-vimeo-v"></span>
-                    </a>
-
-                    <a href="#">
-                        <span class="fab fa-youtube"></span>
-                    </a>
-                </div>
-            </div>
-        </div>
+        @include('client.layouts.topbar')
 
         <!-- Header Mobile -->
         <div class="wrap-header-mobile">
@@ -93,36 +39,19 @@
                     <a href="#" class="left-topbar-item">
                         Contact
                     </a>
+                    @guest
+                        <a href="{{ route('register') }}" class="left-topbar-item">
+                            Sign up
+                        </a>
 
-                    <a href="#" class="left-topbar-item">
-                        Sing up
-                    </a>
-
-                    <a href="#" class="left-topbar-item">
-                        Log in
-                    </a>
+                        <a href="{{ route('login') }}" class="left-topbar-item">
+                            Log in
+                        </a>
+                    @endguest
                 </li>
 
                 <li class="right-topbar">
-                    <a href="#">
-                        <span class="fab fa-facebook-f"></span>
-                    </a>
-
-                    <a href="#">
-                        <span class="fab fa-twitter"></span>
-                    </a>
-
-                    <a href="#">
-                        <span class="fab fa-pinterest-p"></span>
-                    </a>
-
-                    <a href="#">
-                        <span class="fab fa-vimeo-v"></span>
-                    </a>
-
-                    <a href="#">
-                        <span class="fab fa-youtube"></span>
-                    </a>
+                    {{-- Notification and avatar --}}
                 </li>
             </ul>
 
@@ -251,7 +180,8 @@
                                                 <div class="list-group list-group-flush">
                                                     <a href="{{ route('client.category', ['id' => $category->encrypted_id, 'model' => 'parent']) }}
 "
-                                                        class="mb-0 list-group-item text-uppercase font-weight-bold" id="mega-parent">
+                                                        class="mb-0 list-group-item text-uppercase font-weight-bold"
+                                                        id="mega-parent">
                                                         {{ $category->post_catalogue_parent_name }}
                                                     </a>
                                                     @if (count($category->post_catalogue_children) > 0)

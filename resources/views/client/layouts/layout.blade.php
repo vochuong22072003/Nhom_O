@@ -27,9 +27,21 @@
                 </div>
             @show
 
-            <form action="{{ route('client.search') }}" method="post" class="pos-relative size-a-2 bo-1-rad-22 of-hidden bocl11 m-tb-6">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            <form action="{{ route('client.search') }}" method="POST"
+                class="pos-relative size-a-2 bo-1-rad-22 of-hidden bocl11 m-tb-6">
                 @csrf
-                <input class="f1-s-1 cl6 plh9 s-full p-l-25 p-r-45" type="text" name="search" placeholder="Search" value="">
+                <input class="f1-s-1 cl6 plh9 s-full p-l-25 p-r-45" type="text" name="search" placeholder="Search"
+                    value="">
                 <button class="flex-c-c size-a-1 ab-t-r fs-20 cl2 hov-cl10 trans-03" type="submit">
                     <i class="zmdi zmdi-search"></i>
                 </button>
@@ -44,7 +56,7 @@
         <div class="bg2 p-t-40 p-b-25">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-4 p-b-20">
+                    <div class="col-lg-7 p-b-20">
                         <div class="size-h-3 flex-s-c">
                             <a href="{{ route('client.index') }}">
                                 <img class="max-s-full" src="{{ asset('client/images/icons/logo-02.png') }}"
@@ -54,13 +66,18 @@
 
                         <div>
                             <p class="f1-s-1 cl11 p-b-16">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur tempor magna eget
-                                elit efficitur, at accumsan sem placerat. Nulla tellus libero, mattis nec molestie at,
-                                facilisis ut turpis. Vestibulum dolor metus, tincidunt eget odio
+                                Chúng tôi cam kết mang đến cho bạn những tin tức mới nhất, chính xác và đa dạng từ mọi
+                                lĩnh vực trong cuộc sống. Hãy đồng hành cùng chúng tôi để không bỏ lỡ bất kỳ thông tin
+                                quan trọng nào, giúp bạn luôn cập nhật và hiểu biết hơn về thế giới xung quanh.
+                            </p>
+
+                            <p class="f1-s-1 cl11 p-b-5 footer-title">
+                                Chịu trách nhiệm quản lý nội dung
                             </p>
 
                             <p class="f1-s-1 cl11 p-b-16">
-                                Any questions? Call us on (+1) 96 716 6879
+                                Võ Tiến Chương <br>
+                                Nguyễn Hiếu Nghĩa
                             </p>
 
                             <div class="p-t-15">
@@ -87,114 +104,19 @@
                         </div>
                     </div>
 
-                    <div class="col-sm-6 col-lg-4 p-b-20">
-                        <div class="size-h-3 flex-s-c">
-                            <h5 class="f1-m-7 cl0">
-                                Popular Posts
-                            </h5>
+                    <div class="col-sm-6 col-lg-5 p-b-20">
+                        <div class="flex-s-c">
+                            <iframe
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.4749098516213!2d106.75548917451812!3d10.851437757806705!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752797e321f8e9%3A0xb3ff69197b10ec4f!2zVHLGsOG7nW5nIGNhbyDEkeG6s25nIEPDtG5nIG5naOG7hyBUaOG7pyDEkOG7qWM!5e0!3m2!1svi!2s!4v1732262007314!5m2!1svi!2s"
+                                width="650" height="350" style="border:0;" allowfullscreen="" loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade"></iframe>
                         </div>
-
-                        <ul>
-                            <li class="flex-wr-sb-s p-b-20">
-                                <a href="#" class="size-w-4 wrap-pic-w hov1 trans-03">
-                                    <img src="{{ asset('client/images/popular-post-01.jpg') }}" alt="IMG">
-                                </a>
-
-                                <div class="size-w-5">
-                                    <h6 class="p-b-5">
-                                        <a href="#" class="f1-s-5 cl11 hov-cl10 trans-03">
-                                            Donec metus orci, malesuada et lectus vitae
-                                        </a>
-                                    </h6>
-
-                                    <span class="f1-s-3 cl6">
-                                        Feb 17
-                                    </span>
-                                </div>
-                            </li>
-
-                            <li class="flex-wr-sb-s p-b-20">
-                                <a href="#" class="size-w-4 wrap-pic-w hov1 trans-03">
-                                    <img src="{{ asset('client/images/popular-post-02.jpg') }}" alt="IMG">
-                                </a>
-
-                                <div class="size-w-5">
-                                    <h6 class="p-b-5">
-                                        <a href="#" class="f1-s-5 cl11 hov-cl10 trans-03">
-                                            Lorem ipsum dolor sit amet, consectetur
-                                        </a>
-                                    </h6>
-
-                                    <span class="f1-s-3 cl6">
-                                        Feb 16
-                                    </span>
-                                </div>
-                            </li>
-
-                            <li class="flex-wr-sb-s p-b-20">
-                                <a href="#" class="size-w-4 wrap-pic-w hov1 trans-03">
-                                    <img src="{{ asset('client/images/popular-post-03.jpg') }}" alt="IMG">
-                                </a>
-
-                                <div class="size-w-5">
-                                    <h6 class="p-b-5">
-                                        <a href="#" class="f1-s-5 cl11 hov-cl10 trans-03">
-                                            Suspendisse dictum enim quis imperdiet auctor
-                                        </a>
-                                    </h6>
-
-                                    <span class="f1-s-3 cl6">
-                                        Feb 15
-                                    </span>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="col-sm-6 col-lg-4 p-b-20">
-                        <div class="size-h-3 flex-s-c">
-                            <h5 class="f1-m-7 cl0">
-                                Category
-                            </h5>
-                        </div>
-
-                        <ul class="m-t--12">
-                            <li class="how-bor1 p-rl-5 p-tb-10">
-                                <a href="#" class="f1-s-5 cl11 hov-cl10 trans-03 p-tb-8">
-                                    Fashion (22)
-                                </a>
-                            </li>
-
-                            <li class="how-bor1 p-rl-5 p-tb-10">
-                                <a href="#" class="f1-s-5 cl11 hov-cl10 trans-03 p-tb-8">
-                                    Technology (29)
-                                </a>
-                            </li>
-
-                            <li class="how-bor1 p-rl-5 p-tb-10">
-                                <a href="#" class="f1-s-5 cl11 hov-cl10 trans-03 p-tb-8">
-                                    Street Style (15)
-                                </a>
-                            </li>
-
-                            <li class="how-bor1 p-rl-5 p-tb-10">
-                                <a href="#" class="f1-s-5 cl11 hov-cl10 trans-03 p-tb-8">
-                                    Life Style (28)
-                                </a>
-                            </li>
-
-                            <li class="how-bor1 p-rl-5 p-tb-10">
-                                <a href="#" class="f1-s-5 cl11 hov-cl10 trans-03 p-tb-8">
-                                    DIY & Crafts (16)
-                                </a>
-                            </li>
-                        </ul>
                     </div>
                 </div>
             </div>
         </div>
 
-       
+
     </footer>
 
     <!-- Back to top -->
@@ -347,7 +269,59 @@
         });
     });
 </script>
+{{-- xử lý nút micro cho việc tìm kiếm bằng giọng nói  --}}
+<script>
+    function startRecognition() {
+
+        if (!('webkitSpeechRecognition' in window)) {
+            alert('Trình duyệt không hỗ trợ nhận diện giọng nói.');
+            return;
+        }
+
+        const recognition = new webkitSpeechRecognition();
+        recognition.lang = 'vi-VN';
+        recognition.interimResults = false;
+        recognition.maxAlternatives = 1;
+
+        recognition.onresult = (event) => {
+
+            const transcript = event.results[0][0].transcript;
+            document.getElementById('searchInput').value = transcript;
+
+            performSearch(transcript);
+        };
+
+        recognition.onerror = (event) => {
+            alert('Có lỗi xảy ra: ' + event.error);
+        };
+
+        recognition.start();
+    }
+
+    function performSearch(query) {
+        console.log("Tìm kiếm: " + query);
+
+    }
+</script>
+<script>
+    document.getElementById('readButton').addEventListener('click', function() {
+
+        const postContent = document.getElementById('postContent').innerText;
+        if ('speechSynthesis' in window) {
+            const speech = new SpeechSynthesisUtterance(postContent);
+            speech.lang = 'en-US';
+            speech.volume = 1;
+            speech.rate = 1;
+            speech.pitch = 1;
+            window.speechSynthesis.speak(speech);
+        } else {
+            alert("Trình duyệt của bạn không hỗ trợ tính năng đọc giọng nói.");
+        }
+    });
+</script>
+
 {{-- Xử lý hiện ẩn bài viế đã lưu vào thư mục  --}}
+
 <script>
     document.querySelectorAll('.folder-name').forEach(function(folder) {
         folder.addEventListener('click', function(e) {

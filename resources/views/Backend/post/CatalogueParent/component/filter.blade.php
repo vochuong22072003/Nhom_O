@@ -30,7 +30,7 @@
                         </span>
                     </div>
                 </div>
-                <a href=" {{ route('post.catalogue.parent.store') }} " class="btn btn-danger ml10"><i class="fa fa-plus mr5"></i>Thêm mới bài viết</a>
+                <a href=" {{ route('post.catalogue.parent.store') }} " class="btn btn-danger ml10"><i class="fa fa-plus mr5"></i>Thêm mới</a>
             </div>
         </div>
     </div>

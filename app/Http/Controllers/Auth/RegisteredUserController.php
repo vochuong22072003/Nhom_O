@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
+use App\Models\CustomerInfo;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -41,7 +42,11 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'cus_pass' => Hash::make($request->password),
         ]);
-
+        CustomerInfo::create([
+            'cus_id' => $user->cus_id,
+            'cus_name' => $user->cus_user,
+        ]);
+        
         event(new Registered($user));
 
         Auth::guard('customers')->login($user);

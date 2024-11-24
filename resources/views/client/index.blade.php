@@ -104,6 +104,17 @@
     </section>
 
 
+    <section class="bg0 p-t-70">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-12 col-md-12">
+                    <div id="result"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
     <!-- Post -->
     <section class="bg0 p-t-70">
         <div class="container">
@@ -272,7 +283,7 @@
             <div>
                 <div class="how2 how2-cl4 flex-s-c">
                     <h3 class="f1-m-2 cl3 tab01-title">
-                        các bài viết được xem hàng đầu
+                        Các bài viết được xem hàng đầu
                     </h3>
                 </div>
                 <ul class="p-t-35">
@@ -280,6 +291,7 @@
                         $count = 1;
                     @endphp
                     <li class="flex-wr-sb-s p-b-22">
+                        @if($view->isNotEmpty())
                         @foreach ($view as $views)
                             <div class="size-a-8 flex-c-c borad-3 size-a-8 bg9 f1-m-4 cl0 m-b-6">
                                 {{ $count }}
@@ -292,6 +304,9 @@
                             $count++; 
                         @endphp
                         @endforeach
+                        @else
+                        <h2>Không có dữ liệu</h2>
+                        @endif
                     </li>
                 </ul>
             </div>
@@ -371,15 +386,6 @@
 </section>
 
 
-<!-- Banner -->
-<div class="container">
-<div class="flex-c-c">
-<a href="#">
-    <img class="max-w-full" src="{{ asset('client/images/banner-01.jpg') }}" alt="IMG">
-</a>
-</div>
-</div>
-
 <!-- Latest -->
 <section class="bg0 p-t-60 p-b-35">
 <div class="container">
@@ -387,11 +393,12 @@
     <div class="col-md-10 col-lg-8 p-b-20">
         <div class="how2 how2-cl4 flex-s-c m-r-10 m-r-0-sr991">
             <h3 class="f1-m-2 cl3 tab01-title">
-                các bài viết nhiều lượt thích
+                Các bài viết nhiều lượt thích
             </h3>
         </div>
 
         <div class="row p-t-35">
+            @if($posts->isNotEmpty())
             @foreach ($posts as $post)
                 <div class="col-sm-6 p-r-25 p-r-15-sr991">
                     <!-- Item latest -->
@@ -427,7 +434,9 @@
                     </div>
                 </div>
             @endforeach
-
+            @else
+                <h2>Không có dữ liệu</h2>
+            @endif
         </div>
     </div>
 
@@ -459,17 +468,20 @@
                         Tags
                     </h3>
                 </div>
-                @foreach ($tags as $tag)
-                    
+                @if($tags->isNotEmpty())
+                
                 
                 <div class="flex-wr-s-s m-rl--5">
+                    @foreach ($tags as $tag)
                     <a href=" {{ route('client.tag.posts', ['tagId' => $tag->tag_id]) }}"
                         class="flex-c-c size-h-2 bo-1-rad-20 bocl12 f1-s-1 cl8 hov-btn2 trans-03 p-rl-20 p-tb-5 m-all-5">
                        {{$tag->tag_name}}
                     </a>
                     @endforeach
                 </div>
-             
+                @else
+                    <h2>Không có dữ liệu</h2>
+                @endif
             </div>
         </div>
     </div>
@@ -488,11 +500,12 @@
     <div class="col-md-10 col-lg-12 p-b-20">
         <div class="how2 how2-cl4 flex-s-c m-r-10 m-r-0-sr991">
             <h3 class="f1-m-2 cl3 tab01-title">
-                các bài viết được xem nhiều nhất
+                Các bài viết được xem nhiều nhất
             </h3>
         </div>
 
         <div class="row p-t-35">
+            @if($view->isNotEmpty())
             @foreach ($view as $views)
                 <div class="col-sm-4 p-r-25 p-r-15-sr991">
                     <!-- Item latest -->
@@ -527,7 +540,9 @@
                     </div>
                 </div>
             @endforeach
-
+            @else
+                <h2>Không có dữ liệu</h2>
+            @endif
         </div>
     </div>
 </div>

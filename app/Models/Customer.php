@@ -2,17 +2,17 @@
 
 namespace App\Models;
 
+use App\Mail\NewPostEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-//related
-use App\Models\CusomerInfo;
-use Psy\Readline\Hoa\Console;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\CanResetPassword;
 
-class Customer extends Authenticatable
+class Customer extends Authenticatable implements MustVerifyEmail, CanResetPassword
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, Notifiable;
 
     protected $table = 'customers';
     protected $primaryKey = 'cus_id';
@@ -26,6 +26,7 @@ class Customer extends Authenticatable
         'updated_at',
         'deleted_at',
     ];
+    protected $hidden = 'cus_pass';
 
     protected $dates = ['deleted_at'];
 
@@ -33,16 +34,42 @@ class Customer extends Authenticatable
     {
         return $this->cus_pass;
     }
+    public function hasVerifiedEmail()
+    {
+        return !is_null($this->verify_at);
+    }
+    public function markEmailAsVerified()
+    {
+        return $this->forceFill([
+            'verify_at' => $this->freshTimestamp(),
+        ])->save();
+    }
+    public function getEmailVerifiedAtColumn()
+    {
+        return 'verify_at';
+    }
 
-    //relationship
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function customerInfo()
     {
         return $this->hasOne(CustomerInfo::class, 'cus_id', 'cus_id');
     }
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function saveFolders()
     {
-        
+
         return $this->hasMany(SaveFolder::class, 'cus_owned');
     }
-   
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function follows()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'cus_id', 'user_id');
+    }
 }

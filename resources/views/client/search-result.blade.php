@@ -51,7 +51,7 @@
                             </div>
                             @endforeach
                             @else
-                            <h2>Không có dữ liệu</h2>
+                            <h2 class="no-search-result">Không có dữ liệu</h2>
                             @endif
                             
                         </div>

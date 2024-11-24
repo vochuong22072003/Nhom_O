@@ -73,13 +73,13 @@
                         <i class="fa fa-save" data-toggle="modal" data-post-id="{{ $getPost->id }}"
                             data-target="#saveModal"> Lưu bài viết </i>
                     </span>
-                    
+
 
                     <!-- Modal: -->
                     <!-- Modal: Chọn thư mục lưu hoặc tạo thư mục mới -->
                 </div>
             </div>
-            
+
         </div>
         <div class="modal fade" id="saveModal" tabindex="-1" aria-labelledby="saveModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -94,7 +94,8 @@
                             <input type="hidden" name="post_id" id="post_id" value="{{ $getPost->id }}">
                             <!-- Danh sách danh mục (không bắt buộc) -->
                             <div class="mb-3">
-                                <h1 class="text-center" style="margin-left: 120px; color:red;">các danh mục sẵn có của bạn</h1>
+                                <h1 class="text-center" style="margin-left: 120px; color:red;">các danh mục sẵn có của bạn
+                                </h1>
                                 <!-- Options -->
                                 @auth('customers')
                                     <div class="text-center" style="margin-left: 100px">
@@ -111,21 +112,23 @@
                                 @endauth
                             </div>
 
-                    {{-- end modal --}}
+                            {{-- end modal --}}
                             {{-- <input type="hidden" name="post_id" value="{{ $getPost->id }}"> --}}
                             <!-- Form nhập tên danh mục mới -->
                             <div class="mb-3">
-                                <label for="save_folder_name" class="form-label text-center" style="margin-left: 120px ; color:red;">Hoặc tạo danh mục mới:</label>
+                                <label for="save_folder_name" class="form-label text-center"
+                                    style="margin-left: 120px ; color:red;">Hoặc tạo danh mục mới:</label>
                                 <input type="text" class="form-control" name="save_folder_name" id="save_folder_name"
-                                    placeholder="Nhập tên danh mục mới"  style="margin-left: 80px">
+                                    placeholder="Nhập tên danh mục mới" style="margin-left: 80px">
                             </div>
-                            <button type="submit" class="btn btn-primary" style="margin-left: 180px;" id="savePost" >Lưu</button>
+                            <button type="submit" class="btn btn-primary" style="margin-left: 180px;"
+                                id="savePost">Lưu</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-       
+
         {{-- end modal --}}
         <!-- Detail -->
         <div class="container p-t-50">
@@ -151,9 +154,10 @@
                                     <i class="fa fa-tag"></i>
                                     <a href="" class="f1-s-12 cl8 hov-link1 m-r-15">
                                         @foreach ($getPost->tags as $tag)
-                                        <a href="{{ route('client.tag.posts', ['tagId' => $tag->tag_id]) }}" class="f1-s-12 cl8 hov-link1 m-r-15">
-                                            {{ $tag->tag_name }}
-                                        </a>
+                                            <a href="{{ route('client.tag.posts', ['tagId' => $tag->tag_id]) }}"
+                                                class="f1-s-12 cl8 hov-link1 m-r-15">
+                                                {{ $tag->tag_name }}
+                                            </a>
                                         @endforeach
                                     </a>
                                 </div>
@@ -181,6 +185,41 @@
                                     </a>
                                 </div>
                             </div>
+                            <div class="flex-s-s">
+                                <span class="f1-s-12 cl5 p-t-1 m-r-15">
+                                    Author: {{ $getPost->userInfo->name }}
+                                </span>
+                                <div class="flex-wr-s-s size-w-0">
+                                    <form action="{{ route('follow') }}" method="post">
+                                        @csrf
+                                        <input name="author_name" type="hidden" value="{{ $getPost->userInfo->name }}">
+                                        <input name="author_id" type="hidden" value="{{ $getPost->users->id }}">
+
+                                        @auth
+                                            @if ($getPost->users->followers->contains('cus_id', auth('customers')->user()->cus_id))
+                                                <button type="submit"
+                                                    class="dis-block f1-s-13 cl0 bg-danger borad-3 p-tb-4 p-rl-18 hov-btn1 m-r-3 m-b-3 trans-03">
+                                                    <i class="fa-solid fa-bell m-r-7"></i>
+                                                    Unfollow
+                                                </button>
+                                            @else
+                                                <button type="submit"
+                                                    class="dis-block f1-s-13 cl0 bg-danger borad-3 p-tb-4 p-rl-18 hov-btn1 m-r-3 m-b-3 trans-03">
+                                                    <i class="fa-regular fa-bell m-r-7"></i>
+                                                    Follow
+                                                </button>
+                                            @endif
+                                        @else
+                                            <button type="button"
+                                                class="dis-block f1-s-13 cl0 bg-danger borad-3 p-tb-4 p-rl-18 hov-btn1 m-r-3 m-b-3 trans-03">
+                                                <i class="fa-regular fa-bell m-r-7"></i>
+                                                Follow
+                                            </button>
+                                        @endauth
+
+                                    </form>
+                                </div>
+                            </div>
                         </div>
 
                         <!-- Leave a comment -->
@@ -192,30 +231,64 @@
                             <p class="f1-s-13 cl8 p-b-40">
                                 Your email address will not be published. Required fields are marked *
                             </p>
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+                            <form method="post" action="{{ route('comment.create') }}">
+                                @csrf
+                                <textarea class="bo-1-rad-3 bocl13 size-a-15 f1-s-13 cl5 plh6 p-rl-18 p-tb-14 m-b-20 comments" cols="100"
+                                    name="content" placeholder="Comment...">{{ old('content', $comment->content ?? '') }}</textarea>
 
-                            <form>
-                                <textarea class="bo-1-rad-3 bocl13 size-a-15 f1-s-13 cl5 plh6 p-rl-18 p-tb-14 m-b-20" name="msg"
-                                    placeholder="Comment..."></textarea>
+                                <input type="hidden" name="post_id" value="{{ $getPost->id }}">
 
-                                <input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20" type="text"
-                                    name="name" placeholder="Name*">
+                                <!-- <input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20" type="text"
+                                            name="name" placeholder="Name*">
 
-                                <input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20" type="text"
-                                    name="email" placeholder="Email*">
+                                        <input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20" type="text"
+                                            name="email" placeholder="Email*">
 
-                                <input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20" type="text"
-                                    name="website" placeholder="Website">
+                                        <input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20" type="text"
+                                            name="website" placeholder="Website"> -->
 
                                 <button class="size-a-17 bg2 borad-3 f1-s-12 cl0 hov-btn1 trans-03 p-rl-15 m-t-10">
                                     Post Comment
                                 </button>
                             </form>
+
+                            @if ($comments->isNotEmpty())
+                                <select class="mt-5" name="arrange" id="arrange-comments">
+                                    <option value="date">Mới nhất xếp trước</option>
+                                    <option value="popular">Bình luận hàng đầu</option>
+                                </select>
+                                <div class="comment-container mt-5">
+
+                                </div>
+                            @else
+                                <h2 class="mt-4">Hãy là người bình luận đầu tiên</h2>
+                            @endif
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+    <script>
+        let comments = @json($comments);
+        let client_logged = @json($client_logged);
+        var getReplyUrl = '{{ route('ajax.comment.reply') }}';
+        var getShowReplyUrl = '{{ route('ajax.comment.showReply') }}';
+        var getReplyNUrl = '{{ route('ajax.comment.replyN') }}';
+        var getCommentUpdate = '{{ route('ajax.comment.update') }}';
+        var getCommentNUpdate = '{{ route('ajax.comment.updateN') }}';
+        var getCommentDelete = '{{ route('ajax.comment.delete') }}';
+        var getCommentNDelete = '{{ route('ajax.comment.deleteN') }}'
+    </script>
 
 
 

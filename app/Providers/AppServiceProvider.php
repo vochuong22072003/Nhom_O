@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Validation\Rules\Password;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -45,6 +46,9 @@ class AppServiceProvider extends ServiceProvider
         //client
         'App\Services\Interfaces\HomeServiceInterface' => 'App\Services\HomeService',
         'App\Repositories\Interfaces\HomeRepositoryInterface' => 'App\Repositories\HomeRepository',
+
+        'App\Services\Interfaces\CommentServiceInterface' => 'App\Services\CommentService',
+        'App\Repositories\Interfaces\CommentRepositoryInterface' => 'App\Repositories\CommentRepository',
     ];
 
     /**
@@ -63,5 +67,12 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Paginator::useBootstrap();
+        Password::defaults(function () {
+            return Password::min(8) 
+                ->mixedCase()        
+                ->letters()          
+                ->numbers()          
+                ->symbols();
+        });
     }
 }
