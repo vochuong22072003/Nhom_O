@@ -50,7 +50,7 @@
                     </span>
 
                     <span class="f1-s-3 cl8 m-rl-7 txt-center">
-                        <i class="fa fa-eye"> view</i>
+                        <i class="fa fa-eye"> View</i>
                         <p id="view-count" data-post-id="{{ $getPost->id }}">
                             Lượt xem:{{ $getPost->getView() }} </p>
                     </span> 
@@ -141,11 +141,11 @@
                         <div class="p-b-70 blog-content-wrap">
                             <p class="f1-s-11 cl6" id="postContent">
                                 {!!$getPost->post_content!!}
-                            </p>
+                            </p> 
                            
-                            <textarea id="postContent" rows="4" cols="50">alo 1 2 3 4 </textarea><br>
-                            <button onclick="readText()">Đọc văn bản</button>
-                            <button onclick="stopReading()">Dừng đọc</button>
+                            {{-- <textarea id="postContent" rows="4" cols="50">alo 1 2 3 4 </textarea><br>
+                            <button onclick="readText()" class="bt">Đọc văn bản</button>
+                            <button onclick="stopReading()"class="bt">Dừng đọc</button> --}}
                             <!-- Tag -->
                             <div class="flex-s-s p-t-12 p-b-15">
                                 <span class="f1-s-12 cl5 m-r-8">
