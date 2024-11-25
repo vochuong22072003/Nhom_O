@@ -189,9 +189,6 @@ Route::name('client.')->group(function () {
 // các route liên quan đến post và like view tags khiêm
 Route::prefix('posts')->group(function () {
     Route::post('/increment-view', [ViewController::class, 'incrementViewCount'])->name('incrementView');
-
-    Route::get('/debug',debugController::class);
-
     Route::post('/like', [LikeController::class, 'getLike'])->name('posts.like');
     Route::post('/liked-posts', [LikeController::class, 'getLikedPosts'])->name('liked-posts.index');
     

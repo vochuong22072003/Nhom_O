@@ -242,7 +242,7 @@
                 hasScrolled = true;
                 setTimeout(() => {
                     $.ajax({
-                        url: '{{ route('posts.incrementView') }}',
+                        url: '{{ route('incrementView') }}',
                         type: 'POST',
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -334,17 +334,11 @@ function stopReading() {
     document.querySelectorAll('.folder-name').forEach(function(folder) {
         folder.addEventListener('click', function(e) {
             e.preventDefault();
-
-            // Lấy ID của thư mục được nhấn
             var folderId = this.getAttribute('data-folder-id');
             var savedPostsDiv = document.getElementById('folder-' + folderId);
-
-            // Đóng tất cả các thư mục
             document.querySelectorAll('.saved-posts').forEach(function(div) {
-                div.classList.remove('show'); // Dùng Bootstrap "collapse" class
+                div.classList.remove('show'); 
             });
-
-            // Mở thư mục được nhấn
             if (!savedPostsDiv.classList.contains('show')) {
                 savedPostsDiv.classList.add('show');
             }
