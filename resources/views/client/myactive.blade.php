@@ -93,13 +93,17 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($likes as $like)
+            @forelse ($likes as $like)
                 <tr>
                     <td>{{ $like->post_name }}</td>
                     <td>{{ \Carbon\Carbon::parse($like->created_at)->format('d/m/Y') }}</td>
                     <td><a href="{{ route('client.detail', $like->encrypted_id) }}" class="btn btn-primary">Xem chi tiết</a></td>
                 </tr>
-            @endforeach
+                @empty
+                <tr>
+                    <td colspan="3" class="text-center">Bạn chưa thích bài viết nào.</td>
+                </tr>
+                @endforelse
         </tbody>
     </table>
 
