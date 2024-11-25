@@ -304,38 +304,30 @@
         });
     });
 </script>
-{{-- xử lý nút micro cho việc tìm kiếm bằng giọng nói  --}}
 
+{{-- xử lý đọc văn bản --}}
 <script>
-    function readText() {
-        var element = document.getElementById('postContent');
-        if (!element) {
-            alert('Không tìm thấy nội dung để đọc.');
-            return;
-        }
-        var tempDiv = document.createElement('div');
-        tempDiv.innerHTML = element.innerHTML;
-        var text = tempDiv.textContent || tempDiv.innerText || '';
+  let currentSpeech = null;
 
-        if (!text.trim()) {
-            alert('Không có nội dung nào để đọc.');
-            return;
-        }
+function readText() {
 
-        //console.log(text);
-        if ('speechSynthesis' in window) {
-            var utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = 'vi-VN';
-            utterance.pitch = 1;
-            utterance.rate = 1;
-            window.speechSynthesis.speak(utterance);
-        } else {
-            alert('Trình duyệt của bạn không hỗ trợ tính năng này.');
-        }
+    var text = document.getElementById("postContent").innerText || document.getElementById("postContentTextarea").value;
+    if (text !== "") {
+        currentSpeech = new SpeechSynthesisUtterance(text);
+        currentSpeech.lang = 'vi-VN'; 
+        currentSpeech.rate = 1;
+        currentSpeech.pitch = 1;
+        window.speechSynthesis.speak(currentSpeech);
+    } else {
+        alert("Vui lòng nhập nội dung để đọc.");
     }
+}
+function stopReading() {
+    if (currentSpeech) {
+        window.speechSynthesis.cancel();
+    }
+}
 </script>
-
-
 {{-- Xử lý hiện ẩn bài viế đã lưu vào thư mục  --}}
 
 <script>
