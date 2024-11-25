@@ -62,7 +62,7 @@
                                     <form action="{{ route('folders.delete', $folderId) }}" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa thư mục này không?')" class="ml-auto">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm">Xóa thư mục</button>
+                                        <button type="submit" class="btn btn-danger btn-sm bt">Xóa thư mục</button>
                                     </form>
                                 </div>
                             </th>
@@ -80,7 +80,7 @@
                                     <form action="{{ route('folders.posts.delete', ['folderId' => $folderId, 'postId' => $savedPost->post_id]) }}" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa bài viết này khỏi thư mục không?')">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-warning btn-sm">Xóa bài viết</button>
+                                        <button type="submit" class="btn btn-warning btn-sm bt">Xóa bài viết</button>
                                     </form>
                                 </td>
                             </tr>

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 class PostView extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
     protected $table = 'post_views';
     protected $primaryKey = 'post_view_id';
     protected $fillable = [
@@ -15,8 +15,8 @@ class PostView extends Model
         'view_count',
     ];
     public function post()
-{
-    return $this->belongsTo(Post::class, 'post_id'); 
-}
+    {
+        return $this->belongsTo(Post::class, 'post_id');
+    }
 
 }

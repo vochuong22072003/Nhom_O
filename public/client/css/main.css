@@ -160,7 +160,7 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
   flex-direction: column;
   align-items: center;
 }
-button {
+.bt {
   color: white;
   border: none;
   padding: 5px 10px;
@@ -168,7 +168,7 @@ button {
   border-radius: 3px;
 }
 
-button:hover {
+.bt:hover {
   background-color: #c0392b;
 } 
 

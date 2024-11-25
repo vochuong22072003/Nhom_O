@@ -10,11 +10,13 @@ use App\Models\Post;
 class ViewController extends Controller
 {
     
-    protected function incrementViewCount($postId)
-    {
-       
-        $postViewCount = PostView::viewCount($postId);
-        return response()->json(['view_count' => $postViewCount]);
+    public function incrementViewCount(Request $request)
+    { 
+        
+        $post_id = $request->post_id;
+         $post = Post::find($post_id);
+        return response()->json([
+            'view_count' => $post->viewCount($post_id),
+        ]);
     }
-   
 }
