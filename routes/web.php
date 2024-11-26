@@ -172,6 +172,7 @@ Route::name('client.')->group(function () {
     Route::get('/search-result', [HomeController::class, 'search'])->name('search-result');
     Route::post('/search', [HomeController::class, 'search'])->name('search');
     Route::get('/tag/{tagId}', [HomeController::class,'tagPostResult'])->name('tag.posts');
+    
 });
 
 

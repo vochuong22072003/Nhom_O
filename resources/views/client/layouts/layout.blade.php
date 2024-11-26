@@ -255,7 +255,7 @@
                             $('#view-count').text('Lượt xem: ' + response
                                 .view_count);
                         },
-                       
+
                     });
                 }, 10000);
                 window.removeEventListener('scroll', onScroll);
@@ -306,28 +306,26 @@
 </script>
 
 {{-- xử lý đọc văn bản --}}
-<script>
-  let currentSpeech = null;
-
-function readText() {
-
-    var text = document.getElementById("postContent").innerText || document.getElementById("postContentTextarea").value;
-    if (text !== "") {
-        currentSpeech = new SpeechSynthesisUtterance(text);
-        currentSpeech.lang = 'vi-VN'; 
-        currentSpeech.rate = 1;
-        currentSpeech.pitch = 1;
-        window.speechSynthesis.speak(currentSpeech);
-    } else {
-        alert("Vui lòng nhập nội dung để đọc.");
+<script>    
+    function readText() {
+        var text = document.getElementById('postContent').innerText;
+        if ('speechSynthesis' in window) {
+            var speech = new SpeechSynthesisUtterance();
+            speech.text = text;
+            speech.lang = 'vi-VN'; 
+            
+            window.speechSynthesis.speak(speech);
+        } else {
+            alert('Trình duyệt của bạn không hỗ trợ tính năng đọc văn bản.');
+        }
     }
-}
-function stopReading() {
-    if (currentSpeech) {
-        window.speechSynthesis.cancel();
+    function stopReading() {
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+        }
     }
-}
 </script>
+
 {{-- Xử lý hiện ẩn bài viế đã lưu vào thư mục  --}}
 
 <script>

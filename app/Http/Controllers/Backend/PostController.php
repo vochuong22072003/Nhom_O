@@ -172,13 +172,13 @@ class PostController extends Controller
         }
         return redirect()->route('post.index')->with('error', 'Xóa bài viết thất bại. Hãy thử lại');
     }
-  // xử lý thêm tag 
+    // xử lý thêm tag 
     private function addTags(Request $request)
     {
         $postId = Post::where('post_name', $request->input('post_name'))
-        ->whereDate('created_at', now()
-        ->toDateString())
-        ->value('id');
+            ->whereDate('created_at', now()
+                ->toDateString())
+            ->value('id');
         $strTags = $request->input('tags');
         $tags = explode(' ', $strTags);
         foreach ($tags as $tagName) {
@@ -199,6 +199,7 @@ class PostController extends Controller
         }
         return redirect()->back()->with('success', 'Tags đã được thêm vào bài viết!');
     }
+
     private function configIndex()
     {
         return [
