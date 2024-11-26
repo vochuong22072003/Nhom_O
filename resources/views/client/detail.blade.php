@@ -142,8 +142,12 @@
                             <p class="f1-s-11 cl6" id="">
                                 {!!$getPost->post_content!!}
                             </p> 
-                           <h1 class="text-align:center;">tóm tắt bài viết</h1>
-                            <textarea id="postContent" rows="4" cols="50">alo 1 2 3 4 </textarea><br>
+                            <span id="postContent" style="display: none;">
+
+                                {{ html_entity_decode(strip_tags($getPost->post_content)) }}
+                            
+                            </span>
+                          
                             <button onclick="readText()" class="bt">Đọc văn bản</button>
                             <button onclick="stopReading()"class="bt">Dừng đọc</button> 
                             <!-- Tag -->

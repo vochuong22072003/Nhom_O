@@ -306,23 +306,22 @@
 </script>
 
 {{-- xử lý đọc văn bản --}}
-<span id="postContent" style="display: none;">
-    {{ html_entity_decode(strip_tags($getPost->post_content)) }}
-</span>
-<button onclick="readText()" class="bt">Đọc văn bản</button>
-
-<script>
+<script>    
     function readText() {
         var text = document.getElementById('postContent').innerText;
         if ('speechSynthesis' in window) {
             var speech = new SpeechSynthesisUtterance();
-            speech.text = text; // Gán nội dung để đọc
-            speech.lang = 'vi-VN'; // Chọn ngôn ngữ (Tiếng Việt)
-
-            // Đọc văn bản
+            speech.text = text;
+            speech.lang = 'vi-VN'; 
+            
             window.speechSynthesis.speak(speech);
         } else {
             alert('Trình duyệt của bạn không hỗ trợ tính năng đọc văn bản.');
+        }
+    }
+    function stopReading() {
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
         }
     }
 </script>
