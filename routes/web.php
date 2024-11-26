@@ -136,6 +136,7 @@ Route::post('ajax/comment/update', [AjaxCommentController::class, 'update'])->na
 Route::post('ajax/comment/updateN', [AjaxCommentController::class, 'updateN'])->name('ajax.comment.updateN');
 Route::get('ajax/comment/delete', [AjaxCommentController::class, 'delete'])->name('ajax.comment.delete');
 Route::get('ajax/comment/deleteN', [AjaxCommentController::class, 'deleteN'])->name('ajax.comment.deleteN');
+Route::post('ajax/dashboard/changeStatusAll',[AjaxDashboardController::class, 'changeStatusAll'])->name('ajax.dashboard.changeStatusAll');
 
 Route::name('client.')->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('index');

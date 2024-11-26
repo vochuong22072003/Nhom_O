@@ -129,6 +129,12 @@ class BaseRepository implements BaseRepositoryInterface
         return $query->get();
     }
 
+    public function checkAllIdsExist(array $ids = []): bool
+    {
+        $count = $this->model->whereIn('id', $ids)->count();
+
+        return $count === count($ids);
+    }
     public function create(array $payload = [])
     {
         $model = $this->model->create($payload);
