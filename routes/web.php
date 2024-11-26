@@ -24,12 +24,13 @@ use App\Http\Controllers\Frontend\HomeController;
 
 use App\Http\Controllers\Frontend\CommentController;
 use App\Http\Controllers\Ajax\CommentController as AjaxCommentController;
-
+use App\Http\Controllers\ElasticsearchController;
 use App\Http\Controllers\LikeView\ViewController;
 use App\Http\Controllers\LikeView\LikeController;
 use App\Http\Controllers\LikeView\SaveController;
 use App\Http\Controllers\LikeView\SaveFolderController;
 use App\Http\Controllers\LikeView\TagController;
+use Elastic\Elasticsearch\Response\Elasticsearch;
 
 require __DIR__ . '/auth.php';
 
@@ -153,8 +154,8 @@ Route::name('client.')->group(function () {
         Route::get('{id}/{model}/category', [HomeController::class, 'category'])->name('category');
         Route::get('{id}/detail', [HomeController::class, 'detail'])->name('detail');
         Route::get('/myactive',[HomeController::class,'myactives'])->name('myactive');
-        Route::get('/search-result', [HomeController::class, 'search'])->name('search-result');
-        Route::post('/search', [HomeController::class, 'search'])->name('search');
+        Route::get('/sync-elasticsearch', [ElasticsearchController::class, 'syncDataToElasticsearch']);
+        Route::post('/search', [ElasticsearchController::class, 'search'])->name('client.search');
         Route::get('/tag/{tagId}', [HomeController::class,'tagPostResult'])->name('tag.posts');
     });
 
@@ -196,3 +197,4 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::post('/follow', FollowController::class)->middleware('auth')->name('follow');
+

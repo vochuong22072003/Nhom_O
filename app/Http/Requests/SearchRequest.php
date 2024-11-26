@@ -22,14 +22,13 @@ class SearchRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'search'=>'required|string|min:3|max:255|regex:/^[^<>&]*$/',
+            'search'=>'string|min:3|max:255|regex:/^[^<>&]*$/',
         ];
     }
 
     public function messages(): array
     {
         return [
-            'search.required' => 'Vui lòng nhập từ khóa tìm kiếm',
             'search.min' => 'Bạn phải nhập ít nhất 3 ký tự',
             'search.max' => 'Từ khóa không được vượt quá 255 ký tự',
             'search.regex' => 'Vui lòng nhập từ khóa tìm kiếm hợp lệ và không chứa các kí tự đặc biệt',
