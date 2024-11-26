@@ -24,12 +24,13 @@ use App\Http\Controllers\Frontend\HomeController;
 
 use App\Http\Controllers\Frontend\CommentController;
 use App\Http\Controllers\Ajax\CommentController as AjaxCommentController;
-
+use App\Http\Controllers\ElasticsearchController;
 use App\Http\Controllers\LikeView\ViewController;
 use App\Http\Controllers\LikeView\LikeController;
 use App\Http\Controllers\LikeView\SaveController;
 use App\Http\Controllers\LikeView\SaveFolderController;
 use App\Http\Controllers\LikeView\TagController;
+use Elastic\Elasticsearch\Response\Elasticsearch;
 
 require __DIR__ . '/auth.php';
 
@@ -148,6 +149,18 @@ Route::name('client.')->group(function () {
     Route::get('/tag/{tagId}', [HomeController::class,'tagPostResult'])->name('tag.posts');
 });
 
+
+  
+    Route::name('client.')->group(function () {
+        Route::get('/', [HomeController::class, 'index'])->name('index');
+        Route::get('{id}/{model}/category', [HomeController::class, 'category'])->name('category');
+        Route::get('{id}/detail', [HomeController::class, 'detail'])->name('detail');
+        Route::get('/myactive',[HomeController::class,'myactives'])->name('myactive');
+        Route::get('/sync-elasticsearch', [ElasticsearchController::class, 'syncDataToElasticsearch']);
+        Route::post('/search', [ElasticsearchController::class, 'search'])->name('client.search');
+        Route::get('/tag/{tagId}', [HomeController::class,'tagPostResult'])->name('tag.posts');
+    });
+
  // Võ Tiến Chương
  Route::get('/check-login', function () {
     return response()->json(['loggedIn' => auth()->check()]);
@@ -186,6 +199,7 @@ Route::name('client.')->group(function () {
     Route::post('/search', [HomeController::class, 'search'])->name('search');
     Route::get('/tag/{tagId}', [HomeController::class, 'tagPostResult'])->name('tag.posts');
 });
+
 
 
 // các route liên quan đến post và like view tags khiêm
@@ -227,3 +241,4 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::post('/follow', FollowController::class)->middleware('auth')->name('follow');
+

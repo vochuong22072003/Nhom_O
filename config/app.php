@@ -169,7 +169,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\LoginInformationProvider::class,
-        App\Providers\ViewComposerServiceProvider::class
+        App\Providers\ViewComposerServiceProvider::class,
+        App\Providers\ElasticsearchServiceProvider::class,
     ])->toArray(),
 
     /*

@@ -13,7 +13,7 @@
                             @if($results->isNotEmpty())
                             @foreach($results as $result)
                             <!-- Item post -->
-                            <div class="flex-wr-sb-s p-t-40 p-b-15 how-bor2">
+                            <div class="flex-wr-sb-s m-t-40 p-b-15 how-bor2">
                                 <a href="{{ route('client.detail', $result->encrypted_id) }}" class="size-w-8 wrap-pic-w hov1 trans-03 w-full-sr575 m-b-25">
                                     <img src="{{ asset($result->image) }}" alt="IMG">
                                 </a>
@@ -25,7 +25,7 @@
                                         </a>
                                     </h5>
 
-                                    <div class="cl8 p-b-18">
+                                    {{-- <div class="cl8 p-b-18">
                                         <a href="#" class="f1-s-4 cl8 hov-cl10 trans-03">
                                             by {{  $result->userInfo->name }}
                                         </a>
@@ -37,7 +37,7 @@
                                         <span class="f1-s-3">
                                             {{ \Carbon\Carbon::parse($result->created_at)->format('d/m/Y') }}
                                         </span>
-                                    </div>
+                                    </div> --}}
 
                                     <p class="result-post-excerpt">
                                        {!! $result->post_excerpt  !!}

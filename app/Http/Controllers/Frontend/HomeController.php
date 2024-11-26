@@ -214,21 +214,21 @@ class HomeController extends Controller
         return view($template, compact('config', 'getPost', 'comments', 'client_logged'));
     }
 
-    public function search(SearchRequest $request)
-    {
-        $template = 'client.search-result';
-        $config = $this->config();
+    // public function search(SearchRequest $request)
+    // {
+    //     $template = 'client.search-result';
+    //     $config = $this->config();
 
-        $requestInput = $request->input('search');
-        $results = $this->homeService->getPostsBySearch($requestInput);
-        foreach ($results as $result) {
-            $result->encrypted_id = $this->encryptId($result->id);
-        }
+    //     $requestInput = $request->input('search');
+    //     $results = $this->homeService->getPostsBySearch($requestInput);
+    //     foreach ($results as $result) {
+    //         $result->encrypted_id = $this->encryptId($result->id);
+    //     }
 
-        // dd($results);
+    //     // dd($results);
 
-        return view($template, compact('config', 'results'));
-    }
+    //     return view($template, compact('config', 'results'));
+    // }
 
     public function tagPostResult($tagId)
     {
