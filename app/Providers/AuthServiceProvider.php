@@ -28,6 +28,7 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('modules', function ($user, $permissionName) {
             $user = Auth::guard('web')->user();
             if ($user) {
+                if($user->publish == 1) return false;
                 $userCatalogue = $user->user_catalogues;
 
                 if ($userCatalogue) {
