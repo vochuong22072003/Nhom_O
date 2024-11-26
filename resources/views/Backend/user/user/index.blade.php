@@ -16,6 +16,7 @@
         <div class="ibox float-e-margins">
             <div class="ibox-title">
                 <h5>{{ $config['seo']['table'] }} </h5>
+                @include('Backend.dashboard.component.toolbox')
             </div>
             <div class="ibox-content">
                 @include('Backend.user.user.component.filter')

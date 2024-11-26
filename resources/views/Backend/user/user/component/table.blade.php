@@ -1,6 +1,9 @@
 <table class="table table-striped table-bordered">
     <thead>
         <tr>
+            <th>
+                <input type="checkbox" value="" name="" id="checkAll" class="input-checkbox">
+            </th>
             <th>STT</th>
             <th style="width: 90px">Ảnh</th>
             <th>Họ tên</th>
@@ -16,6 +19,9 @@
         @if(isset($users) && is_object($users))
         @foreach($users as $user)
         <tr>
+            <td>
+                <input type="checkbox" value="{{ $user->id }}" name="" class="input-checkbox checkBoxItem">
+            </td>
             <td>{{ $user->stt }}</td>
             <td>
                 <span class="imageUser img-cover"><img
@@ -50,3 +56,6 @@
     </tbody>
 </table>
 {{ $users->links('pagination::bootstrap-4') }}
+<script>
+    var getStatusUrl = '{{ route("ajax.dashboard.changeStatus") }}';
+</script>

@@ -23,7 +23,9 @@ class SendNewPostEmail
      */
     public function handle(AuthorAddPost $event): void
     {
+        if(empty($event->getEmailFollowers())){
+            return;
+        }
         Mail::to($event->getEmailFollowers())->send(new NewPostEmail($event->post, $event->author->user_profile->name));
     }
-
 }

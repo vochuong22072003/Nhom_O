@@ -152,6 +152,55 @@ class UserService implements UserServiceInterface
         }
     }
 
+    public function updateStatus($post=[]){
+        //echo 123; die();
+        DB::beginTransaction();
+        try{
+            $flag = $this->userRepository->findById($post['modelId']);
+            // dd($flag);
+            if ($flag) {
+                $payload[$post['field']]=(($post['value']==1)?2:1);
+                
+                //dd($payload);
+                $user=$this->userRepository->update($post['modelId'], $payload);
+                //echo 1; die();
+            }else{
+                $user = false;
+            }
+            DB::commit();
+            return $user;
+        }catch(\Exception $ex){
+            DB::rollBack();
+            echo $ex->getMessage();//die();
+            return false;
+        }
+        
+    }
+    public function updateStatusAll($post=[]){
+        //echo 123; die();
+        DB::beginTransaction();
+        try{
+            $flag = $this->userRepository->checkAllIdsExist($post['id']);
+            // dd($flag);
+            if($flag){
+                //dd($post);
+                $payload[$post['field']]=$post['value'];
+                
+                //dd($payload);
+                $user=$this->userRepository->updateByWhereIn('id', $post['id'], $payload);
+                //echo 1; die();
+            }else{
+                $user = false;
+            }
+            DB::commit();
+            return $user;
+        }catch(\Exception $ex){
+            DB::rollBack();
+            echo $ex->getMessage();//die();
+            return false;
+        }
+    }
+
     private function paginateSelect()
     {
         return [

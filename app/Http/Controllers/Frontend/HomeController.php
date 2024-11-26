@@ -24,8 +24,8 @@ class HomeController extends Controller
     public function __construct(HomeService $homeService, CommentRepository $commentRepository, CommentService $commentService)
     {
         $this->homeService = $homeService;
-        $this->commentRepository=$commentRepository;
-        $this->commentService=$commentService;
+        $this->commentRepository = $commentRepository;
+        $this->commentService = $commentService;
     }
 
     public function index(Request $request)
@@ -85,9 +85,9 @@ class HomeController extends Controller
             }
         }
         $tags = $this->getAllTag();
-        return view('client.index', compact('template', 'config', 'lastestNews', 'getCatalogue', 'results', 'posts', 'view','tags'));
+        return view('client.index', compact('template', 'config', 'lastestNews', 'getCatalogue', 'results', 'posts', 'view', 'tags'));
     }
-    
+
     public function getPostLike()
     {
         $posts = Post::withCount('likes')
@@ -163,37 +163,37 @@ class HomeController extends Controller
             ['parent_id', '=', '0']
         ];
 
-        $comments = $this->commentRepository->findByConditionsWithRelation($condition,[],['id','desc']);
+        $comments = $this->commentRepository->findByConditionsWithRelation($condition, [], ['id', 'desc']);
 
         $client_logged = Auth::id();
         // dd($client_logged);
 
-        if($comments->isNotEmpty()){
-            foreach($comments as $comment){
-                $commentIds[]=$comment->id;
+        if ($comments->isNotEmpty()) {
+            foreach ($comments as $comment) {
+                $commentIds[] = $comment->id;
             }
             // dd($commentIds);
-    
+
             $countCommentReplyId = [];
-            foreach($commentIds as $commentId){
-                $countCommentReplyId[]=$this->commentService->countCommentReply($commentId);
+            foreach ($commentIds as $commentId) {
+                $countCommentReplyId[] = $this->commentService->countCommentReply($commentId);
             }
             // dd($countCommentReplyId);
-    
+
             $countReply = $this->commentService->countNestedArray($countCommentReplyId);
             // dd($countReply);
-    
+
             foreach ($comments as $key => $comment) {
                 $comment->reply_count = $countReply[$key] ?? 0;
             }
             // dd($comments);
-    
+
             $comments->each(function ($comment, $key) use ($countCommentReplyId) {
                 $nestedIds = isset($countCommentReplyId[$key]) ? $this->commentService->collectNestedIds($countCommentReplyId[$key]) : [];
                 $comment->reply_ids = $nestedIds;
             });
             // dd($comments);
-    
+
             $comments = $comments->map(function ($comment) use ($client_logged) {
                 return [
                     'id' => $comment->id,
@@ -230,8 +230,6 @@ class HomeController extends Controller
     //     return view($template, compact('config', 'results'));
     // }
 
-
-
     public function tagPostResult($tagId)
     {
         $tag = $this->getPostsByTag($tagId);
@@ -242,10 +240,19 @@ class HomeController extends Controller
         $config = $this->config();
         return view('client.Tag', compact('config', 'tag', 'posts'));
     }
+
     private function getPostsByTag($tagId)
     {
         $tag = Tag::with('posts')->findOrFail($tagId);
         return $tag;
+    }
+    public function showSummary($postId)
+    {
+        $post = Post::findOrFail($postId);
+        $summary = DB::table('summaries')
+            ->where('post_id', $post)
+            ->first();
+      return $summary;
     }
     public function myactives()
     {
@@ -270,8 +277,10 @@ class HomeController extends Controller
             ->join('posts', 'likes.post_id', '=', 'posts.id')
             ->where('likes.cus_id', $customerId)
             ->whereNull('likes.deleted_at')
+            ->whereNull('posts.deleted_at')
             ->select('posts.post_name', 'posts.id', 'likes.created_at')
             ->get();
+
     }
     public function getUserSavePost($customerId)
     {

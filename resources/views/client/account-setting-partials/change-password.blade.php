@@ -36,22 +36,6 @@
     </div>
     <!-- account change password end -->
 
-
-    <script type="text/javascript" defer>
-        // Validate form client (add later)
-        document.getElementById("change-password-form-").addEventListener("submit", function(event) {
-            event.preventDefault(); //stop request
-
-            const pass = document.getElementById("password").value;
-            const pass_c = document.getElementById("password_confirmation").value;
-
-            if (pass === pass_c) {
-                alert("Bang");
-                return;
-            } 
-            alert("Khac");
-        });
-    </script>
 @endsection
 
 @section('form-id', 'change-password-form')

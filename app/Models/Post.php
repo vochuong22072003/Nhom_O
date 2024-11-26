@@ -52,8 +52,10 @@ class Post extends Model
     }
     public function viewCount($postId)
     {
+
         $postview = PostView::firstWhere('post_id', $postId);
-        if ($postview === null) {
+        //dd($postId);
+        if ($postview == null) {
 
             $postview = PostView::create([
                 'post_id' => $postId,
@@ -62,12 +64,16 @@ class Post extends Model
 
         } else {
             $postview->increment('view_count');
-
         }
         return $postview->view_count;
     }
-    
-  
+    public function getView()
+    {
+        $postView = PostView::firstWhere('post_id', $this->id);
+
+        return $postView != null ? optional($postView)->view_count : '0';
+    }
+
     public function posts()
     {
         return $this->hasMany(Post::class, 'save_folder_id');
@@ -91,5 +97,9 @@ class Post extends Model
     public function tags()
     {
         return $this->belongsToMany(Tag::class, 'post_tags', 'post_id', 'tag_id');
+    }
+    public function summary()
+    {
+        return $this->hasOne(Summary::class);
     }
 }

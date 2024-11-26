@@ -50,9 +50,10 @@
                     </span>
 
                     <span class="f1-s-3 cl8 m-rl-7 txt-center">
-                        <i class="fa fa-eye"> view</i>
-                        <p>Lượt xem: {{ $getPost->viewCount($getPost->id) }}</p>
-                    </span>
+                        <i class="fa fa-eye"> View</i>
+                        <p id="view-count" data-post-id="{{ $getPost->id }}">
+                            Lượt xem:{{ $getPost->getView() }} </p>
+                    </span> 
                     <span class="f1-s-3 cl8 m-rl-7 txt-center">
 
                         @auth
@@ -121,7 +122,7 @@
                                 <input type="text" class="form-control" name="save_folder_name" id="save_folder_name"
                                     placeholder="Nhập tên danh mục mới" style="margin-left: 80px">
                             </div>
-                            <button type="submit" class="btn btn-primary" style="margin-left: 180px;"
+                            <button type="submit" class="btn btn-primary bt" style="margin-left: 180px;"
                                 id="savePost">Lưu</button>
                         </form>
                     </div>
@@ -138,11 +139,17 @@
                         <!-- Blog Detail -->
 
                         <div class="p-b-70 blog-content-wrap">
-                            <p class="f1-s-11 cl6" id="postContent">
-                                {!! $getPost->post_content !!}
-                            </p>
+                            <p class="f1-s-11 cl6" id="">
+                                {!!$getPost->post_content!!}
+                            </p> 
+                            <span id="postContent" style="display: none;">
 
-                            <button id="readButton">Đọc bài viết</button>
+                                {{ html_entity_decode(strip_tags($getPost->post_content)) }}
+                            
+                            </span>
+                          
+                            <button onclick="readText()" class="bt">Đọc văn bản</button>
+                            <button onclick="stopReading()"class="bt">Dừng đọc</button> 
                             <!-- Tag -->
                             <div class="flex-s-s p-t-12 p-b-15">
                                 <span class="f1-s-12 cl5 m-r-8">
@@ -248,13 +255,13 @@
                                 <input type="hidden" name="post_id" value="{{ $getPost->id }}">
 
                                 <!-- <input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20" type="text"
-                                            name="name" placeholder="Name*">
+                                                name="name" placeholder="Name*">
 
-                                        <input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20" type="text"
-                                            name="email" placeholder="Email*">
+                                            <input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20" type="text"
+                                                name="email" placeholder="Email*">
 
-                                        <input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20" type="text"
-                                            name="website" placeholder="Website"> -->
+                                            <input class="bo-1-rad-3 bocl13 size-a-16 f1-s-13 cl5 plh6 p-rl-18 m-b-20" type="text"
+                                                name="website" placeholder="Website"> -->
 
                                 <button class="size-a-17 bg2 borad-3 f1-s-12 cl0 hov-btn1 trans-03 p-rl-15 m-t-10">
                                     Post Comment

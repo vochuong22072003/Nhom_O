@@ -232,6 +232,41 @@
         });
     });
 </script>
+{{-- xu ly view  --}}
+<script>
+    $(document).ready(function() {
+        var postId = $('#view-count').data('post-id');
+        let hasScrolled = false;
+        window.addEventListener('scroll', function onScroll() {
+            if (!hasScrolled) {
+                hasScrolled = true;
+                setTimeout(() => {
+                    $.ajax({
+                        url: '{{ route('incrementView') }}',
+                        type: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        data: {
+                            _token: $('meta[name="csrf-token"]').attr('content'),
+                            post_id: postId
+                        },
+                        success: function(response) {
+                            $('#view-count').text('Lượt xem: ' + response
+                                .view_count);
+                        },
+
+                    });
+                }, 10000);
+                window.removeEventListener('scroll', onScroll);
+            }
+        });
+    });
+</script>
+
+
+
+
 {{-- xử lý lưu trong checkbox --}}
 <script>
     //  
@@ -269,55 +304,26 @@
         });
     });
 </script>
-{{-- xử lý nút micro cho việc tìm kiếm bằng giọng nói  --}}
-<script>
-    function startRecognition() {
 
-        if (!('webkitSpeechRecognition' in window)) {
-            alert('Trình duyệt không hỗ trợ nhận diện giọng nói.');
-            return;
-        }
-
-        const recognition = new webkitSpeechRecognition();
-        recognition.lang = 'vi-VN';
-        recognition.interimResults = false;
-        recognition.maxAlternatives = 1;
-
-        recognition.onresult = (event) => {
-
-            const transcript = event.results[0][0].transcript;
-            document.getElementById('searchInput').value = transcript;
-
-            performSearch(transcript);
-        };
-
-        recognition.onerror = (event) => {
-            alert('Có lỗi xảy ra: ' + event.error);
-        };
-
-        recognition.start();
-    }
-
-    function performSearch(query) {
-        console.log("Tìm kiếm: " + query);
-
-    }
-</script>
-<script>
-    document.getElementById('readButton').addEventListener('click', function() {
-
-        const postContent = document.getElementById('postContent').innerText;
+{{-- xử lý đọc văn bản --}}
+<script>    
+    function readText() {
+        var text = document.getElementById('postContent').innerText;
         if ('speechSynthesis' in window) {
-            const speech = new SpeechSynthesisUtterance(postContent);
-            speech.lang = 'en-US';
-            speech.volume = 1;
-            speech.rate = 1;
-            speech.pitch = 1;
+            var speech = new SpeechSynthesisUtterance();
+            speech.text = text;
+            speech.lang = 'vi-VN'; 
+            
             window.speechSynthesis.speak(speech);
         } else {
-            alert("Trình duyệt của bạn không hỗ trợ tính năng đọc giọng nói.");
+            alert('Trình duyệt của bạn không hỗ trợ tính năng đọc văn bản.');
         }
-    });
+    }
+    function stopReading() {
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+        }
+    }
 </script>
 
 {{-- Xử lý hiện ẩn bài viế đã lưu vào thư mục  --}}
@@ -326,17 +332,11 @@
     document.querySelectorAll('.folder-name').forEach(function(folder) {
         folder.addEventListener('click', function(e) {
             e.preventDefault();
-
-            // Lấy ID của thư mục được nhấn
             var folderId = this.getAttribute('data-folder-id');
             var savedPostsDiv = document.getElementById('folder-' + folderId);
-
-            // Đóng tất cả các thư mục
             document.querySelectorAll('.saved-posts').forEach(function(div) {
-                div.classList.remove('show'); // Dùng Bootstrap "collapse" class
+                div.classList.remove('show'); 
             });
-
-            // Mở thư mục được nhấn
             if (!savedPostsDiv.classList.contains('show')) {
                 savedPostsDiv.classList.add('show');
             }

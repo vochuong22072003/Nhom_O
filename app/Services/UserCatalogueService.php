@@ -46,14 +46,20 @@ class UserCatalogueService implements UserCatalogueServiceInterface
     public function updateStatus($post=[]){
         DB::beginTransaction();
         try{
-            $payload[$post['field']]=(($post['value']==1)?2:1);
-            $user=$this->userCatalogueRepository->update($post['modelId'], $payload);
-            $condition = [
-                ['user_catalogue_id', '=', [$post['modelId']]]
-            ];
-            $this->userRepository->updateByWhere($condition, $payload);
+            $flag = $this->userCatalogueRepository->findById($post['modelId']);
+            // dd($flag);
+            if ($flag) {
+                $payload[$post['field']]=(($post['value']==1)?2:1);
+                $user=$this->userCatalogueRepository->update($post['modelId'], $payload);
+                $condition = [
+                    ['user_catalogue_id', '=', [$post['modelId']]]
+                ];
+                $post = $this->userRepository->updateByWhere($condition, $payload);
+            }else{
+                $post = false;
+            }
             DB::commit();
-            return true;
+            return $post;
         }catch(\Exception $ex){
             DB::rollBack();
             echo $ex->getMessage();
@@ -74,7 +80,7 @@ class UserCatalogueService implements UserCatalogueServiceInterface
             return true;
         }catch(\Exception $ex){
             DB::rollBack();
-            echo $ex->getMessage();die();
+            echo $ex->getMessage();//die();
             return false;
         }
     }
@@ -129,6 +135,57 @@ class UserCatalogueService implements UserCatalogueServiceInterface
         } catch(\Exception $ex) {
             DB::rollBack();
             echo $ex->getMessage();die();
+            return false;
+        }
+    }
+
+    public function updateStatusAll($post=[]){
+        //echo 123; die();
+        DB::beginTransaction();
+        try{
+            // dd($post['id']);
+            $flag = $this->userCatalogueRepository->checkAllIdsExist($post['id']);
+            // dd($flag);
+            if($flag){
+                $payload[$post['field']]=$post['value'];
+                
+                //dd($payload);
+                $userCatalogues=$this->userCatalogueRepository->updateByWhereIn('id', $post['id'], $payload);
+                //echo 1; die();
+                $this->changeUserStatus($post,$post['value']);
+                $post = true;
+            }
+            else{
+                $post = false;
+            }
+            DB::commit();
+            return $post;
+        }catch(\Exception $ex){
+            DB::rollBack();
+            echo $ex->getMessage();//die();
+            return false;
+        }
+    }
+    private function changeUserStatus($post, $value){
+       
+        DB::beginTransaction();
+        try{
+            //dd($post);
+            $array=[];
+            if(isset($post['modelId'])){
+                $array[]=$post['modelId'];
+            }else{
+                $array=$post['id'];
+            }//push vào trong mảng để update theo kiểu by where in
+            //dd($post);
+            $payload[$post['field']]=$value;
+            $this->userRepository->updateByWhereIn('user_catalogue_id', $array, $payload);
+            //echo 123; die();
+            DB::commit();
+            return true;
+        }catch(\Exception $ex){
+            DB::rollBack();
+            echo $ex->getMessage();//die();
             return false;
         }
     }

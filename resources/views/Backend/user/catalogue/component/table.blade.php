@@ -1,6 +1,9 @@
 <table class="table table-striped table-bordered">
     <thead>
         <tr>
+            <th>
+                <input type="checkbox" value="" name="" id="checkAll" class="input-checkbox">
+            </th>
             <th>Tên nhóm</th>
             <th>Số thành viên</th>
             <th>Mô tả nhóm</th>
@@ -12,6 +15,9 @@
         @if(isset($userCatalogues) && is_object($userCatalogues))
         @foreach($userCatalogues as $userCatalogue)
         <tr>
+            <td>
+                <input type="checkbox" value="{{ $userCatalogue->id }}" name="" class="input-checkbox checkBoxItem">
+            </td>
             <td>
                 <div class="info-item name">{{ $userCatalogue->name }}</div>
             </td>
