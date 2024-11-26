@@ -171,10 +171,6 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
 .bt:hover {
   background-color: #c0392b;
 } 
-
-form {
-  display: inline-block;
-}
 /*//////////////////////////////////////////////////////////////////
 [ BUTTON BACK TO TOP ]*/
 .btn-back-to-top {

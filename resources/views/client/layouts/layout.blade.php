@@ -306,28 +306,27 @@
 </script>
 
 {{-- xử lý đọc văn bản --}}
-<script>
-    let synth = window.speechSynthesis;
-    let utterance;
+<span id="postContent" style="display: none;">
+    {{ html_entity_decode(strip_tags($getPost->post_content)) }}
+</span>
+<button onclick="readText()" class="bt">Đọc văn bản</button>
 
+<script>
     function readText() {
-        const text = document.getElementById("postContent").value;
-        if (synth.speaking) {
-            synth.cancel();
-        }
-        utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = 'vi-VN'; // Ngôn ngữ Tiếng Việt
-        utterance.pitch = 0; // Độ cao giọng nói (0 đến 2)
-        utterance.rate = 0.4; // Tốc độ đọc (0.1 đến 10)
-        utterance.volume = 1; // Âm lượng (0 đến 1)
-        synth.speak(utterance);
-    }
-    function stopReading() {
-        if (synth.speaking) {
-            synth.cancel();
+        var text = document.getElementById('postContent').innerText;
+        if ('speechSynthesis' in window) {
+            var speech = new SpeechSynthesisUtterance();
+            speech.text = text; // Gán nội dung để đọc
+            speech.lang = 'vi-VN'; // Chọn ngôn ngữ (Tiếng Việt)
+
+            // Đọc văn bản
+            window.speechSynthesis.speak(speech);
+        } else {
+            alert('Trình duyệt của bạn không hỗ trợ tính năng đọc văn bản.');
         }
     }
 </script>
+
 {{-- Xử lý hiện ẩn bài viế đã lưu vào thư mục  --}}
 
 <script>
@@ -337,7 +336,7 @@
             var folderId = this.getAttribute('data-folder-id');
             var savedPostsDiv = document.getElementById('folder-' + folderId);
             document.querySelectorAll('.saved-posts').forEach(function(div) {
-                div.classList.remove('show');
+                div.classList.remove('show'); 
             });
             if (!savedPostsDiv.classList.contains('show')) {
                 savedPostsDiv.classList.add('show');

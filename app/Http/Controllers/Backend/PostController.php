@@ -91,7 +91,6 @@ class PostController extends Controller
     {
         if ($this->postService->createPost($request)) {
             $this->addTags($request);
-            // $this->addSummary($request);
             return redirect()->route('post.index')->with('success', 'Thêm mới bài viết thành công');
         }
         return redirect()->route('post.index')->with('error', 'Thêm mới bài viết thất bại. Hãy thử lại');
@@ -178,7 +177,7 @@ class PostController extends Controller
     {
         $postId = Post::where('post_name', $request->input('post_name'))
             ->whereDate('created_at', now()
-            ->toDateString())
+                ->toDateString())
             ->value('id');
         $strTags = $request->input('tags');
         $tags = explode(' ', $strTags);
@@ -199,34 +198,6 @@ class PostController extends Controller
             ]);
         }
         return redirect()->back()->with('success', 'Tags đã được thêm vào bài viết!');
-    }
-    // xử lý thêm mô tả ngắn bài viết 
-    private function addSummary(Request $request)
-    {
-        $postId = Post::where('post_name', $request->input('post_name'))
-            ->whereDate('created_at', now()->toDateString())
-            ->value('id');
-            //dd($request->input('post_summary'));
-        $summaryText = $request->input('post_summary');
-        $userId = auth()->id();
-        if ($postId && $summaryText) {
-            $existingSummary = DB::table('summaries')->where('post_id', $postId)->first();
-       
-            if ($existingSummary) {
-                DB::table('summaries')->where('post_id', $postId)->update([
-                    'summary' => $summaryText,
-                    'updated_at' => now(),
-                ]);
-            } else {
-                DB::table('summaries')->insert([
-                    'post_id' => $postId,
-                    'summary' => $summaryText,
-                    'user_id' => $userId,
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                ]);
-            }
-        }
     }
 
     private function configIndex()

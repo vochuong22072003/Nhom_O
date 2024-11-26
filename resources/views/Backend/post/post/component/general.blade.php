@@ -47,26 +47,6 @@
         </div>
     </div>
 </div>
-<div class="row mb-15">
-    <div class="col-lg-12">
-        <div class="form-row">
-            <div class="uk-flex uk-flex-middle uk-flex-space-between">
-                <label for="" class="control-label text-left">Tóm tắt nội dung: </label>
-            </div>
-            <textarea 
-                type="text" 
-                placeholder="" 
-                autocomplete="off"
-                name="post_summary" 
-                class="form-control ck-editor" 
-                id="" 
-                data-height="500"
-            >
-            {{ old('post_summary', '') }}
-            </textarea>
-        </div>
-    </div>
-</div>
 
 @include('Backend.post.post.Tag')
 
