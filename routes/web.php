@@ -139,15 +139,7 @@ Route::get('ajax/comment/delete', [AjaxCommentController::class, 'delete'])->nam
 Route::get('ajax/comment/deleteN', [AjaxCommentController::class, 'deleteN'])->name('ajax.comment.deleteN');
 Route::post('ajax/dashboard/changeStatusAll',[AjaxDashboardController::class, 'changeStatusAll'])->name('ajax.dashboard.changeStatusAll');
 
-Route::name('client.')->group(function () {
-    Route::get('/', [HomeController::class, 'index'])->name('index');
-    Route::get('{id}/{model}/category', [HomeController::class, 'category'])->name('category');
-    Route::get('{id}/detail', [HomeController::class, 'detail'])->name('detail');
-    Route::get('/myactive',[HomeController::class,'myactives'])->name('myactive');
-    Route::get('/search-result', [HomeController::class, 'search'])->name('search-result');
-    Route::post('/search', [HomeController::class, 'search'])->name('search');
-    Route::get('/tag/{tagId}', [HomeController::class,'tagPostResult'])->name('tag.posts');
-});
+
 
 
   
@@ -157,7 +149,7 @@ Route::name('client.')->group(function () {
         Route::get('{id}/detail', [HomeController::class, 'detail'])->name('detail');
         Route::get('/myactive',[HomeController::class,'myactives'])->name('myactive');
         Route::get('/sync-elasticsearch', [ElasticsearchController::class, 'syncDataToElasticsearch']);
-        Route::post('/search', [ElasticsearchController::class, 'search'])->name('client.search');
+        Route::post('/search', [ElasticsearchController::class, 'search'])->name('search');
         Route::get('/tag/{tagId}', [HomeController::class,'tagPostResult'])->name('tag.posts');
     });
 
@@ -178,27 +170,8 @@ Route::post('ajax/comment/updateN', [AjaxCommentController::class, 'updateN'])->
 Route::get('ajax/comment/delete', [AjaxCommentController::class, 'delete'])->name('ajax.comment.delete');
 Route::get('ajax/comment/deleteN', [AjaxCommentController::class, 'deleteN'])->name('ajax.comment.deleteN');
 
-Route::name('client.')->group(function () {
-    Route::get('/', [HomeController::class, 'index'])->name('index');
-    Route::get('{id}/{model}/category', [HomeController::class, 'category'])->name('category');
-    Route::get('{id}/detail', [HomeController::class, 'detail'])->name('detail');
-    Route::get('/myactive',[HomeController::class,'myactives'])->name('myactive');
-    Route::get('/search-result', [HomeController::class, 'search'])->name('search-result');
-    Route::post('/search', [HomeController::class, 'search'])->name('search');
-    Route::get('/tag/{tagId}', [HomeController::class,'tagPostResult'])->name('tag.posts');
-    
-});
 
 
-Route::name('client.')->group(function () {
-    Route::get('/', [HomeController::class, 'index'])->name('index');
-    Route::get('{id}/{model}/category', [HomeController::class, 'category'])->name('category');
-    Route::get('{id}/detail', [HomeController::class, 'detail'])->name('detail');
-    Route::get('/myactive', [HomeController::class, 'myactives'])->name('myactive');
-    Route::get('/search-result', [HomeController::class, 'search'])->name('search-result');
-    Route::post('/search', [HomeController::class, 'search'])->name('search');
-    Route::get('/tag/{tagId}', [HomeController::class, 'tagPostResult'])->name('tag.posts');
-});
 
 
 
