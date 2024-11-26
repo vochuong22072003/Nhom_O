@@ -255,7 +255,7 @@
                             $('#view-count').text('Lượt xem: ' + response
                                 .view_count);
                         },
-                       
+
                     });
                 }, 10000);
                 window.removeEventListener('scroll', onScroll);
@@ -307,26 +307,26 @@
 
 {{-- xử lý đọc văn bản --}}
 <script>
-  let currentSpeech = null;
+    let synth = window.speechSynthesis;
+    let utterance;
 
-function readText() {
-
-    var text = document.getElementById("postContent").innerText || document.getElementById("postContentTextarea").value;
-    if (text !== "") {
-        currentSpeech = new SpeechSynthesisUtterance(text);
-        currentSpeech.lang = 'vi-VN'; 
-        currentSpeech.rate = 1;
-        currentSpeech.pitch = 1;
-        window.speechSynthesis.speak(currentSpeech);
-    } else {
-        alert("Vui lòng nhập nội dung để đọc.");
+    function readText() {
+        const text = document.getElementById("postContent").value;
+        if (synth.speaking) {
+            synth.cancel();
+        }
+        utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'vi-VN'; // Ngôn ngữ Tiếng Việt
+        utterance.pitch = 0; // Độ cao giọng nói (0 đến 2)
+        utterance.rate = 0.4; // Tốc độ đọc (0.1 đến 10)
+        utterance.volume = 1; // Âm lượng (0 đến 1)
+        synth.speak(utterance);
     }
-}
-function stopReading() {
-    if (currentSpeech) {
-        window.speechSynthesis.cancel();
+    function stopReading() {
+        if (synth.speaking) {
+            synth.cancel();
+        }
     }
-}
 </script>
 {{-- Xử lý hiện ẩn bài viế đã lưu vào thư mục  --}}
 
@@ -337,7 +337,7 @@ function stopReading() {
             var folderId = this.getAttribute('data-folder-id');
             var savedPostsDiv = document.getElementById('folder-' + folderId);
             document.querySelectorAll('.saved-posts').forEach(function(div) {
-                div.classList.remove('show'); 
+                div.classList.remove('show');
             });
             if (!savedPostsDiv.classList.contains('show')) {
                 savedPostsDiv.classList.add('show');

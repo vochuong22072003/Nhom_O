@@ -139,13 +139,13 @@
                         <!-- Blog Detail -->
 
                         <div class="p-b-70 blog-content-wrap">
-                            <p class="f1-s-11 cl6" id="postContent">
+                            <p class="f1-s-11 cl6" id="">
                                 {!!$getPost->post_content!!}
                             </p> 
-                           
-                            {{-- <textarea id="postContent" rows="4" cols="50">alo 1 2 3 4 </textarea><br>
+                           <h1 class="text-align:center;">tóm tắt bài viết</h1>
+                            <textarea id="postContent" rows="4" cols="50">alo 1 2 3 4 </textarea><br>
                             <button onclick="readText()" class="bt">Đọc văn bản</button>
-                            <button onclick="stopReading()"class="bt">Dừng đọc</button> --}}
+                            <button onclick="stopReading()"class="bt">Dừng đọc</button> 
                             <!-- Tag -->
                             <div class="flex-s-s p-t-12 p-b-15">
                                 <span class="f1-s-12 cl5 m-r-8">
