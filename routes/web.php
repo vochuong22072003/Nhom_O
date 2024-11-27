@@ -39,7 +39,7 @@ Route::get('admin', [AuthController::class, 'index'])->name('auth.admin')->middl
 Route::post('admin/login', [AuthController::class, 'login'])->name('auth.login');
 Route::get('admin/logout', [AuthController::class, 'logout'])->name('auth.logout');
 
-Route::middleware(['auth:web'])->group(function () {
+Route::group(['middleware' => ['auth:web']], function (){
     Route::group(['prefix' => 'user/profile'], function () {
         Route::get('edit', [DashboardController::class, 'edit'])->name('user.profile.edit')->where(['id' => '[0-9]+'])->middleware(AuthenticateMiddleware::class);
         Route::post('update', [DashboardController::class, 'update'])->name('user.profile.update')->where(['id' => '[0-9]+'])->middleware(AuthenticateMiddleware::class);
@@ -57,6 +57,7 @@ Route::middleware(['auth:web'])->group(function () {
         Route::post('updatePermission', [UserCatalogueController::class, 'updatePermission'])->name('user.catalogue.updatePermission')->where(['id' => '[0-9]+']);
     });
     Route::post('ajax/dashboard/changeStatus', [AjaxDashboardController::class, 'changeStatus'])->name('ajax.dashboard.changeStatus');
+    Route::post('ajax/dashboard/changeStatusAll',[AjaxDashboardController::class, 'changeStatusAll'])->name('ajax.dashboard.changeStatusAll');
     Route::group(['prefix' => 'user'], function () {
         Route::get('index', [UserController::class, 'index'])->name('user.index')->middleware(AuthenticateMiddleware::class);
         Route::get('store', [UserController::class, 'store'])->name('user.store')->middleware(AuthenticateMiddleware::class);
@@ -69,17 +70,11 @@ Route::middleware(['auth:web'])->group(function () {
     Route::group(['prefix' => 'permission'], function () {
         Route::get('index', [PermissionController::class, 'index'])->name('permission.index')->middleware(AuthenticateMiddleware::class);
         Route::get('store', [PermissionController::class, 'store'])->name('permission.store')->middleware(AuthenticateMiddleware::class);
-        ;
         Route::post('create', [PermissionController::class, 'create'])->name('permission.create')->middleware(AuthenticateMiddleware::class);
-        ;
         Route::get('{id}/edit', [PermissionController::class, 'edit'])->name('permission.edit')->middleware(AuthenticateMiddleware::class);
-        ;
         Route::post('{id}/update', [PermissionController::class, 'update'])->name('permission.update')->where(['id' => '[0-9]+'])->middleware(AuthenticateMiddleware::class);
-        ;
         Route::get('{id}/destroy', [PermissionController::class, 'destroy'])->name('permission.destroy')->middleware(AuthenticateMiddleware::class);
-        ;
         Route::post('{id}/delete', [PermissionController::class, 'delete'])->name('permission.delete')->where(['id' => '[0-9]+'])->middleware(AuthenticateMiddleware::class);
-        ;
     });
     // == Post catalogue parent Nghĩa
     Route::group(['prefix' => 'post/catalogue/parent'], function () {
@@ -121,40 +116,8 @@ Route::middleware(['auth:web'])->group(function () {
     Route::get('ajax/postCatalogue/getPostCatalogue', [PostCatalogueController::class, 'getPostCatalogue'])->name('ajax.postCatalogue.getPostCatalogue')->middleware(AuthenticateMiddleware::class);
 });
 
- // Võ Tiến Chương
- Route::get('/check-login', function () {
-    return response()->json(['loggedIn' => auth()->check()]);
-});
-
-// Võ Tiến Chương Comment Function
-Route::group(['prefix' => 'comment'], function () {
-    Route::post('create', [CommentController::class, 'create'])->name('comment.create');
-});
-Route::post('ajax/comment/reply', [AjaxCommentController::class, 'createReply'])->name('ajax.comment.reply');
-Route::get('ajax/comment/showReply', [AjaxCommentController::class, 'showReply'])->name('ajax.comment.showReply');
-Route::post('ajax/comment/replyN', [AjaxCommentController::class, 'createReplyN'])->name('ajax.comment.replyN');
-Route::post('ajax/comment/update', [AjaxCommentController::class, 'update'])->name('ajax.comment.update');
-Route::post('ajax/comment/updateN', [AjaxCommentController::class, 'updateN'])->name('ajax.comment.updateN');
-Route::get('ajax/comment/delete', [AjaxCommentController::class, 'delete'])->name('ajax.comment.delete');
-Route::get('ajax/comment/deleteN', [AjaxCommentController::class, 'deleteN'])->name('ajax.comment.deleteN');
-Route::post('ajax/dashboard/changeStatusAll',[AjaxDashboardController::class, 'changeStatusAll'])->name('ajax.dashboard.changeStatusAll');
-
-
-
-
-  
-    Route::name('client.')->group(function () {
-        Route::get('/', [HomeController::class, 'index'])->name('index');
-        Route::get('{id}/{model}/category', [HomeController::class, 'category'])->name('category');
-        Route::get('{id}/detail', [HomeController::class, 'detail'])->name('detail');
-        Route::get('/myactive',[HomeController::class,'myactives'])->name('myactive');
-        Route::get('/sync-elasticsearch', [ElasticsearchController::class, 'syncDataToElasticsearch']);
-        Route::post('/search', [ElasticsearchController::class, 'search'])->name('search');
-        Route::get('/tag/{tagId}', [HomeController::class,'tagPostResult'])->name('tag.posts');
-    });
-
- // Võ Tiến Chương
- Route::get('/check-login', function () {
+// Võ Tiến Chương
+Route::get('/check-login', function () {
     return response()->json(['loggedIn' => auth()->check()]);
 });
 
@@ -170,10 +133,15 @@ Route::post('ajax/comment/updateN', [AjaxCommentController::class, 'updateN'])->
 Route::get('ajax/comment/delete', [AjaxCommentController::class, 'delete'])->name('ajax.comment.delete');
 Route::get('ajax/comment/deleteN', [AjaxCommentController::class, 'deleteN'])->name('ajax.comment.deleteN');
 
-
-
-
-
+Route::name('client.')->group(function () {
+    Route::get('/', [HomeController::class, 'index'])->name('index');
+    Route::get('{id}/{model}/category', [HomeController::class, 'category'])->name('category');
+    Route::get('{id}/detail', [HomeController::class, 'detail'])->name('detail');
+    Route::get('/myactive',[HomeController::class,'myactives'])->name('myactive');
+    Route::get('/sync-elasticsearch', [ElasticsearchController::class, 'syncDataToElasticsearch']);
+    Route::post('/search', [ElasticsearchController::class, 'search'])->name('search');
+    Route::get('/tag/{tagId}', [HomeController::class,'tagPostResult'])->name('tag.posts');
+});
 
 // các route liên quan đến post và like view tags khiêm
 Route::prefix('posts')->group(function () {

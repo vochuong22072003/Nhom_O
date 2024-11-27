@@ -95,7 +95,7 @@
                             <input type="hidden" name="post_id" id="post_id" value="{{ $getPost->id }}">
                             <!-- Danh sách danh mục (không bắt buộc) -->
                             <div class="mb-3">
-                                <h1 class="text-center" style="margin-left: 120px; color:red;">các danh mục sẵn có của bạn
+                                <h1 class="text-center" style="margin-left: 0px; color:red;">các danh mục sẵn có của bạn
                                 </h1>
                                 <!-- Options -->
                                 @auth('customers')
@@ -118,11 +118,11 @@
                             <!-- Form nhập tên danh mục mới -->
                             <div class="mb-3">
                                 <label for="save_folder_name" class="form-label text-center"
-                                    style="margin-left: 120px ; color:red;">Hoặc tạo danh mục mới:</label>
+                                    style="margin-left: 0px ; color:red;">Hoặc tạo danh mục mới:</label>
                                 <input type="text" class="form-control" name="save_folder_name" id="save_folder_name"
-                                    placeholder="Nhập tên danh mục mới" style="margin-left: 80px">
+                                    placeholder="Nhập tên danh mục mới" style="margin-left: 0px">
                             </div>
-                            <button type="submit" class="btn btn-primary bt" style="margin-left: 180px;"
+                            <button type="submit" class="btn btn-primary bt" style="margin-left: 210px;"
                                 id="savePost">Lưu</button>
                         </form>
                     </div>
