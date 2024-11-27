@@ -45,43 +45,56 @@ class ElasticsearchController extends Controller
 
     public function search(Request $request)
     {
-        $template = 'client.search-result';
-        $config = $this->config(); // Nếu cần cấu hình
+        // 1. Validate từ khóa tìm kiếm
+        $request->validate([
+            'search' => [
+                'required',                  // Từ khóa bắt buộc
+                'min:3',                     // Tối thiểu 3 ký tự
+                'max:150',                   // Tối đa 150 ký tự
+                'not_regex:/[<>&]/',         // Không chứa ký tự đặc biệt: <, >, &
+            ],
+        ]);
 
-        // Nhận từ khóa tìm kiếm từ request
-        $requestInput = $request->input('search');
+        // 2. Lấy từ khóa tìm kiếm từ request
+        $searchQuery = $request->input('search');
 
-        // Tạo truy vấn tìm kiếm trong Elasticsearch
+        // 3. Cấu hình query Elasticsearch
         $params = [
             'index' => 'posts2', // Tên index Elasticsearch
             'body'  => [
                 'query' => [
                     'multi_match' => [
-                        'query' => $requestInput, // Từ khóa tìm kiếm
-                        'fields' => ['post_name^2', 'post_content', 'user_id'] // Tìm kiếm trên các trường
-                    ]
-                ]
-            ]
+                        'query'     => $searchQuery,           // Từ khóa tìm kiếm
+                        'fields'    => ['post_name^2', 'post_content'], // Trường tìm kiếm, ưu tiên 'post_name'
+                        'fuzziness' => 'AUTO',                // Cho phép sai chính tả
+                    ],
+                ],
+                'size' => 10, // Giới hạn trả về tối đa 10 kết quả
+            ],
         ];
 
-        // Thực hiện tìm kiếm trong Elasticsearch
-        $response = $this->elasticsearch->search($params);
+        // 4. Thực hiện truy vấn Elasticsearch
+        try {
+            $response = $this->elasticsearch->search($params);
+        } catch (\Exception $e) {
+            // Xử lý lỗi Elasticsearch không phản hồi
+            return back()->withErrors(['search' => 'Lỗi hệ thống, vui lòng thử lại sau.']);
+        }
 
-        // Lấy kết quả tìm kiếm
+        // 5. Xử lý kết quả trả về
         $results = collect();
-        if (isset($response['hits']['hits'])) {
-            // Mảng kết quả tìm kiếm từ Elasticsearch
+        if (!empty($response['hits']['hits'])) {
             $results = collect($response['hits']['hits'])->map(function ($hit) {
-                // Lấy dữ liệu bài viết từ Elasticsearch và thêm trường `encrypted_id`
-                $hit['_source']['encrypted_id'] = $this->encryptId($hit['_id']); // Mã hóa ID của bài viết
-                return (object)$hit['_source']; // Trả về dữ liệu dưới dạng object
+                $hit['_source']['encrypted_id'] = $this->encryptId($hit['_id']); // Mã hóa ID bài viết
+                return (object) $hit['_source']; // Chuyển thành object
             });
         }
 
-        // dd($results);
-
-        // Trả kết quả về view
-        return view($template, compact('config', 'results'));
+        // 6. Trả về view với kết quả
+        return view('client.search-result', [
+            'config' => $this->config(), // Cấu hình nếu cần
+            'results' => $results,       // Kết quả tìm kiếm
+        ]);
     }
 
     private function config()
