@@ -148,8 +148,8 @@
                             
                             </span>
                           
-                            <button onclick="readText()" class="bt">Đọc văn bản</button>
-                            <button onclick="stopReading()"class="bt">Dừng đọc</button> 
+                            <button onclick="readText()" class="bt" style="color:black">Đọc văn bản</button>
+                            <button onclick="stopReading()"class="bt" style="color:black">Dừng đọc</button> 
                             <!-- Tag -->
                             <div class="flex-s-s p-t-12 p-b-15">
                                 <span class="f1-s-12 cl5 m-r-8">
