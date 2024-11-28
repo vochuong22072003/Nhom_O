@@ -278,109 +278,10 @@
 
 
     <div class="col-md-10 col-lg-4">
-        <div class="p-l-10 p-rl-0-sr991 p-b-20">
-            <!--  -->
-            <div>
-                <div class="how2 how2-cl4 flex-s-c">
-                    <h3 class="f1-m-2 cl3 tab01-title">
-                        Các bài viết được xem hàng đầu
-                    </h3>
-                </div>
-                <ul class="p-t-35">
-                    @php
-                        $count = 1;
-                    @endphp
-                    <li class="flex-wr-sb-s p-b-22">
-                        @if($view->isNotEmpty())
-                        @foreach ($view as $views)
-                            <div class="size-a-8 flex-c-c borad-3 size-a-8 bg9 f1-m-4 cl0 m-b-6">
-                                {{ $count }}
-                            </div>
-                            <a href="{{ route('client.detail', $views->encrypted_id) }}"
-                                class="size-w-3 f1-s-7 cl3 hov-cl10 trans-03">
-                                {{ $views->post_name }}
-                            </a>
-                            @php
-                            $count++; 
-                        @endphp
-                        @endforeach
-                        @else
-                        <h2>Không có dữ liệu</h2>
-                        @endif
-                    </li>
-                </ul>
-            </div>
-
-            <!--  -->
-            {{-- <div class="flex-c-s p-t-8">
-                <a href="#">
-                    <img class="max-w-full" src="images/banner-02.jpg" alt="IMG">
-                </a>
-            </div> --}}
-
-            <!--  -->
-            <div class="p-t-50">
-                <div class="how2 how2-cl4 flex-s-c">
-                    <h3 class="f1-m-2 cl3 tab01-title">
-                        Stay Connected
-                    </h3>
-                </div>
-
-                <ul class="p-t-35">
-                    <li class="flex-wr-sb-c p-b-20">
-                        <a href="#"
-                            class="size-a-8 flex-c-c borad-3 size-a-8 bg-facebook fs-16 cl0 hov-cl0">
-                            <span class="fab fa-facebook-f"></span>
-                        </a>
-
-                        <div class="size-w-3 flex-wr-sb-c">
-                            <span class="f1-s-8 cl3 p-r-20">
-                                6879 Fans
-                            </span>
-
-                            <a href="#" class="f1-s-9 text-uppercase cl3 hov-cl10 trans-03">
-                                Like
-                            </a>
-                        </div>
-                    </li>
-
-                    <li class="flex-wr-sb-c p-b-20">
-                        <a href="#"
-                            class="size-a-8 flex-c-c borad-3 size-a-8 bg-twitter fs-16 cl0 hov-cl0">
-                            <span class="fab fa-twitter"></span>
-                        </a>
-
-                        <div class="size-w-3 flex-wr-sb-c">
-                            <span class="f1-s-8 cl3 p-r-20">
-                                568 Followers
-                            </span>
-
-                            <a href="#" class="f1-s-9 text-uppercase cl3 hov-cl10 trans-03">
-                                Follow
-                            </a>
-                        </div>
-                    </li>
-
-                    <li class="flex-wr-sb-c p-b-20">
-                        <a href="#"
-                            class="size-a-8 flex-c-c borad-3 size-a-8 bg-youtube fs-16 cl0 hov-cl0">
-                            <span class="fab fa-youtube"></span>
-                        </a>
-
-                        <div class="size-w-3 flex-wr-sb-c">
-                            <span class="f1-s-8 cl3 p-r-20">
-                                5039 Subscribers
-                            </span>
-
-                            <a href="#" class="f1-s-9 text-uppercase cl3 hov-cl10 trans-03">
-                                Subscribe
-                            </a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
+        
+        @include('client.layouts.sidebar')
     </div>
+    
 </div>
 </div>
 </section>
@@ -398,42 +299,42 @@
         </div>
 
         <div class="row p-t-35">
-            @if($posts->isNotEmpty())
-            @foreach ($posts as $post)
-                <div class="col-sm-6 p-r-25 p-r-15-sr991">
-                    <!-- Item latest -->
-                    <div class="m-b-45">
-                        <a href="{{ route('client.detail', $post->encrypted_id) }}"
-                            class="wrap-pic-w hov1 trans-03">
-                            <h1>{{ $post->encrypted_idaa }}</h1>
-                            <img src="{{ asset($post->image) }}" alt="IMG">
-                        </a>
+            @if ($posts->isNotEmpty())
+                @foreach ($posts as $post)
+                    <div class="col-sm-6 p-r-25 p-r-15-sr991">
+                        <!-- Item latest -->
+                        <div class="m-b-45">
+                            <a href="{{ route('client.detail', $post->encrypted_id) }}"
+                                class="wrap-pic-w hov1 trans-03">
+                                <h1>{{ $post->encrypted_idaa }}</h1>
+                                <img src="{{ asset($post->image) }}" alt="IMG">
+                            </a>
 
-                        <div class="p-t-16">
-                            <h5 class="p-b-5">
-                                <a href="{{ route('client.detail', $post->encrypted_id) }}"
-                                    class="f1-m-3 cl2 hov-cl10 trans-03">
-                                    {{ $post->post_name }}
-                                </a>
-                            </h5>
+                            <div class="p-t-16">
+                                <h5 class="p-b-5">
+                                    <a href="{{ route('client.detail', $post->encrypted_id) }}"
+                                        class="f1-m-3 cl2 hov-cl10 trans-03">
+                                        {{ $post->post_name }}
+                                    </a>
+                                </h5>
 
-                            <span class="cl8">
-                                <a href="#" class="f1-s-4 cl8 hov-cl10 trans-03">
-                                    by {{ $post->userInfo->name }}
-                                </a>
+                                <span class="cl8">
+                                    <a href="#" class="f1-s-4 cl8 hov-cl10 trans-03">
+                                        by {{ $post->userInfo->name }}
+                                    </a>
 
-                                <span class="f1-s-3 m-rl-3">
-                                    -
+                                    <span class="f1-s-3 m-rl-3">
+                                        -
+                                    </span>
+
+                                    <span class="f1-s-3">
+                                        {{ \Carbon\Carbon::parse($post->created_at)->format('d/m/Y') }}
+                                    </span>
                                 </span>
-
-                                <span class="f1-s-3">
-                                    {{ \Carbon\Carbon::parse($post->created_at)->format('d/m/Y') }}
-                                </span>
-                            </span>
+                            </div>
                         </div>
                     </div>
-                </div>
-            @endforeach
+                @endforeach
             @else
                 <h2>Không có dữ liệu</h2>
             @endif
@@ -442,47 +343,6 @@
 
     <div class="col-md-10 col-lg-4">
         <div class="p-l-10 p-rl-0-sr991 p-b-20">
-            <div class="bg10 p-rl-35 p-t-28 p-b-35 m-b-55">
-                <h5 class="f1-m-5 cl0 p-b-10">
-                    Subscribe
-                </h5>
-
-                <p class="f1-s-1 cl0 p-b-25">
-                    Get all latest content delivered to your email a few times a month.
-                </p>
-
-                <form class="size-a-9 pos-relative">
-                    <input class="s-full f1-m-6 cl6 plh9 p-l-20 p-r-55" type="text" name="email"
-                        placeholder="Email">
-
-                    <button class="size-a-10 flex-c-c ab-t-r fs-16 cl9 hov-cl10 trans-03">
-                        <i class="fa fa-arrow-right"></i>
-                    </button>
-                </form>
-            </div>
-
-            <!-- Tag -->
-            <div class="p-b-55">
-                <div class="how2 how2-cl4 flex-s-c m-b-30">
-                    <h3 class="f1-m-2 cl3 tab01-title">
-                        Tags
-                    </h3>
-                </div>
-                @if($tags->isNotEmpty())
-                
-                
-                <div class="flex-wr-s-s m-rl--5">
-                    @foreach ($tags as $tag)
-                    <a href=" {{ route('client.tag.posts', ['tagId' => $tag->tag_id]) }}"
-                        class="flex-c-c size-h-2 bo-1-rad-20 bocl12 f1-s-1 cl8 hov-btn2 trans-03 p-rl-20 p-tb-5 m-all-5">
-                       {{$tag->tag_name}}
-                    </a>
-                    @endforeach
-                </div>
-                @else
-                    <h2>Không có dữ liệu</h2>
-                @endif
-            </div>
         </div>
     </div>
 
@@ -497,7 +357,7 @@
 <section class="bg0 ">
 <div class="container">
 <div class="row justify-content-center">
-    <div class="col-md-10 col-lg-12 p-b-20">
+    <div class="col-md-10 col-lg-8 p-b-20">
         <div class="how2 how2-cl4 flex-s-c m-r-10 m-r-0-sr991">
             <h3 class="f1-m-2 cl3 tab01-title">
                 Các bài viết được xem nhiều nhất
@@ -505,46 +365,51 @@
         </div>
 
         <div class="row p-t-35">
-            @if($view->isNotEmpty())
-            @foreach ($view as $views)
-                <div class="col-sm-4 p-r-25 p-r-15-sr991">
-                    <!-- Item latest -->
-                    <div class="m-b-45">
-                        <a href="{{ route('client.detail', $views->encrypted_id) }}"
-                            class="wrap-pic-w hov1 trans-03">
-                            <img src="{{ asset($views->image) }}" alt="IMG">
-                        </a>
+            @if ($view->isNotEmpty())
+                @foreach ($view as $views)
+                    <div class="col-sm-4 p-r-25 p-r-15-sr991">
+                        <!-- Item latest -->
+                        <div class="m-b-45">
+                            <a href="{{ route('client.detail', $views->encrypted_id) }}"
+                                class="wrap-pic-w hov1 trans-03">
+                                <img src="{{ asset($views->image) }}" alt="IMG">
+                            </a>
 
-                        <div class="p-t-16">
-                            <h5 class="p-b-5">
-                                <a href="{{ route('client.detail', $views->id) }}"
-                                    class="f1-m-3 cl2 hov-cl10 trans-03">
-                                    {{ $views->post_name }}
-                                </a>
-                            </h5>
+                            <div class="p-t-16">
+                                <h5 class="p-b-5">
+                                    <a href="{{ route('client.detail', $views->id) }}"
+                                        class="f1-m-3 cl2 hov-cl10 trans-03">
+                                        {{ $views->post_name }}
+                                    </a>
+                                </h5>
 
-                            <span class="cl8">
-                                <a href="#" class="f1-s-4 cl8 hov-cl10 trans-03">
-                                    by {{ $views->userInfo->name }}
-                                </a>
+                                <span class="cl8">
+                                    <a href="#" class="f1-s-4 cl8 hov-cl10 trans-03">
+                                        by {{ $views->userInfo->name }}
+                                    </a>
 
-                                <span class="f1-s-3 m-rl-3">
-                                    -
+                                    <span class="f1-s-3 m-rl-3">
+                                        -
+                                    </span>
+
+                                    <span class="f1-s-3">
+                                        {{ \Carbon\Carbon::parse($views->created_at)->format('d/m/Y') }}
+                                    </span>
                                 </span>
-
-                                <span class="f1-s-3">
-                                    {{ \Carbon\Carbon::parse($views->created_at)->format('d/m/Y') }}
-                                </span>
-                            </span>
+                            </div>
                         </div>
                     </div>
-                </div>
-            @endforeach
+                @endforeach
             @else
                 <h2>Không có dữ liệu</h2>
             @endif
         </div>
     </div>
+    <div class="col-md-10 col-lg-4">
+        <div class="p-l-10 p-rl-0-sr991 p-b-20">
+        </div>
+    </div>
+    
 </div>
 </div>
 </section>

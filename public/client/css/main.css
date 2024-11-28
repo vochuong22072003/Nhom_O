@@ -1253,6 +1253,11 @@ a.breadcrumb-item:hover {
   color: #fff;
 }
 
+
+.cl69 {
+  color: #333;
+}
+
 .cl1 {
   color: #111;
 }
@@ -2562,4 +2567,79 @@ h2.no-search-result {
 
 .item-fix:active {
   background-color: #404040;
+}
+
+
+/* Container chính */
+.top-posts {
+  margin: 20px 0;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.top-posts-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+/* Danh sách các bài viết */
+.top-posts-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.top-post-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.top-post-item:last-child {
+  border-bottom: none;
+}
+
+/* Phần hình ảnh */
+.top-post-image img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 5px;
+  margin-right: 15px;
+}
+
+/* Nội dung bài viết */
+.top-post-content {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.post-title {
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+}
+
+.post-like-btn {
+  font-size: 14px;
+  color: #007bff;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.post-like-btn:hover {
+  color: #0056b3;
+  text-decoration: underline;
 }

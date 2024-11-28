@@ -7,6 +7,7 @@ interface HomeRepositoryInterface {
     public function getPostsByCategory($id, $model);
     public function getCategoryInfo($id, $model);
     public function getPost($id);
+    public function getPostByView();
 }
 
 

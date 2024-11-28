@@ -223,10 +223,10 @@
                 },
                 error: function(xhr, status, error) {
 
-                    console.error(xhr.responseText);
-                    alert(
-                        'bạn chưa đăng nhập , vui lòng đăng nhập để thực hiện thao tác này'
-                    );
+                    // console.error(xhr.responseText);
+                    // alert(
+                    //     'bạn chưa đăng nhập , vui lòng đăng nhập để thực hiện thao tác này'
+                    // );
                 }
             });
         });

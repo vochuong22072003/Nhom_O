@@ -37,11 +37,17 @@ class ViewComposerServiceProvider extends ServiceProvider
         /**
          *   Variable for setting
          */
-        \View::composer('client.account-setting-partials.*', function ($view) {
+        View::composer('client.account-setting-partials.*', function ($view) {
             $view->with([
                 'cus' => auth('customers')->user(),
                 'cusInfo' => auth('customers')->user()->customerInfo
             ]);
+        });
+
+        View::composer('client.layouts.sidebar', function ($view) {
+            $homeRepository = $this->app->make(HomeRepository::class);
+            $posts_view = $homeRepository->getPostByView();
+            $view->with('posts_view', $posts_view);
         });
     }
     public function encryptId($id)
