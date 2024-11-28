@@ -82,7 +82,7 @@ class UpdateUserRequest extends FormRequest
             'email.unique' => 'Email đã tồn tại. Hãy chọn email khác',
             'name.required' => 'Bạn chưa nhập họ tên',
             'name.string' => 'Tên phải là dạng ký tự',
-            'name.regex' => 'Tên không được chứa ký tự số',
+            'name.regex' => 'Tên không được chứa ký tự số và không được chứa ký tự <, >, &',
             'user_catalogue_id.gt' => 'Bạn chưa chọn nhóm thành viên',
             'user_catalogue_id.unique' => 'Nhóm quản trị viên này đã có người đãm nhận',
             'phone.required' => 'Bạn chưa nhập số điện thoại',
