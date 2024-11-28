@@ -102,7 +102,7 @@
             </h3>
         </div>
         @if (Route::currentRouteName() == 'client.index')
-            @if ($tags->isNotEmpty())
+            @if (isset($tags) && $tags->isNotEmpty())
 
 
                 <div class="flex-wr-s-s m-rl--5">

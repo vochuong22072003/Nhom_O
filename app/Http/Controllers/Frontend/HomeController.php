@@ -71,47 +71,16 @@ class HomeController extends Controller
         } else {
             $lastestNewsByCateChild = null;
         }
-        $posts = $this->getPostLike();
-        foreach ($posts as $post) {
-            $post->encrypted_id = $this->encryptId($post->id);
-        }
-        $view = $this->getTopViewedPosts();
-        foreach ($view as $views) {
-            $views->encrypted_id = $this->encryptId($views->id);
-        }
         foreach ($results as $cate) {
             foreach ($cate as $post) {
                 $post->encrypted_id = $this->encryptId($post->id);
             }
         }
-        $tags = $this->getAllTag();
-        return view('client.index', compact('template', 'config', 'lastestNews', 'getCatalogue', 'results', 'posts', 'view', 'tags'));
+
+        $posts_like = $this->homeService->getPostByLike();
+        return view('client.index', compact('template', 'config', 'lastestNews', 'getCatalogue', 'results', 'posts_like'));
     }
 
-    public function getPostLike()
-    {
-        $posts = Post::withCount('likes')
-            ->having('likes_count', '>=', 2)
-            ->orderBy('likes_count', 'desc')
-            ->take(4)->get();
-        return $posts;
-    }
-    public function getTopViewedPosts()
-    {
-        $posts = Post::join('post_views', 'posts.id', '=', 'post_views.post_id')
-            ->select('posts.*', 'post_views.view_count')
-            ->where('post_views.view_count', '>', 50)
-            ->orderBy('post_views.view_count', 'desc')
-            ->limit(3)
-            ->get();
-
-        return $posts;
-    }
-    public function getAllTag()
-    {
-        $tags = Tag::all();
-        return $tags;
-    }
     public function category($id, $model)
     {
         $template = 'client.category';

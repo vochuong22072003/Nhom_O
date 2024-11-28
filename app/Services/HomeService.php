@@ -5,6 +5,8 @@ namespace App\Services;
 use App\Services\Interfaces\HomeServiceInterface;
 use App\Repositories\Interfaces\HomeRepositoryInterface as HomeRepository;
 use App\Repositories\Interfaces\PostRepositoryInterface as PostRepository;
+use Illuminate\Support\Facades\DB;
+use App\Models\Like;
 
 
 
@@ -45,5 +47,44 @@ class HomeService implements HomeServiceInterface
         $results = $this->postRepository->findByConditions($condition);
         return $results;
     }
+    public function getPostByLike()
+    {
+        $topLikedPosts = Like::select('post_id', DB::raw('COUNT(post_id) as like_count'))
+        ->groupBy('post_id')
+        ->orderBy('like_count', 'desc')
+        ->take(3)
+        ->get();
+        // dd($topLikedPosts);
+        foreach ($topLikedPosts as $topLikedPost) {
+            $post_ids[] = $topLikedPost->post_id;
+        }
+        // dd($post_ids);
 
+        foreach ($topLikedPosts as $topLikedPost) {
+            $post_counts[] = $topLikedPost->like_count;
+        }
+        // dd($post_counts);
+        if(!empty($post_ids)){
+            $topLikedPosts = $this->postRepository->findWhereInByOrder('id', $post_ids);
+            // dd($topLikedPosts);
+            foreach ($topLikedPosts as $topLikedPost) {
+                $topLikedPost->encrypted_id = $this->encryptId($topLikedPost->id);
+            }
+
+            foreach ($topLikedPosts as $index => $topLikedPost) {
+                $topLikedPost->like_count = $post_counts[$index] ?? 0;
+            }
+            
+            // dd($topLikedPosts);
+        }else{
+            $topLikedPosts = null;
+        }
+
+        return $topLikedPosts;
+    }
+    public function encryptId($id)
+    {
+        $salt = "chuoi_noi_voi_id";
+        return base64_encode($id . $salt);
+    }
 }
