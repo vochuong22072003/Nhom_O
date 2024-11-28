@@ -6,7 +6,7 @@
         </div>
     
         <ul class="list-group p-t-35">
-            @if ($posts_view->isNotEmpty())
+            @if (!is_null($posts_view))
                 @foreach ($posts_view as $post_view)
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <div class="top-post-content">
@@ -14,6 +14,9 @@
                                 class="how-txt1 size-a-6 cl69 hov-cl10 trans-03">
                                 {{ $post_view->post_name }}
                             </a>
+                            <div>
+                                {{ $post_view->views->view_count }} views
+                            </div>
                         </div>
                     </li>
                 @endforeach
@@ -24,30 +27,6 @@
             @endif
         </ul>
     
-        <ul class="list-group p-t-35">
-            @php
-                $count = 1;
-            @endphp
-            @if (Route::currentRouteName() == 'client.index')
-                @if ($view->isNotEmpty())
-                    @foreach ($view as $views)
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <span class="badge badge-primary rounded-circle">{{ $count }}</span>
-                            <a href="{{ route('client.detail', $views->encrypted_id) }}" class="f1-s-7 cl3 hov-cl10 trans-03">
-                                {{ $views->post_name }}
-                            </a>
-                            @php
-                                $count++;
-                            @endphp
-                        </li>
-                    @endforeach
-                @else
-                    <li class="list-group-item text-center">
-                        Không có dữ liệu
-                    </li>
-                @endif
-            @endif
-        </ul>
     </div>
     
 

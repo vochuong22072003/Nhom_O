@@ -2618,11 +2618,15 @@ h2.no-search-result {
 
 /* Nội dung bài viết */
 .top-post-content {
-  flex: 1;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display: block; /* Chuyển toàn bộ nội dung thành khối */
 }
+
+.top-post-content a,
+.top-post-content div {
+  display: block; /* Mỗi thành phần bên trong là một khối riêng */
+  margin-bottom: 8px; /* Khoảng cách giữa các dòng (tuỳ chỉnh theo ý muốn) */
+}
+
 
 .post-title {
   font-size: 16px;

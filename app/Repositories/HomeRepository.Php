@@ -96,15 +96,21 @@ class HomeRepository extends BaseRepository implements HomeRepositoryInterface
     public function getPostByView()
     {
         $topPosts = PostView::orderBy('view_count', 'desc')->take(5)->get();
+        // dd($topPosts);
         foreach ($topPosts as $topPost) {
             $post_ids[] = $topPost->post_id;
         }
-        $posts_view = $this->postRepository->findWhereIn('id', $post_ids);
-
-        foreach ($posts_view as $post_view) {
-            $post_view->encrypted_id = $this->encryptId($post_view->id);
+        // dd($post_ids);
+        if(!empty($post_ids)){
+            $posts_view = $this->postRepository->findWhereInByOrder('id', $post_ids);
+            // dd($posts_view);
+            foreach ($posts_view as $post_view) {
+                $post_view->encrypted_id = $this->encryptId($post_view->id);
+            }
+            // dd($posts_view);
+        }else{
+            $posts_view = null;
         }
-        // dd($posts_view);
 
         return $posts_view;
     }
@@ -113,4 +119,5 @@ class HomeRepository extends BaseRepository implements HomeRepositoryInterface
         $salt = "chuoi_noi_voi_id";
         return base64_encode($id . $salt);
     }
+    
 }

@@ -67,6 +67,14 @@ class BaseRepository implements BaseRepositoryInterface
     {
         return $this->model->whereIn($column, $ids)->get();
     }
+    public function findWhereInByOrder(string $column = '', array $ids = [])
+    {
+        $ids_ordered = implode(',', $ids);
+        return $this->model
+            ->whereIn($column, $ids)
+            ->orderByRaw("FIELD($column, $ids_ordered)")
+            ->get();
+    }
     public function findByCondition(array $condition = [])
     {
         $query = $this->model->newQuery();
