@@ -130,7 +130,7 @@
 
                     @foreach ($tags as $tag)
                         <a href=" {{ route('client.tag.posts', ['tagId' => $tag->tag_id]) }}"
-                            class="flex-c-c size-h-2 bo-1-rad-20 bocl12 f1-s-1 cl8 hov-btn2 trans-03 p-rl-20 p-tb-5 m-all-5">
+                            class="flex-c-c size-h-2 bo-1-rad-20 bocl12 f1-s-1 cl8 hov-btn2 trans-03 p-rl-20 p-tb-5 m-all-5" style="color: black">
                             {{ $tag->tag_name }}
                         </a>
                     @endforeach

@@ -91,7 +91,7 @@ class HomeController extends Controller
     public function getPostLike()
     {
         $posts = Post::withCount('likes')
-            ->having('likes_count', '>=', 2)
+            ->having('likes_count', '>=', 1)
             ->orderBy('likes_count', 'desc')
             ->take(4)->get();
         return $posts;
@@ -109,7 +109,7 @@ class HomeController extends Controller
     }
     public function getAllTag()
     {
-        $tags = Tag::all();
+        $tags = Tag::orderBy('created_at', 'desc')->take(8)->get();
         return $tags;
     }
     public function category($id, $model)
@@ -246,14 +246,6 @@ class HomeController extends Controller
         $tag = Tag::with('posts')->findOrFail($tagId);
         return $tag;
     }
-    public function showSummary($postId)
-    {
-        $post = Post::findOrFail($postId);
-        $summary = DB::table('summaries')
-            ->where('post_id', $post)
-            ->first();
-      return $summary;
-    }
     public function myactives()
     {
         $customerId = auth()->id();
@@ -288,6 +280,7 @@ class HomeController extends Controller
             ->join('saves', 'save_folders.folder_id', '=', 'saves.save_folder_id')
             ->join('posts', 'saves.post_id', '=', 'posts.id')
             ->where('save_folders.cus_owned', $customerId)
+            ->whereNull('saves.deleted_at')
             ->select(
                 'save_folders.folder_id',
                 'save_folders.folder_name',

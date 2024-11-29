@@ -19,15 +19,12 @@ class SaveFolderController extends Controller
             'post_id' => 'required|exists:posts,id',
             'save_folder_name' => 'required|string|max:255'
         ]);
-
-
         // check customer
         $cus_id = auth()->id();
 
         if (!$cus_id) {
             return response()->json(['error' => 'Bạn cần đăng nhập để thực hiện thao tác này.'], 403);
         }
-
         $folderName = $request->input('save_folder_name');
         $folder = SaveFolder::firstOrCreate(
             [
@@ -35,7 +32,6 @@ class SaveFolderController extends Controller
                 'cus_owned' => $cus_id,
             ]
         );
-
         // }
         $exstingSave = Save::where('save_folder_id', $request->input('save_folder_id'))
             ->where('post_id', $request->input('post_id'))
@@ -45,7 +41,6 @@ class SaveFolderController extends Controller
         if ($exstingSave) {
             return response()->json(['error' => 'Bài viết đã được lưu vào thư mục này.']);
         }
-
         Save::create([
             'save_folder_id' => $folder->folder_id,
             'post_id' => $request->input('post_id'),
