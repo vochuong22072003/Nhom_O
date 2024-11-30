@@ -83,25 +83,26 @@
 
         </div>
         <div class="modal fade" id="saveModal" tabindex="-1" aria-labelledby="saveModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="saveModalLabel">Lưu bài viết vào danh mục</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="modal-dialog" style="max-width: 600px;">
+                <div class="modal-content" style="border-radius: 10px; overflow: hidden; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);">
+                    <div class="modal-header" style="background-color: #4CAF50; color: white; padding: 15px;">
+                        <h5 class="modal-title" id="saveModalLabel" style="font-size: 18px; font-weight: bold;">Lưu bài viết vào danh mục</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="filter: brightness(0) invert(1);"></button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body" style="padding: 20px 30px; background-color: #f9f9f9;">
                         <form id="savePostForm" action="{{ route('posts.saveToFolder') }}" method="POST">
                             @csrf
                             <input type="hidden" name="post_id" id="post_id" value="{{ $getPost->id }}">
                             <!-- Danh sách danh mục (không bắt buộc) -->
                             <div class="mb-3">
-                                <h1 class="text-center" style="margin-left: 0px; color:red;">các danh mục sẵn có của bạn
+                                <h1 class="text-center" style="font-size: 16px; font-weight: bold; text-align: center; color: #ff5722; margin-bottom: 15px;">
+                                    các danh mục sẵn có của bạn
                                 </h1>
                                 <!-- Options -->
                                 @auth('customers')
                                     <div class="text-center" style="margin-left: 100px">
                                         @foreach (Auth::guard('customers')->user()->saveFolders as $y)
-                                            <div class="checkbox-item" style="color:yellow">
+                                            <div class="checkbox-item" style="color:rgb(144, 171, 199)">
                                                 <input class="folder-checkbox" type="checkbox"
                                                     data-folder-id="{{ $y->folder_id }}"
                                                     data-folder-name="{{ $y->folder_name }}" name="folder[]"
@@ -113,16 +114,13 @@
                                 @endauth
                             </div>
 
-                            {{-- end modal --}}
-                            {{-- <input type="hidden" name="post_id" value="{{ $getPost->id }}"> --}}
-                            <!-- Form nhập tên danh mục mới -->
                             <div class="mb-3">
                                 <label for="save_folder_name" class="form-label text-center"
                                     style="margin-left: 0px ; color:red;">Hoặc tạo danh mục mới:</label>
                                 <input type="text" class="form-control" name="save_folder_name" id="save_folder_name"
                                     placeholder="Nhập tên danh mục mới" style="margin-left: 0px">
                             </div>
-                            <button type="submit" class="btn btn-primary bt" style="margin-left: 210px;"
+                            <button type="submit" class="btn btn-primary bt" style="margin-left: 230px;"
                                 id="savePost">Lưu</button>
                         </form>
                     </div>
