@@ -257,6 +257,7 @@ class HomeController extends Controller
             ->join('saves', 'save_folders.folder_id', '=', 'saves.save_folder_id')
             ->join('posts', 'saves.post_id', '=', 'posts.id')
             ->where('save_folders.cus_owned', $customerId)
+            ->whereNull('saves.deleted_at')
             ->select(
                 'save_folders.folder_id',
                 'save_folders.folder_name',
