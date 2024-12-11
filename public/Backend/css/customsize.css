@@ -191,3 +191,25 @@ table strong{
     left: auto;
     right: 0;
 }
+
+/* Định dạng loading spinner */
+#loading-spinner {
+    position: fixed; /* Cố định trên toàn màn hình */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Căn giữa */
+    background-color: #fff; /* Nền trắng */
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25); /* Hiệu ứng đổ bóng */
+    z-index: 9999; /* Nằm trên cùng */
+    cursor: not-allowed; /* Đổi con trỏ thành biểu tượng cấm */
+}
+
+/* Làm tối phần còn lại của trang */
+.dimmed {
+    background-color: rgba(0, 0, 0, 0.3); /* Màu nền tối nhẹ */
+    overflow: hidden; /* Ngăn cuộn trang */
+    cursor: not-allowed; /* Đổi con trỏ thành biểu tượng cấm */
+}

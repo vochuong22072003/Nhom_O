@@ -33,6 +33,11 @@ class UserSeeder extends Seeder
                 'email' => 'tacgia01@gmail.com',
                 'password' => Hash::make('123456'),
                 'user_catalogue_id' => '3'
+            ],
+            [
+                'email' => 'vochuong577@gmail.com',
+                'password' => Hash::make('123456'),
+                'user_catalogue_id' => '2'
             ]
         ]);
     }

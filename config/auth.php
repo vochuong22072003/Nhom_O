@@ -44,6 +44,19 @@ return [
             'driver' => 'session',
             'provider' => 'customers',
         ],
+
+        'apiCreate' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
+        'apiAccessUser' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
+        'apiAccessCustomer' => [
+            'driver' => 'session',
+            'provider' => 'customers',
+        ],
     ],
 
     /*

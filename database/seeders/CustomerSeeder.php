@@ -45,6 +45,14 @@ class CustomerSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+            [
+                'cus_user' => 'chuongvo',
+                'cus_pass' => bcrypt('123456'),
+                'email' => '21211tt1533@mail.tdc.edu.vn',
+                'verify_at' => null,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ]);
     }
 }

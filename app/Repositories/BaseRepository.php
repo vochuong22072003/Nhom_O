@@ -61,7 +61,7 @@ class BaseRepository implements BaseRepositoryInterface
     }
     public function findById(int $id, array $column = ['*'], array $relation = [])
     {
-        return $this->model->select($column)->with($relation)->findOrFail($id);
+        return $this->model->select($column)->with($relation)->find($id);
     }
     public function findWhereIn(string $column = '', array $ids = [])
     {
@@ -81,6 +81,20 @@ class BaseRepository implements BaseRepositoryInterface
         foreach ($condition as $key => $val) {
             $query->where($val[0], $val[1], $val[2]);
         }
+        return $query->first();
+    }
+    public function findByConditionOrder(array $condition = [], array $orderBy = ['id', 'desc'])
+    {
+        $query = $this->model->newQuery();
+
+        foreach ($condition as $val) {
+            $query->where($val[0], $val[1], $val[2]);
+        }
+
+        if ($orderBy) {
+            $query->orderBy($orderBy[0], $orderBy[1] ?? 'asc');
+        }
+
         return $query->first();
     }
     public function findByConditions(array $condition = [])

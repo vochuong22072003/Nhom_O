@@ -26,6 +26,12 @@ class Customer extends Authenticatable implements MustVerifyEmail, CanResetPassw
         'updated_at',
         'deleted_at',
     ];
+
+    public function tokens()
+    {
+        return $this->morphMany(PersonalAccessToken::class, 'tokenable');
+    }
+
     protected $hidden = 'cus_pass';
 
     protected $dates = ['deleted_at'];

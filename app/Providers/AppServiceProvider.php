@@ -42,6 +42,9 @@ class AppServiceProvider extends ServiceProvider
         'App\Services\Interfaces\PermissionServiceInterface' => 'App\Services\PermissionService',
         'App\Repositories\Interfaces\PermissionRepositoryInterface' => 'App\Repositories\PermissionRepository',
 
+        'App\Repositories\Interfaces\PersonalAccessTokenRepositoryInterface' => 'App\Repositories\PersonalAccessTokenRepository',
+
+        'App\Repositories\Interfaces\CustomerRepositoryInterface' => 'App\Repositories\CustomerRepository',
 
         //client
         'App\Services\Interfaces\HomeServiceInterface' => 'App\Services\HomeService',

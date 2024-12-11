@@ -59,4 +59,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Customer::class, 'follows', 'user_id', 'cus_id');
     }
+
+    public function tokens()
+    {
+        return $this->morphMany(PersonalAccessToken::class, 'tokenable');
+    }
 }
